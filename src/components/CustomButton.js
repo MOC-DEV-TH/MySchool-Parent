@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     height: 48,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius:12
   },
   title: {
     color: "#fff",

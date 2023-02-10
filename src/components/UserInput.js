@@ -1,17 +1,26 @@
 import React from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, StyleSheet,TextInput } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import { COLORS } from "../constants";
+import { COLORS, PADDINGS } from "../constants";
 
-const UserInput = ({ name, value, setValue, setKeyboardType = "default" }) => {
+const UserInput = ({
+  name,
+  value,
+  setValue,
+  setKeyboardType = "default",
+  placeHolder,
+}) => {
   return (
     <View style={styles.container}>
-      <Text semi>{name}</Text>
+      {/* <Text semi>{name}</Text> */}
       <TextInput
         style={styles.userInput}
         keyboardType={setKeyboardType}
         onChangeText={setValue}
         value={value}
+        placeholder={placeHolder}
+        secureTextEntry={true}
+        multiline={false}
       />
     </View>
   );
@@ -24,9 +33,10 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   userInput: {
-    borderBottomWidth: 0.5,
     height: 48,
-    borderBottomColor: COLORS.gray,
-    marginBottom: 30,
+    borderWidth: 1,
+    backgroundColor: COLORS.white,
+    paddingLeft: PADDINGS.p10,
+    borderRadius: 12,
   },
 });

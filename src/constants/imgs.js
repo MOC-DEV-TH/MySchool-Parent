@@ -1,3 +1,17 @@
 export default {
-  appIcon: require("../assets/icon.png")
+  appIcon: require("../assets/app_icon.png"),
+  bgPattern: require("../assets/drawer-cover.jpeg"),
+  logoWhite: require("../assets/logo_white.png"),
+  logoWhiteSmall: require("../assets/logo_white_small.png"),
+  arrow_right: require("../assets/arrow_right.png"),
+  group: require("../assets/group.png"),
+  school_supplies: require("../assets/school_supplies.png"),
+  child: require("../assets/child.png"),
+  arrowBlue: require("../assets/arrow_blue.png"),
+  attendance: require("../assets/attendance.png"),
+  timeTable: require("../assets/timeTable.png"),
+  exam: require("../assets/exam.png"),
+  paymentHistory: require("../assets/payment_history.png"),
+  event: require("../assets/event.png"),
+  homework: require("../assets/homework.png"),
 };

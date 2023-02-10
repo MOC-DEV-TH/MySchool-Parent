@@ -1,8 +1,9 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ROUTES } from "../constants";
 import { COLORS } from "../constants";
-import { StyleSheet, Platform, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
 import { Home, Notification } from "../screens";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,6 +16,17 @@ function BottomTabNavigator() {
         tabBarInactiveTintColor: COLORS.dark,
         //tabBarStyle: styles.tabBarStyle,
         tabBarActiveTintColor: COLORS.primary,
+        tabBarIcon: ({color, size, focused}) => {
+          let iconName;
+
+          if (route.name === ROUTES.HOME_TAB) {
+            iconName = focused ? 'ios-home-sharp' : 'ios-home-outline';
+          } else if (route.name === ROUTES.NOTIFICATIONS) {
+            iconName = focused ? 'notifications' : 'md-notifications-outline';
+          }
+
+          return <Icon name={iconName} size={22} color={color} />;
+        },
       })}
     >
       <Tab.Screen
@@ -23,7 +35,7 @@ function BottomTabNavigator() {
         options={{
           tabBarLabel: "Home",
           title: "Home",
-          headerShown: true,
+          headerShown: false,
         }}
       />
       <Tab.Screen

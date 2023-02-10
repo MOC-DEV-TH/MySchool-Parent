@@ -3,7 +3,8 @@ import CustomDrawer from "../components/CustomDrawer";
 import { ROUTES } from "../constants";
 import { COLORS } from "../constants";
 import { TermsAndConditions, AboutMySchool, PrivacyPolicy } from "../screens";
-import BottomTabNavigator from "./BottomTabNavigator";
+import { Home } from "../screens";
+import HomeNavigator from "./HomeNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -15,11 +16,17 @@ function DrawerNavigator() {
         headerShown: false,
         drawerActiveBackgroundColor: COLORS.primary,
         drawerActiveTintColor: COLORS.white,
-        drawerLabelStyle: {
-        },
+        drawerLabelStyle: {},
       }}
     >
-      <Drawer.Screen name={ROUTES.HOME_DRAWER} component={BottomTabNavigator} />
+      <Drawer.Screen
+        name={ROUTES.HOME_DRAWER}
+        options={{
+          title: "Home",
+          drawerItemStyle: { height: 0 },
+        }}
+        component={HomeNavigator}
+      />
 
       <Drawer.Screen name={ROUTES.PRIVACY_POLICY} component={PrivacyPolicy} />
       <Drawer.Screen

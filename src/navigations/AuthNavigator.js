@@ -15,7 +15,7 @@ function AuthNavigator() {
           headerTintColor: COLORS.white,
           headerBackTitle: "Back",
           headerBackTitleVisible: false,
-          headerShown: true,
+          headerShown: false,
           headerStyle: {
             backgroundColor: COLORS.primary,
           },

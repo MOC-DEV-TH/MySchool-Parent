@@ -4,3 +4,4 @@ export { default as Notification } from "./home/Notification";
 export { default as TermsAndConditions } from "./home/TermsAndConditions";
 export { default as AboutMySchool } from "./home/AboutMySchool";
 export { default as PrivacyPolicy } from "./home/PrivacyPolicy";
+export { default as KidProfile } from "./home/KidProfile";

@@ -20,4 +20,5 @@ export default {
   PRIVACY_POLICY: "Privacy Policy",
   ABOUT_MY_SCHOOL: "About My School",
   TERMS_AND_CONDITIONS: "Terms And Conditions",
+  KID_PROFILE: "Kid Profile",
 };
