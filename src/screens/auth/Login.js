@@ -61,9 +61,9 @@ const Login = (props) => {
 
       <View style={{ width: 200, alignSelf: "center" }}>
         <CustomButton
-          title="Sign in"
+          title="Sign In"
           buttonStyle={{ width: 50, alignSelf: "center" }}
-          textStyle={{ fontSize: 20 }}
+          textStyle={{ fontSize: 14 }}
           buttonColor={COLORS.black}
           onPress={() => handleOnPressLogin()}
         />

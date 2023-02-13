@@ -5,3 +5,8 @@ export { default as TermsAndConditions } from "./home/TermsAndConditions";
 export { default as AboutMySchool } from "./home/AboutMySchool";
 export { default as PrivacyPolicy } from "./home/PrivacyPolicy";
 export { default as KidProfile } from "./home/KidProfile";
+export { default as TimeTableAndRoutine } from "./home/TimeTableAndRoutine";
+export { default as Exam } from "./home/Exam";
+export { default as ExamResultDetail } from "./home/ExamResultDetail";
+export { default as PaymentHistory } from "./home/PaymentHistory";
+export { default as Homework } from "./home/Homework";

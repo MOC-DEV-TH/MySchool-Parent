@@ -11,4 +11,5 @@ export default {
   grayLight: "#ccc",
   black: "#0a0a0a",
   buttonColor: "#512DA8",
+  red:"#ff0000"
 };

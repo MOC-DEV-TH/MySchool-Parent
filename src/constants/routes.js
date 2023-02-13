@@ -21,4 +21,9 @@ export default {
   ABOUT_MY_SCHOOL: "About My School",
   TERMS_AND_CONDITIONS: "Terms And Conditions",
   KID_PROFILE: "Kid Profile",
+  TIME_TABLE_AND_ROUTINE: "Time Table And Routine",
+  EXAM: "Exam",
+  EXAM_RESULT_DETAIL: "Exam Result Detail",
+  PAYMENT_HISTORY: "Payment History",
+  HOMEWORK: "Homework",
 };

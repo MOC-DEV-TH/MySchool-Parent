@@ -14,4 +14,5 @@ export default {
   paymentHistory: require("../assets/payment_history.png"),
   event: require("../assets/event.png"),
   homework: require("../assets/homework.png"),
+  mmBook: require("../assets/mm_book.png"),
 };

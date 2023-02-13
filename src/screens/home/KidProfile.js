@@ -7,9 +7,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 const KidProfile = (props) => {
   return (
-    
-      <View style={styles.container}>
-      <KeyboardAwareScrollView style={{flex:1}}>
+    <View style={styles.container}>
+      <KeyboardAwareScrollView style={{ flex: 1 }}>
         <Text medium color={COLORS.white} style={styles.title}>
           Mya Mya
         </Text>
@@ -21,17 +20,17 @@ const KidProfile = (props) => {
         <CardItem
           name={"Time Table"}
           imageName={IMGS.timeTable}
-          navigateName={ROUTES.HOME}
+          navigateName={ROUTES.TIME_TABLE_AND_ROUTINE}
         />
         <CardItem
           name={"Exams"}
           imageName={IMGS.exam}
-          navigateName={ROUTES.HOME}
+          navigateName={ROUTES.EXAM}
         />
         <CardItem
           name={"Payment History"}
           imageName={IMGS.paymentHistory}
-          navigateName={ROUTES.HOME}
+          navigateName={ROUTES.PAYMENT_HISTORY}
         />
         <CardItem
           name={"Events"}
@@ -41,10 +40,10 @@ const KidProfile = (props) => {
         <CardItem
           name={"Homework"}
           imageName={IMGS.homework}
-          navigateName={ROUTES.HOME}
+          navigateName={ROUTES.HOMEWORK}
         />
-        </KeyboardAwareScrollView>
-      </View>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     alignSelf: "center",
-    marginTop: MARGINS.m12,
-    marginBottom: MARGINS.m18,
+    marginTop: MARGINS.m6,
+    marginBottom: MARGINS.m16,
   },
 });

@@ -8,9 +8,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
-import { DrawerActions } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import Text from "@kaloraat/react-native-text";
 import Carousel from "react-native-reanimated-carousel";
@@ -42,9 +40,6 @@ const Home = (props) => {
     },
   ]);
 
-  const handleOnPressMenu = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
 
   const handleOnPressKidProfile = () => {
     navigation.navigate(ROUTES.KID_PROFILE);
@@ -119,15 +114,7 @@ const Home = (props) => {
   return (
     <Container>
       <StatusBar style="light" />
-      <View style={styles.actionBar}>
-        <TouchableOpacity onPress={handleOnPressMenu}>
-          <Ionicons name="menu" size={20} color={COLORS.white} />
-        </TouchableOpacity>
-        <Image source={IMGS.logoWhiteSmall} style={styles.appIcon} />
-        <TouchableOpacity>
-          <Ionicons name="notifications" size={20} color={COLORS.white} />
-        </TouchableOpacity>
-      </View>
+
       <KeyboardAwareScrollView>
         <View style={styles.body}>
           <View
@@ -157,7 +144,7 @@ const Home = (props) => {
             loop
             width={screenWidth - 20}
             height={140}
-            style={{ marginTop: MARGINS.m14 }}
+            style={{ marginTop: MARGINS.m16 }}
             autoPlay={true}
             data={[...new Array(6).keys()]}
             scrollAnimationDuration={1000}
@@ -204,9 +191,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     backgroundColor: COLORS.bgColor,
-    paddingTop: 50,
-    paddingLeft: 20,
-    paddingRight: 20,
   },
   appIcon: {
     alignSelf: "center",
@@ -236,5 +220,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
+    marginBottom: MARGINS.m8,
   },
 });
