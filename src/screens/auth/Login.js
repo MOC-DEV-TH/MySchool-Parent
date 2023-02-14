@@ -11,15 +11,24 @@ const Login = (props) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [school, setSchool] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
   const handleOnPressLogin = () => {
     navigation.replace(ROUTES.HOME);
   };
-   
+
   return (
     <View style={styles.container}>
       <Image source={IMGS.logoWhite} style={styles.logo} />
+
+      <UserInput
+        name={"School"}
+        value={school}
+        setValue={setSchool}
+        setKeyboardType="numeric"
+        placeHolder={"School"}
+      />
       <UserInput
         name={"Login"}
         value={email}
@@ -92,8 +101,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingRight: 15,
     height: 48,
-    marginLeft: MARGINS.m10,
-    marginRight: MARGINS.m10,
+    marginLeft: MARGINS.m30,
+    marginRight: MARGINS.m30,
     marginTop: MARGINS.m20,
     borderWidth: 1,
     backgroundColor: COLORS.white,

@@ -10,3 +10,6 @@ export { default as Exam } from "./home/Exam";
 export { default as ExamResultDetail } from "./home/ExamResultDetail";
 export { default as PaymentHistory } from "./home/PaymentHistory";
 export { default as Homework } from "./home/Homework";
+export { default as Profile } from "./home/Profile";
+export { default as Attendance } from "./home/Attendance";
+export { default as CalendarEvent } from "./home/CalendarEvent";

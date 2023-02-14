@@ -26,4 +26,7 @@ export default {
   EXAM_RESULT_DETAIL: "Exam Result Detail",
   PAYMENT_HISTORY: "Payment History",
   HOMEWORK: "Homework",
+  PROFILE: "Profile",
+  ATTENDANCE: "Attendance",
+  CALENDAR_EVENT: "Calendar Event",
 };

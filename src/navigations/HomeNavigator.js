@@ -8,6 +8,9 @@ import {
   ExamResultDetail,
   PaymentHistory,
   Homework,
+  Attendance,
+  CalendarEvent,
+  Profile
 } from "../screens";
 import { ROUTES, COLORS, IMGS } from "../constants";
 import { Image, View, StyleSheet, TouchableOpacity } from "react-native";
@@ -28,7 +31,7 @@ function HomeNavigator() {
   };
 
   return (
-    <Stack.Navigator screenOptions={{headerTitle:""}}>
+    <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
       <Stack.Screen
         name={ROUTES.HOME}
         component={Home}
@@ -41,7 +44,15 @@ function HomeNavigator() {
             backgroundColor: COLORS.bgColor,
           },
           headerTitle: () => (
-            <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",flex:1,width:"100%"}}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flex: 1,
+                width: "100%",
+              }}
+            >
               <TouchableOpacity onPress={handleOnPressMenu}>
                 <Ionicons name="menu" size={20} color={COLORS.white} />
               </TouchableOpacity>
@@ -138,6 +149,47 @@ function HomeNavigator() {
       <Stack.Screen
         name={ROUTES.HOMEWORK}
         component={Homework}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.ATTENDANCE}
+        component={Attendance}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.CALENDAR_EVENT}
+        component={CalendarEvent}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES.PROFILE}
+        component={Profile}
         options={{
           headerShown: true,
           headerTintColor: COLORS.white,

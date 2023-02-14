@@ -11,5 +11,10 @@ export default {
   grayLight: "#ccc",
   black: "#0a0a0a",
   buttonColor: "#512DA8",
-  red:"#ff0000"
+  absent: "#E04949",
+  leave: "#F1A511",
+  present: "#2EBD67",
+  green:"#00ff00",
+  red:"#ff0000",
+  yellow:"#ffff00"
 };

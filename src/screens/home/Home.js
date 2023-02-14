@@ -40,7 +40,6 @@ const Home = (props) => {
     },
   ]);
 
-
   const handleOnPressKidProfile = () => {
     navigation.navigate(ROUTES.KID_PROFILE);
   };
@@ -140,7 +139,7 @@ const Home = (props) => {
             ItemSeparatorComponent={() => <View style={{ width: 10 }} />}
             keyExtractor={(item, index) => index.toString()}
           />
-          <Carousel
+          {/* <Carousel
             loop
             width={screenWidth - 20}
             height={140}
@@ -150,7 +149,7 @@ const Home = (props) => {
             scrollAnimationDuration={1000}
             // onSnapToItem={(index) => console.log("current index:", index)}
             renderItem={({ index }) => renderCarouselItems(index)}
-          />
+          /> */}
 
           <Text medium style={styles.upcomingText}>
             Upcoming Events
@@ -162,7 +161,7 @@ const Home = (props) => {
             style={{ marginTop: MARGINS.m10 }}
             showsVerticalScrollIndicator={false}
             renderItem={renderUpComingEvents}
-            ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+            ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
             keyExtractor={(item, index) => index.toString()}
           />
         </View>

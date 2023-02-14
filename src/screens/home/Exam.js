@@ -70,6 +70,14 @@ const Exam = () => {
         <ButtonGroup
           buttons={["Upcoming", "Completed"]}
           onItemClick={onPressButton}
+          buttonActive={
+            itemState === 0
+              ? styles.btnInactiveUpcoming
+              : styles.btnInactiveCompleted
+          }
+          buttonInactive={styles.btnInActive}
+          textActive={styles.textActive}
+          textInActive={styles.textInActive}
         />
         {itemState === 0 ? (
           <FlatList
@@ -101,11 +109,44 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: PADDINGS.p10,
   },
+  btnInActive: {
+    flex: 1,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    marginHorizontal: 5,
+  },
+  btnInactiveUpcoming: {
+    flex: 1,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.leave,
+    borderRadius: 12,
+    marginHorizontal: 5,
+  },
+  btnInactiveCompleted: {
+    flex: 1,
+    height: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.present,
+    borderRadius: 12,
+    marginHorizontal: 5,
+  },
   title: {
     fontWeight: "bold",
     alignSelf: "center",
-    marginTop: MARGINS.m6,
-    marginBottom: MARGINS.m16,
+    marginTop: MARGINS.m12,
+    marginBottom: MARGINS.m20,
   },
   card: {
     height: 68,
@@ -124,5 +165,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     alignItems: "center",
     marginBottom: MARGINS.m20,
+  },
+  textInActive: {
+    color: COLORS.black,
+  },
+  textActive: {
+    color: COLORS.white,
   },
 });

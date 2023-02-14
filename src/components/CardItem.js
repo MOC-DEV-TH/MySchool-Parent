@@ -13,7 +13,7 @@ const CardItem = ({ navigateName, imageName, name }) => {
           flexDirection: "row",
           justifyContent: "space-evenly",
           alignItems: "center",
-          marginBottom: MARGINS.m18,
+          marginBottom: MARGINS.m26,
         }}
       >
         <Image source={imageName} />

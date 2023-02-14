@@ -4,6 +4,8 @@ import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Ionicons } from "@expo/vector-icons";
+import { DataTable } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const PaymentHistory = () => {
   const [data, setData] = useState([
@@ -24,31 +26,30 @@ const PaymentHistory = () => {
     },
   ]);
 
-  const renderItem = () => {
+  const Head = ({ title }) => {
     return (
-      <View style={styles.itemContainer}>
-        <View style={{ flex: 0.8 }}>
-          <Text style={styles.text}>Transaction No.</Text>
-          <Text style={{ marginBottom: MARGINS.m8,fontWeight:"bold" }}>63e0a2f958d5a</Text>
+      <View
+      style={{
+        justifyContent: "center",
+        flex: 1,
+        alignItems: "center",
+      }}
+    >
+      <Text color={COLORS.white}>Invoice ID</Text>
+    </View>
+    );
+  };
 
-          <Text style={styles.text}>Amount:</Text>
-          <Text style={{ marginBottom: MARGINS.m8 ,fontWeight:"bold"}}>10000 MMK</Text>
-
-          <Text style={styles.text}>Payment Type:</Text>
-          <Text style={{ marginBottom: MARGINS.m8,fontWeight:"bold" }}> Monthly School Fees</Text>
-
-          <Text style={styles.text}>Due Date:</Text>
-          <Text style={{ marginBottom: MARGINS.m8,fontWeight:"bold" }}>20/02/2023</Text>
-
-          <Text style={styles.text}>Pay Day: 6/02/2023</Text>
-        </View>
-        <View style={{ flex: 0.2,justifyContent:"space-between" }}>
-        <Text style={styles.text}>Status</Text>
-        <View style={{flexDirection:"row",alignItems:"center",justifyContent:"flex-start"}}>
-        <Ionicons name="radio-button-on" size={20} color={COLORS.red} />
-        <Text style={styles.text}>Unpaid</Text>
-        </View>
-        </View>
+  const Cell = ({ itemName }) => {
+    return (
+      <View
+        style={{
+          justifyContent: "center",
+          flex: 1,
+          alignItems: "center",
+        }}
+      >
+        <Text>{itemName}</Text>
       </View>
     );
   };
@@ -66,13 +67,56 @@ const PaymentHistory = () => {
           Class - Grade 8 A
         </Text>
 
-        <FlatList
-          data={data}
-          style={{ marginTop: MARGINS.m10 }}
-          showsVerticalScrollIndicator={false}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        <DataTable>
+          <DataTable.Header
+            style={{
+              backgroundColor: COLORS.bgColor,
+              borderTopLeftRadius: 12,
+              borderTopRightRadius: 12,
+            }}
+          >
+            <Head title={"Invoice ID"}/>
+            <Head title={"Type"}/>
+            <Head title={"Due Date"}/>
+            <Head title={"Amount"}/>
+           
+          </DataTable.Header>
+          {data.map((rank, i, { length }) => (
+            <DataTable.Row
+              style={{
+                backgroundColor: COLORS.white,
+                textAlign: "center",
+                borderBottomLeftRadius: i + 1 === length ? 12 : 0,
+                borderBottomRightRadius: i + 1 === length ? 12 : 0,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  flex: 1,
+                  alignItems: "center",
+                }}
+              >
+                <TouchableOpacity>
+                  <Text
+                    style={{
+                      color: COLORS.textColorBlue,
+                      textDecorationLine: "underline",
+                      textAlign: "center",
+                    }}
+                  >
+                    xxxxx
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <Cell itemName={"Mid terms"}/>
+              <Cell itemName={"DD/MM/YY"}/>
+              <Cell itemName={"xxxxx"}/>
+          
+            </DataTable.Row>
+          ))}
+        </DataTable>
       </KeyboardAwareScrollView>
     </View>
   );
@@ -95,7 +139,7 @@ const styles = StyleSheet.create({
   small_text: {
     alignItems: "flex-start",
     marginTop: MARGINS.m2,
-    marginBottom:MARGINS.m12
+    marginBottom: MARGINS.m12,
   },
   medium_text: {
     alignItems: "flex-start",
@@ -115,8 +159,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: MARGINS.m18,
   },
-  text:{
-    color:COLORS.black,
-    fontWeight : "bold"
-  }
+  text: {
+    color: COLORS.black,
+    fontWeight: "bold",
+  },
 });

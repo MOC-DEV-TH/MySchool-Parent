@@ -22,10 +22,12 @@ const TimeTableAndRoutine = () => {
         >
           <Image source={IMGS.timeTable} />
         </View>
-        <View style={{ flex: 0.7,justifyContent:"center" }}>
-            <Text>9:00 am - 9:55</Text>
-            <Text color={COLORS.black} style={{fontWeight:"bold"}}>Maths</Text>
-            <Text>U Ba</Text>
+        <View style={{ flex: 0.7, justifyContent: "center" }}>
+          <Text>9:00 am - 9:55</Text>
+          <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
+            Maths
+          </Text>
+          <Text>U Ba</Text>
         </View>
       </View>
     );
@@ -39,6 +41,10 @@ const TimeTableAndRoutine = () => {
         <ButtonGroup
           buttons={["Mon", "Tue", "Wed", "Thu", "Fri"]}
           onItemClick={onPressButton}
+          buttonActive={styles.btnActive}
+          buttonInactive={styles.btnInactive}
+          textActive={styles.textActive}
+          textInActive={styles.textInActive}
         />
         <FlatList
           data={items}
@@ -63,8 +69,8 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     alignSelf: "center",
-    marginTop: MARGINS.m6,
-    marginBottom: MARGINS.m16,
+    marginTop: MARGINS.m12,
+    marginBottom: MARGINS.m20,
   },
   card: {
     height: 68,
@@ -74,5 +80,33 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     marginBottom: MARGINS.m18,
+  },
+  btnInactive: {
+    flex: 1,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    marginHorizontal: 5,
+  },
+  btnActive: {
+    flex: 1,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.bgColor,
+    borderRadius: 12,
+    marginHorizontal: 5,
+  },
+  textInActive: {
+    color: COLORS.textColorBlue,
+  },
+  textActive: {
+    color: COLORS.white,
   },
 });

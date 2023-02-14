@@ -1,5 +1,5 @@
 import {View,SafeAreaView} from "react-native";
-import { COLORS } from "../constants";
+import { COLORS, PADDINGS } from "../constants";
 
 const Container = (props) => {
 

@@ -2,7 +2,14 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { COLORS, MARGINS } from "../constants";
 
-const ButtonGroup = ({ buttons, onItemClick }) => {
+const ButtonGroup = ({
+  buttons,
+  onItemClick,
+  buttonActive,
+  buttonInactive,
+  textActive,
+  textInActive,
+}) => {
   const [clickedId, setClickedId] = useState(0);
   const handleClick = (item, id) => {
     setClickedId(id);
@@ -15,9 +22,9 @@ const ButtonGroup = ({ buttons, onItemClick }) => {
           <TouchableOpacity
             onPress={(item) => handleClick(item, index)}
             key={index}
-            style={index == clickedId ? styles.buttonActive : styles.button}
+            style={index == clickedId ? buttonActive : buttonInactive}
           >
-            <Text style={index == clickedId ? styles.textActive : styles.text}>
+            <Text style={index == clickedId ? textActive : textInActive}>
               {buttonLabel}
             </Text>
           </TouchableOpacity>
@@ -33,34 +40,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    marginBottom:MARGINS.m14
-  },
-  button: {
-    flex: 1,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 0.5,
-    borderColor: COLORS.black,
-    backgroundColor: COLORS.white,
-    borderRadius: 12,
-    marginHorizontal: 5,
-  },
-  buttonActive: {
-    flex: 1,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 0.5,
-    borderColor: COLORS.black,
-    backgroundColor: COLORS.bgColor,
-    borderRadius: 12,
-    marginHorizontal: 5,
-  },
-  text: {
-    color: COLORS.textColorBlue,
-  },
-  textActive: {
-    color: COLORS.white,
+    marginBottom: MARGINS.m14,
   },
 });

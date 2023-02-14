@@ -15,7 +15,7 @@ const KidProfile = (props) => {
         <CardItem
           name={"Attendance"}
           imageName={IMGS.attendance}
-          navigateName={ROUTES.HOME}
+          navigateName={ROUTES.ATTENDANCE}
         />
         <CardItem
           name={"Time Table"}
@@ -31,11 +31,6 @@ const KidProfile = (props) => {
           name={"Payment History"}
           imageName={IMGS.paymentHistory}
           navigateName={ROUTES.PAYMENT_HISTORY}
-        />
-        <CardItem
-          name={"Events"}
-          imageName={IMGS.event}
-          navigateName={ROUTES.HOME}
         />
         <CardItem
           name={"Homework"}
@@ -58,7 +53,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     alignSelf: "center",
-    marginTop: MARGINS.m6,
-    marginBottom: MARGINS.m16,
+    marginTop: MARGINS.m12,
+    marginBottom: MARGINS.m20,
   },
 });

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet,TextInput } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, PADDINGS } from "../constants";
+import { COLORS, MARGINS, PADDINGS } from "../constants";
 
 const UserInput = ({
   name,
@@ -30,7 +30,9 @@ export default UserInput;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    marginLeft:MARGINS.m30,
+    marginRight:MARGINS.m30,
+    marginBottom:MARGINS.m18
   },
   userInput: {
     height: 48,

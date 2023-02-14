@@ -27,9 +27,21 @@ const Homework = () => {
   const renderItem = () => {
     return (
       <View style={styles.itemContainer}>
-        <Text style={styles.text}>End Date: 20/02/2023</Text>
-        <Text style={styles.text}>Homework Title </Text>
-        <Text style={styles.text}>Subject :English</Text>
+        <View style={{ justifyContent: "space-between", flexDirection: "row" }}>
+          <View>
+            <Text color={COLORS.present}>Assigned Date:</Text>
+            <Text color={COLORS.present}>20/02/2023</Text>
+          </View>
+          <View>
+            <Text color={COLORS.absent}>Due Date:</Text>
+            <Text color={COLORS.absent}>20/02/2023</Text>
+          </View>
+        </View>
+
+        <Text style={{ fontSize: 16,fontWeight:"bold",marginTop:MARGINS.m10 }}>Homework Title </Text>
+        <Text style={{marginBottom:MARGINS.m10}}>Subject :English</Text>
+
+        <View style={styles.horizontalDivider}/>
 
         <Text style={styles.text}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -47,7 +59,7 @@ const Homework = () => {
         <Text medium color={COLORS.white} style={styles.title}>
           Homework
         </Text>
-        <Text large color={COLORS.white} style={styles.name}>
+        <Text medium color={COLORS.white} style={styles.name}>
           MG MG
         </Text>
         <Text small color={COLORS.white} style={styles.small_text}>
@@ -83,7 +95,7 @@ const styles = StyleSheet.create({
   small_text: {
     alignItems: "flex-start",
     marginTop: MARGINS.m2,
-    marginBottom:MARGINS.m12
+    marginBottom: MARGINS.m12,
   },
   medium_text: {
     alignItems: "flex-start",
@@ -102,9 +114,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: MARGINS.m18,
   },
-  text:{
-    marginBottom: MARGINS.m8,
-    color:COLORS.black,
-    fontWeight : "bold"
+  horizontalDivider : {
+   flex:1,
+   height:1,
+   backgroundColor:COLORS.black,
+   marginBottom:MARGINS.m10
   }
 });
