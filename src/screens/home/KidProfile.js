@@ -1,7 +1,7 @@
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import React from "react";
 import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
-import CardItem from "../../components/CardItem";
+import CardItem from "../../components/UI/CardItem";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 

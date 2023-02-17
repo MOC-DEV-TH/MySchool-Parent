@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Image, View, TextInput } from "react-native";
-import UserInput from "../../components/UserInput";
-import CustomButton from "../../components/CustomButton";
+import UserInput from "../../components/UI/UserInput";
+import CustomButton from "../../components/UI/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, PADDINGS, ROUTES, IMGS, MARGINS } from "../../constants";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -11,7 +11,6 @@ const Login = (props) => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [school, setSchool] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
   const handleOnPressLogin = () => {
@@ -21,14 +20,6 @@ const Login = (props) => {
   return (
     <View style={styles.container}>
       <Image source={IMGS.logoWhite} style={styles.logo} />
-
-      <UserInput
-        name={"School"}
-        value={school}
-        setValue={setSchool}
-        setKeyboardType="numeric"
-        placeHolder={"School"}
-      />
       <UserInput
         name={"Login"}
         value={email}
@@ -107,6 +98,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: COLORS.white,
     paddingLeft: PADDINGS.p10,
+    paddingTop: PADDINGS.p2,
     borderRadius: 12,
   },
 });

@@ -1,5 +1,5 @@
 import { View, TouchableOpacity, Image,Text } from "react-native";
-import { COLORS, IMGS, MARGINS } from "../constants";
+import { COLORS, IMGS, MARGINS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 const CardItem = ({ navigateName, imageName, name }) => {
   const navigation = useNavigation();

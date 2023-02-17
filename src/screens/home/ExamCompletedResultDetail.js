@@ -4,7 +4,7 @@ import { Table, Row, TableWrapper, Cell } from "react-native-table-component";
 import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 
-const ExamResultDetail = () => {
+const ExamCompletedResultDetail = () => {
   const header = ["Subject Name", "Grade", "Status"];
   const [resultData, setResultData] = useState([
     {
@@ -57,8 +57,8 @@ const ExamResultDetail = () => {
       <Text medium color={COLORS.white} style={styles.medium_text}>
         October Monthly Exams
       </Text>
-      <Table borderStyle={{borderWidth: 1}}>
-        <Row data={header} style={styles.head} textStyle={styles.text} />
+      <Table borderStyle={{borderWidth: 1,borderColor:"transparent"}}>
+        <Row data={header} style={styles.head} textStyle={styles.header_text} />
         <Table>
           {tableData.map((rowData, index) => (
             <TableWrapper
@@ -85,7 +85,7 @@ const ExamResultDetail = () => {
   );
 };
 
-export default ExamResultDetail;
+export default ExamCompletedResultDetail;
 
 const styles = StyleSheet.create({
   container: {
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
   },
   text: { margin: 6, color: COLORS.black, textAlign: "center" },
+  header_text: { margin: 6, color: COLORS.white, textAlign: "center" },
   textCell: { margin: 6, color: COLORS.black, textAlign: "center" },
   row: { flexDirection: "row", backgroundColor: COLORS.white },
 });

@@ -1,9 +1,9 @@
 import { StyleSheet, ImageBackground, View, Image } from "react-native";
 import React from "react";
 import { IMGS, COLORS, PADDINGS, MARGINS } from "../../constants";
-import CustomText from "../../components/CustomText";
+import CustomText from "../../components/UI/CustomText";
 import Text from "@kaloraat/react-native-text";
-import CustomTextWithIcon from "../../components/CustomTextWithIcon";
+import CustomTextWithIcon from "../../components/UI/CustomTextWithIcon";
 
 const Profile = () => {
   const handleOnPressResidentialAddress = () => {
@@ -18,16 +18,8 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      {/* <View style={{ alignItems: "center" }}>
-        <ImageBackground source={IMGS.circle_blue} style={styles.imageBg}>
-          <View>
-            <Image source={IMGS.user_white} />
-          </View>
-        </ImageBackground>
-      </View> */}
-
-      <CustomText label={"Name"} name={"Daw Mya Mya"} />
-      <CustomText label={"NRC No."} name={"12/xxx(N)xxx"} />
+      <CustomText label={"Name"} value={"Daw Mya Mya"} />
+      <CustomText label={"NRC No."} value={"12/xxx(N)xxx"} />
 
       <Text
         medium
@@ -66,7 +58,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.black,
     flex: 1,
     padding: PADDINGS.p10,
-    paddingTop:PADDINGS.p38
+    paddingTop: PADDINGS.p38,
   },
   imageBg: {
     alignItems: "center",

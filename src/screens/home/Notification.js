@@ -1,7 +1,7 @@
 import { StyleSheet, FlatList, View } from "react-native";
 import React, { useState } from "react";
 import Text from "@kaloraat/react-native-text";
-import Container from "../../components/Container";
+import Container from "../../components/UI/Container";
 import { COLORS, MARGINS, PADDINGS } from "../../constants";
 
 const Notification = (props) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, MARGINS, PADDINGS } from "../constants";
+import { COLORS, MARGINS, PADDINGS } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 
 const CustomTextWithIcon = ({

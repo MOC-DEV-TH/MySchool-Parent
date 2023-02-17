@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { COLORS, MARGINS } from "../constants";
+import { COLORS, MARGINS } from "../../constants";
 
 const ButtonGroup = ({
   buttons,

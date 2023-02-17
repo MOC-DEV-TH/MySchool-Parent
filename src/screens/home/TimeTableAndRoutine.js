@@ -1,35 +1,43 @@
 import { StyleSheet, View, FlatList, Image } from "react-native";
 import React, { useState } from "react";
-import ButtonGroup from "../../components/ButtonGroup";
+import ButtonGroup from "../../components/UI/ButtonGroup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Text from "@kaloraat/react-native-text";
 import { COLORS, PADDINGS, MARGINS, IMGS } from "../../constants";
+import TimeTableItem from "../../components/ItemComponents/TimeTableItem";
 
 const TimeTableAndRoutine = () => {
-  const [items, setItems] = useState([
-    { name: "one" },
-    { name: "two" },
-    { name: "three" },
-  ]);
   const onPressButton = (item) => {
     console.log(item);
   };
-  const renderItem = () => {
+  const [resultData, setResultData] = useState([
+    {
+      sbjName: "Myanmar",
+      grade: "A",
+      status: "PASS",
+    },
+    {
+      sbjName: "English",
+      grade: "B",
+      status: "PASS",
+    },
+    {
+      sbjName: "Maths",
+      grade: "A",
+      status: "FAIL",
+    },
+  ]);
+
+  const FlatListItemSeparator = () => {
     return (
-      <View style={styles.card}>
-        <View
-          style={{ flex: 0.3, justifyContent: "center", alignItems: "center" }}
-        >
-          <Image source={IMGS.timeTable} />
-        </View>
-        <View style={{ flex: 0.7, justifyContent: "center" }}>
-          <Text>9:00 am - 9:55</Text>
-          <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
-            Maths
-          </Text>
-          <Text>U Ba</Text>
-        </View>
-      </View>
+      <View
+        style={{
+          height: 1,
+          backgroundColor: COLORS.gray,
+          marginLeft: MARGINS.m10,
+          marginRight: MARGINS.m10,
+        }}
+      />
     );
   };
   return (
@@ -46,13 +54,23 @@ const TimeTableAndRoutine = () => {
           textActive={styles.textActive}
           textInActive={styles.textInActive}
         />
-        <FlatList
-          data={items}
-          style={{ marginTop: MARGINS.m10 }}
-          showsVerticalScrollIndicator={false}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        <View
+          style={{
+            backgroundColor: COLORS.white,
+            borderRadius: 12,
+            marginLeft: MARGINS.m6,
+            marginRight: MARGINS.m6,
+          }}
+        >
+          <FlatList
+            data={resultData}
+            style={{ marginTop: MARGINS.m10 }}
+            showsVerticalScrollIndicator={false}
+            renderItem={() => <TimeTableItem />}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={FlatListItemSeparator}
+          />
+        </View>
       </KeyboardAwareScrollView>
     </View>
   );
@@ -71,15 +89,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: MARGINS.m12,
     marginBottom: MARGINS.m20,
-  },
-  card: {
-    height: 68,
-    borderRadius: 12,
-    backgroundColor: COLORS.white,
-    justifyContent: "center",
-    flex: 1,
-    flexDirection: "row",
-    marginBottom: MARGINS.m18,
   },
   btnInactive: {
     flex: 1,

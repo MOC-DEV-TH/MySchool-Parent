@@ -1,5 +1,4 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import CustomDrawer from "../components/CustomDrawer";
 import { ROUTES, COLORS, IMGS } from "../constants";
 import {
   TermsAndConditions,
@@ -8,8 +7,7 @@ import {
   Profile,
 } from "../screens";
 import HomeNavigator from "./HomeNavigator";
-import { Image } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import CustomDrawer from "../components/DrawerComponents/CustomDrawer";
 
 const Drawer = createDrawerNavigator();
 

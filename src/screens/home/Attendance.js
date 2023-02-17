@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
-import { COLORS, MARGINS, PADDINGS, IMGS } from "../../constants";
+import { COLORS, MARGINS, PADDINGS, IMGS, ROUTES } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { useNavigation } from "@react-navigation/native";
 
@@ -41,7 +41,8 @@ const Attendance = () => {
               : item.type == "absent"
               ? COLORS.absent
               : COLORS.leave,
-          opacity: 0.7,
+          opacity: 0.6,
+          elevation: 10,
         },
         text: {
           color: "black",
@@ -52,7 +53,28 @@ const Attendance = () => {
     };
   });
 
-  const handleOnPressLeave = () => {};
+  const FooterContainer = ({ style, label, count }) => {
+    return (
+      <View style={style}>
+        <Text
+          medium
+          color={COLORS.white}
+          style={{ fontWeight: "bold", marginBottom: MARGINS.m10 }}
+        >
+          {label}
+        </Text>
+        <View style={styles.circle}>
+          <Text color={COLORS.green} style={{ fontWeight: "bold" }}>
+            {count}
+          </Text>
+        </View>
+      </View>
+    );
+  };
+
+  const handleOnPressLeave = () => {
+    navigation.navigate(ROUTES.LEAVE_REQUEST);
+  };
 
   return (
     <View style={styles.container}>
@@ -72,34 +94,17 @@ const Attendance = () => {
           marginTop: MARGINS.m28,
         }}
       >
-        <View style={styles.footerContainerPresent}>
-          <Text
-            medium
-            color={COLORS.white}
-            style={{ fontWeight: "bold", marginBottom: MARGINS.m10 }}
-          >
-            Present
-          </Text>
-          <View style={styles.circle}>
-            <Text color={COLORS.green} style={{ fontWeight: "bold" }}>
-              12
-            </Text>
-          </View>
-        </View>
-        <View style={styles.footerContainerAbsent}>
-          <Text
-            medium
-            color={COLORS.white}
-            style={{ fontWeight: "bold", marginBottom: MARGINS.m10 }}
-          >
-            Absent
-          </Text>
-          <View style={styles.circle}>
-            <Text color={COLORS.red} style={{ fontWeight: "bold" }}>
-              12
-            </Text>
-          </View>
-        </View>
+        <FooterContainer
+          label={"Present"}
+          count={"12"}
+          style={styles.footerContainerPresent}
+        />
+         <FooterContainer
+          label={"Absent"}
+          count={"14"}
+          style={styles.footerContainerAbsent}
+        />
+        
       </View>
       <TouchableOpacity onPress={handleOnPressLeave}>
         <View style={styles.button}>
@@ -128,8 +133,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: COLORS.present,
     padding: PADDINGS.p10,
-    paddingTop: PADDINGS.p22,
-    paddingBottom: PADDINGS.p22,
+    paddingTop: PADDINGS.p24,
+    paddingBottom: PADDINGS.p24,
     flex: 0.5,
     marginRight: MARGINS.m12,
     alignItems: "center",
@@ -141,8 +146,8 @@ const styles = StyleSheet.create({
     flex: 0.5,
     marginLeft: MARGINS.m12,
     alignItems: "center",
-    paddingTop: PADDINGS.p22,
-    paddingBottom: PADDINGS.p22,
+    paddingTop: PADDINGS.p24,
+    paddingBottom: PADDINGS.p24,
   },
   circle: {
     width: 44,
@@ -158,7 +163,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 12,
     marginTop: MARGINS.m30,
-    padding: PADDINGS.p20,
+    padding: PADDINGS.p16,
     justifyContent: "center",
   },
 });

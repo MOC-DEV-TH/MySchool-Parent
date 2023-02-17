@@ -5,12 +5,17 @@ import {
   TimeTableAndRoutine,
   Exam,
   Notification,
-  ExamResultDetail,
+  ExamCompletedResultDetail,
+  ExamUpcomingResultDetail,
   PaymentHistory,
   Homework,
   Attendance,
   CalendarEvent,
-  Profile
+  Profile,
+  Billing,
+  LeaveRequest,
+  InvoiceDetail,
+  PaymentPlatform,
 } from "../screens";
 import { ROUTES, COLORS, IMGS } from "../constants";
 import { Image, View, StyleSheet, TouchableOpacity } from "react-native";
@@ -64,6 +69,7 @@ function HomeNavigator() {
           ),
         })}
       />
+
       <Stack.Screen
         name={ROUTES.KID_PROFILE}
         component={KidProfile}
@@ -120,8 +126,8 @@ function HomeNavigator() {
         }}
       />
       <Stack.Screen
-        name={ROUTES.EXAM_RESULT_DETAIL}
-        component={ExamResultDetail}
+        name={ROUTES.EXAM_COMPLETED_RESULT_DETAIL}
+        component={ExamCompletedResultDetail}
         options={{
           headerShown: true,
           headerTintColor: COLORS.white,
@@ -190,6 +196,71 @@ function HomeNavigator() {
       <Stack.Screen
         name={ROUTES.PROFILE}
         component={Profile}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES.EXAM_UPCOMING_RESULT_DETAIL}
+        component={ExamUpcomingResultDetail}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES.BILLING}
+        component={Billing}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES.LEAVE_REQUEST}
+        component={LeaveRequest}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES.INVOICE_DETAIL}
+        component={InvoiceDetail}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+      <Stack.Screen
+        name={ROUTES.PAYMENT_PLATFORM}
+        component={PaymentPlatform}
         options={{
           headerShown: true,
           headerTintColor: COLORS.white,

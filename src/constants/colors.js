@@ -14,7 +14,8 @@ export default {
   absent: "#E04949",
   leave: "#F1A511",
   present: "#2EBD67",
-  green:"#00ff00",
-  red:"#ff0000",
-  yellow:"#ffff00"
+  green: "#00ff00",
+  red: "#ff0000",
+  yellow: "#ffff00",
+  primary: "#3268DA",
 };

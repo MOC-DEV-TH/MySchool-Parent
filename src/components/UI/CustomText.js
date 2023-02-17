@@ -1,13 +1,13 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, MARGINS, PADDINGS } from "../constants";
+import { COLORS, MARGINS, PADDINGS } from "../../constants";
 
-const CustomText = ({ label, name }) => {
+const CustomText = ({ label, value }) => {
   return (
     <View style={styles.container}>
       <Text semi>{label}</Text>
-      <Text style={{fontWeight:"bold"}}>{name}</Text>
+      <Text style={{fontWeight:"bold",paddingBottom:PADDINGS.p4}}>{value}</Text>
     </View>
   );
 };

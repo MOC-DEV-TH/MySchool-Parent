@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import {
-  ImageBackground,
   StyleSheet,
   Image,
   View,
-  Dimensions,
   FlatList,
   TouchableOpacity,
 } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../constants";
+import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
 import Icon from "react-native-vector-icons/Ionicons";
-import CustomDrawerItem from "./CustomDrawerItem";
 import { useNavigation } from "@react-navigation/native";
-
-const { screenWidth } = Dimensions.get("screen");
+import CustomDrawerItem from "../DrawerComponents/CustomDrawerItem";
 
 const CustomDrawer = (props) => {
   const navigation = useNavigation();
@@ -52,6 +48,9 @@ const CustomDrawer = (props) => {
   const handleOnPressMyProfile = () => {
     navigation.navigate(ROUTES.PROFILE);
   };
+  const handleOnPressBilling = () => {
+    navigation.navigate(ROUTES.BILLING);
+  };
   const handleOnPressCalendar = () => {
     navigation.navigate(ROUTES.CALENDAR_EVENT);
   };
@@ -60,23 +59,21 @@ const CustomDrawer = (props) => {
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
         {...props}
-        contentContainerStyle={{ backgroundColor: COLORS.bgColor }}
+        contentContainerStyle={{ backgroundColor: COLORS.white }}
       >
-        <ImageBackground source={IMGS.bgPattern} style={{ height: 140 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              flex: 1,
-              justifyContent: "center",
-            }}
-          >
-            <Image source={IMGS.appIcon} style={styles.userImg} />
-            <Text style={styles.title}>
-              Welcome,<Text>Name</Text>
-            </Text>
-          </View>
-        </ImageBackground>
+        <View
+          style={{
+            marginLeft: MARGINS.m10,
+            marginTop: MARGINS.m26,
+            marginBottom: MARGINS.m26,
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>Welcome(Name)</Text>
+        </View>
+
+        <View
+          style={{ flex: 1, height: 1, backgroundColor: COLORS.grayLight }}
+        />
 
         <View style={styles.drawerListWrapper}>
           <CustomDrawerItem
@@ -90,7 +87,7 @@ const CustomDrawer = (props) => {
             style={{
               backgroundColor: COLORS.bgColor,
               marginBottom: expanded ? undefined : MARGINS.m10,
-              borderRadius:12
+              borderRadius: 12,
             }}
             label={() => (
               <View
@@ -133,7 +130,7 @@ const CustomDrawer = (props) => {
           <CustomDrawerItem
             iconName={IMGS.billing}
             label={"Billing"}
-            onPressItem={handleOnPressMyProfile}
+            onPressItem={handleOnPressBilling}
           />
 
           <CustomDrawerItem

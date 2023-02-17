@@ -1,5 +1,4 @@
 import { StyleSheet, View, Platform, FlatList } from "react-native";
-import React, { useState } from "react";
 import { Calendar } from "react-native-calendars";
 import { COLORS, MARGINS, PADDINGS, IMGS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
@@ -36,7 +35,8 @@ const CalendarEvent = () => {
           borderWidth: 0.7,
           borderColor: item.colorCode,
           backgroundColor: item.colorCode,
-          opacity: 0.7,
+          opacity: 0.6,
+          elevation:10
         },
         text: {
           color: "black",
@@ -53,11 +53,11 @@ const CalendarEvent = () => {
         style={{
           backgroundColor: item.colorCode,
           padding: PADDINGS.p16,
-          marginBottom:MARGINS.m12,
-          borderRadius:12
+          marginBottom: MARGINS.m12,
+          borderRadius: 12,
         }}
       >
-        <Text medium color={COLORS.white} style={{fontWeight:"bold"}}>
+        <Text medium color={COLORS.white} style={{ fontWeight: "bold" }}>
           {item.name}
         </Text>
       </View>
@@ -71,7 +71,7 @@ const CalendarEvent = () => {
         style={{
           borderRadius: 6,
           marginTop: MARGINS.m16,
-          marginBottom:MARGINS.m32
+          marginBottom: MARGINS.m32,
         }}
         markedDates={markedDay}
       />

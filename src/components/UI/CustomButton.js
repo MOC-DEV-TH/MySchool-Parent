@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, MARGINS } from "../constants";
+import { COLORS, MARGINS } from "../../constants";
 
 const CustomButton = ({
   title,

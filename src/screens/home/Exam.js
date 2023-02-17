@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
-import ButtonGroup from "../../components/ButtonGroup";
+import ButtonGroup from "../../components/UI/ButtonGroup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Text from "@kaloraat/react-native-text";
 import { COLORS, PADDINGS, MARGINS, IMGS, ROUTES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
+import UpComingExamItem from "../../components/ItemComponents/UpComingExamItem";
+import CompletedExamItem from "../../components/ItemComponents/CompletedExamItem";
 
 const Exam = () => {
   const navigation = useNavigation();
@@ -25,40 +27,11 @@ const Exam = () => {
     console.log(item);
     setItemState(item);
   };
-  const renderUpcomingItem = () => {
-    return (
-      <View style={styles.card}>
-        <View
-          style={{ flex: 0.3, justifyContent: "center", alignItems: "center" }}
-        >
-          <Image source={IMGS.timeTable} />
-        </View>
-        <View style={{ flex: 0.7, justifyContent: "center" }}>
-          <Text>9:00 am - 9:55</Text>
-          <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
-            Maths
-          </Text>
-          <Text>U Ba</Text>
-        </View>
-      </View>
-    );
+  const handleOnPressUpComingExam = () => {
+    navigation.navigate(ROUTES.EXAM_UPCOMING_RESULT_DETAIL);
   };
-  const renderCompletedItem = () => {
-    return (
-      <TouchableOpacity
-        onPress={() => navigation.navigate(ROUTES.EXAM_RESULT_DETAIL)}
-      >
-        <View style={styles.completedCard}>
-          <Image source={IMGS.mmBook} />
-          <View style={{ flex: 0.4 }}>
-            <Text style={{ fontWeight: "bold" }}>Myanmar</Text>
-            <Text>07 / 01 / 2023</Text>
-          </View>
-
-          <Image source={IMGS.arrowBlue} />
-        </View>
-      </TouchableOpacity>
-    );
+  const handleOnPressUpCompletedExam = () => {
+    navigation.navigate(ROUTES.EXAM_COMPLETED_RESULT_DETAIL);
   };
 
   return (
@@ -84,7 +57,9 @@ const Exam = () => {
             data={items}
             style={{ marginTop: MARGINS.m10 }}
             showsVerticalScrollIndicator={false}
-            renderItem={renderUpcomingItem}
+            renderItem={() => (
+              <UpComingExamItem onPress={handleOnPressUpComingExam} />
+            )}
             keyExtractor={(item, index) => index.toString()}
           />
         ) : (
@@ -92,7 +67,9 @@ const Exam = () => {
             data={items}
             style={{ marginTop: MARGINS.m10 }}
             showsVerticalScrollIndicator={false}
-            renderItem={renderCompletedItem}
+            renderItem={() => (
+              <CompletedExamItem onPress={handleOnPressUpCompletedExam} />
+            )}
             keyExtractor={(item, index) => index.toString()}
           />
         )}
@@ -152,19 +129,10 @@ const styles = StyleSheet.create({
     height: 68,
     borderRadius: 12,
     backgroundColor: COLORS.white,
-    justifyContent: "center",
+    justifyContent: "space-around",
     flex: 1,
     flexDirection: "row",
     marginBottom: MARGINS.m18,
-  },
-  completedCard: {
-    height: 68,
-    backgroundColor: COLORS.white,
-    borderRadius: 12,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    marginBottom: MARGINS.m20,
   },
   textInActive: {
     color: COLORS.black,

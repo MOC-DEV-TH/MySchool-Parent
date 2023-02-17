@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet,TextInput } from "react-native";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, MARGINS, PADDINGS } from "../constants";
+import { COLORS, MARGINS, PADDINGS } from "../../constants";
 
 const UserInput = ({
   name,

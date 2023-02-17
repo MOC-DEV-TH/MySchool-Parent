@@ -1,13 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import React, { useState } from "react";
-import { COLORS, PADDINGS, MARGINS, ROUTES } from "../../constants";
+import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useNavigation } from "@react-navigation/native";
-import PaymentHistoryTable from "../../components/TableComponents/PaymentHistoryTable";
+import { DataTable } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import BillingTable from "../../components/TableComponents/BillingTable";
 
-const PaymentHistory = () => {
-  const navigation = useNavigation();
+const Billing = () => {
   const [data, setData] = useState([
     {
       sbjName: "Myanmar",
@@ -29,24 +29,18 @@ const PaymentHistory = () => {
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView>
-        <Text medium color={COLORS.white} style={styles.title}>
-          Fees List
-        </Text>
-        <Text large color={COLORS.white} style={styles.name}>
-          MG MG
-        </Text>
-        <Text small color={COLORS.white} style={styles.small_text}>
-          Class - Grade 8 A
+        <Text color={COLORS.white} style={styles.title}>
+          Billing
         </Text>
 
-        <PaymentHistoryTable name={"Paid"} data={data} />
-        <PaymentHistoryTable name={"UnPaid"} data={data} />
+        <BillingTable name={"Paid"} data={data} />
+        <BillingTable name={"UnPaid"} data={data} />
       </KeyboardAwareScrollView>
     </View>
   );
 };
 
-export default PaymentHistory;
+export default Billing;
 
 const styles = StyleSheet.create({
   container: {
@@ -59,21 +53,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: MARGINS.m6,
     marginBottom: MARGINS.m12,
-  },
-  small_text: {
-    alignItems: "flex-start",
-    marginTop: MARGINS.m2,
-    marginBottom: MARGINS.m12,
-  },
-  medium_text: {
-    alignItems: "flex-start",
-    marginTop: MARGINS.m18,
-    marginBottom: MARGINS.m4,
-  },
-  name: {
-    fontWeight: "bold",
-    alignItems: "flex-start",
-    marginTop: MARGINS.m2,
+    fontSize: 16,
   },
   itemContainer: {
     borderRadius: 12,
