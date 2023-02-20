@@ -6,15 +6,18 @@ import { useNavigation } from "@react-navigation/native";
 import { COLORS, PADDINGS, ROUTES, IMGS, MARGINS } from "../../constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Icon, Pressable } from "native-base";
+import { useDispatch } from "react-redux";
+import * as authActions from "../../store/actions/auth";
 
 const Login = (props) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
   const handleOnPressLogin = () => {
-    navigation.replace(ROUTES.HOME);
+    dispatch(authActions.login(email, password, navigation));
   };
 
   return (
@@ -24,10 +27,10 @@ const Login = (props) => {
         name={"Login"}
         value={email}
         setValue={setEmail}
-        setKeyboardType="numeric"
+        setKeyboardType="text"
         placeHolder={"Email"}
       />
-
+       
       <View style={styles.PasswordSectionStyle}>
         <TextInput
           style={{

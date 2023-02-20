@@ -1,11 +1,5 @@
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import ButtonGroup from "../../components/UI/ButtonGroup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Text from "@kaloraat/react-native-text";
@@ -13,18 +7,61 @@ import { COLORS, PADDINGS, MARGINS, IMGS, ROUTES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import UpComingExamItem from "../../components/ItemComponents/UpComingExamItem";
 import CompletedExamItem from "../../components/ItemComponents/CompletedExamItem";
+import { useSelector, useDispatch } from "react-redux";
+import * as examActions from "../../store/actions/exam";
+import { getData } from "../../utils/SessionManager";
+import AppConstants from "../../utils/AppConstants";
 
 const Exam = () => {
   const navigation = useNavigation();
-  const [items, setItems] = useState([
-    { name: "one" },
-    { name: "two" },
-    { name: "three" },
-  ]);
+  const dispatch = useDispatch();
   const [itemState, setItemState] = useState(0);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isCompletedRefreshing, setIsCompletedRefreshing] = useState(false);
+
+  //get all completed exam and upcoming exam
+  const completedExam = useSelector((state) => state.exam.completedExamData);
+  const upcomingExam = useSelector((state) => state.exam.upcomingExamData);
+
+  //initial load data
+  useEffect(() => {
+    loadUpcomingExam();
+  }, []);
+
+  const loadUpcomingExam = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(
+        examActions.getAllUpcomingExam(
+          "9|qBzjpK8gw9qNQBHrw7JpnvtDcOumaElQ930WeuL3"
+        )
+      );
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  const loadCompletedExam = useCallback(async () => {
+    setIsCompletedRefreshing(true);
+    try {
+      await dispatch(
+        examActions.getAllCompletedExam(
+          "9|qBzjpK8gw9qNQBHrw7JpnvtDcOumaElQ930WeuL3"
+        )
+      );
+    } catch (error) {}
+    setIsCompletedRefreshing(false);
+  }, [dispatch, setIsCompletedRefreshing]);
 
   const onPressButton = (item) => {
     console.log(item);
+    getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
+      if (item === 0) {
+        loadUpcomingExam();
+      } else if (item === 1) {
+        loadCompletedExam();
+      }
+    });
+
     setItemState(item);
   };
   const handleOnPressUpComingExam = () => {
@@ -53,22 +90,35 @@ const Exam = () => {
           textInActive={styles.textInActive}
         />
         {itemState === 0 ? (
-          <FlatList
-            data={items}
-            style={{ marginTop: MARGINS.m10 }}
-            showsVerticalScrollIndicator={false}
-            renderItem={() => (
-              <UpComingExamItem onPress={handleOnPressUpComingExam} />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
+          isRefreshing ? (
+            <ActivityIndicator size="large" />
+          ) : (
+            <FlatList
+              onRefresh={loadUpcomingExam}
+              refreshing={isRefreshing}
+              data={upcomingExam}
+              style={{ marginTop: MARGINS.m10 }}
+              showsVerticalScrollIndicator={false}
+              renderItem={() => (
+                <UpComingExamItem onPress={handleOnPressUpComingExam} />
+              )}
+              keyExtractor={(item, index) => index.toString()}
+            />
+          )
+        ) : isCompletedRefreshing ? (
+          <ActivityIndicator size="large" />
         ) : (
           <FlatList
-            data={items}
+            onRefresh={loadCompletedExam}
+            refreshing={isCompletedRefreshing}
+            data={completedExam}
             style={{ marginTop: MARGINS.m10 }}
             showsVerticalScrollIndicator={false}
-            renderItem={() => (
-              <CompletedExamItem onPress={handleOnPressUpCompletedExam} />
+            renderItem={(itemData) => (
+              <CompletedExamItem
+                onPress={handleOnPressUpCompletedExam}
+                examStatus={examActions.getExamStatus(itemData.item.mark)}
+              />
             )}
             keyExtractor={(item, index) => index.toString()}
           />

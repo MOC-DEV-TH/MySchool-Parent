@@ -1,16 +1,12 @@
 import {
   StyleSheet,
-  Image,
   View,
-  TouchableOpacity,
   FlatList,
-  Dimensions,
-  ImageBackground,
   Animated,
+  ActivityIndicator,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
+import { COLORS, MARGINS, PADDINGS, ROUTES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import Text from "@kaloraat/react-native-text";
 import Container from "../../components/UI/Container";
@@ -18,91 +14,98 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { SlidingDot } from "react-native-animated-pagination-dots";
 import ChildItem from "../../components/ItemComponents/ChildItem";
 import UpComingEventItem from "../../components/ItemComponents/UpComingEventItem";
+import { getData } from "../../utils/SessionManager";
+import AppConstants from "../../utils/AppConstants";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import * as homeActions from "../../store/actions/home";
 
 const Home = (props) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const scrollX = React.useRef(new Animated.Value(0)).current;
-  const [child, setChild] = useState([
-    {
-      name: "Mg Mg",
-    },
-    {
-      name: "Ma Ma",
-    },
-  ]);
-  const [event, setEvent] = useState([
-    {
-      name: "1",
-    },
-    {
-      name: "1",
-    },
-    {
-      name: "1",
-    },
-  ]);
+
+  //get home data
+  const isLoading = useSelector((state) => state.home.loading);
+  const isError = useSelector((state) => state.home.error);
+  const studentData = useSelector((state) => state.home.studentData);
+  const upComingEventData = useSelector((state) => state.home.eventData);
+
+  //initial fetch home data
+  useEffect(() => {
+    getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
+      dispatch(homeActions.getAllStudentData(value));
+    });
+  }, []);
+
   const handleOnPressKidProfile = () => {
     navigation.navigate(ROUTES.KID_PROFILE);
   };
   return (
     <Container>
       <StatusBar style="light" />
-      <KeyboardAwareScrollView>
-        <View style={styles.body}>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <Text medium style={styles.welcomeText}>
-              Welcome
+      {isLoading ? (
+        <ActivityIndicator size="large" style={{alignSelf:"center",flex:1}} />
+      ) : (
+        <KeyboardAwareScrollView>
+          <View style={styles.body}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <Text medium style={styles.welcomeText}>
-                (Name)
+                Welcome
+                <Text medium style={styles.welcomeText}>
+                  (Name)
+                </Text>
               </Text>
+            </View>
+
+            <FlatList
+              data={upComingEventData}
+              horizontal={true}
+              style={{ marginTop: MARGINS.m10 }}
+              showsHorizontalScrollIndicator={false}
+              renderItem={() => <ChildItem onPress={handleOnPressKidProfile} />}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                {
+                  useNativeDriver: false,
+                }
+              )}
+              pagingEnabled
+              decelerationRate={"normal"}
+              scrollEventThrottle={16}
+              contentContainerStyle={{ paddingRight: 10 }}
+              keyExtractor={(item, index) => index.toString()}
+            />
+
+            <SlidingDot
+              marginHorizontal={3}
+              containerStyle={styles.containerStyle}
+              data={upComingEventData}
+              scrollX={scrollX}
+              dotSize={10}
+              dotStyle={{ backgroundColor: COLORS.white }}
+            />
+
+            <Text medium style={styles.upcomingText}>
+              Upcoming Events
             </Text>
+            <FlatList
+              data={upComingEventData}
+              numColumns={1}
+              scrollEnabled={false}
+              style={{ marginTop: MARGINS.m10 }}
+              showsVerticalScrollIndicator={false}
+              renderItem={(itemData) => (
+                <UpComingEventItem title={itemData.item.title} />
+              )}
+              ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
+              keyExtractor={(item, index) => index.toString()}
+            />
           </View>
-
-          <FlatList
-            data={child}
-            horizontal={true}
-            style={{ marginTop: MARGINS.m10 }}
-            showsHorizontalScrollIndicator={false}
-            renderItem={() => <ChildItem onPress={handleOnPressKidProfile} />}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-              {
-                useNativeDriver: false,
-              }
-            )}
-            pagingEnabled
-            decelerationRate={"normal"}
-            scrollEventThrottle={16}
-            contentContainerStyle={{ paddingRight: 10 }}
-            keyExtractor={(item, index) => index.toString()}
-          />
-
-          <SlidingDot
-            marginHorizontal={3}
-            containerStyle={styles.containerStyle}
-            data={child}
-            scrollX={scrollX}
-            dotSize={10}
-            dotStyle={{ backgroundColor: COLORS.white }}
-          />
-
-          <Text medium style={styles.upcomingText}>
-            Upcoming Events
-          </Text>
-          <FlatList
-            data={event}
-            numColumns={1}
-            scrollEnabled={false}
-            style={{ marginTop: MARGINS.m10 }}
-            showsVerticalScrollIndicator={false}
-            renderItem={() => <UpComingEventItem />}
-            ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        </View>
-      </KeyboardAwareScrollView>
+        </KeyboardAwareScrollView>
+      )}
     </Container>
   );
 };
@@ -113,6 +116,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.bgColor,
+    justifyContent: "center",
   },
   body: {
     backgroundColor: COLORS.black,

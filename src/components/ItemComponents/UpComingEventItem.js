@@ -13,7 +13,7 @@ const UpComingEventItem = (props) => {
       </View>
       <View style={{ flex: 0.7 }}>
         <View style={{ flexDirection: "column" }}>
-          <Text medium>Parent/Teacher Conference</Text>
+          <Text medium>{props.title}</Text>
           <Text small color={COLORS.textColorBlue}>
             18th June 2023
           </Text>

@@ -34,13 +34,14 @@ const ChildItem = (props) => {
               color={COLORS.white}
               style={{ fontWeight: "bold", paddingBottom: PADDINGS.p4 }}
             >
-              Mya Mya
+              {props.name}
             </Text>
             <Text color={COLORS.white} style={{ paddingBottom: PADDINGS.p4 }}>
-              ID No......
+              ID No.{props.rollNo}
             </Text>
             <Text color={COLORS.white} style={{ paddingBottom: PADDINGS.p4 }}>
-              Grade 2 (A)
+              {props.class}
+              <Text>({props.section})</Text>
             </Text>
           </View>
           <View style={{ justifyContent: "flex-end" }}>

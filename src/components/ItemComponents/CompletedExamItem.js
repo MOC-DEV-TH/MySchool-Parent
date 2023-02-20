@@ -3,10 +3,10 @@ import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { MARGINS, IMGS, COLORS, PADDINGS } from "../../constants";
 
-const CompletedExamItem = ({ onPress }) => {
+const CompletedExamItem = (props) => {
   return (
     <View>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={props.onPress}>
         <View style={styles.completedCard}>
           <Image source={IMGS.exam_complete} />
           <View style={{ flex: 0.4 }}>
@@ -16,7 +16,8 @@ const CompletedExamItem = ({ onPress }) => {
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{
-                backgroundColor: COLORS.present,
+                backgroundColor:
+                  props.examStatus === "PASS" ? COLORS.present : COLORS.absent,
                 paddingTop: PADDINGS.p2,
                 paddingBottom: PADDINGS.p2,
                 paddingLeft: PADDINGS.p10,
@@ -24,7 +25,7 @@ const CompletedExamItem = ({ onPress }) => {
                 borderRadius: 12,
               }}
             >
-              <Text color={COLORS.white}>PASS</Text>
+              <Text color={COLORS.white}>{props.examStatus}</Text>
             </View>
             <Image source={IMGS.arrowBlue} style={{ marginLeft: MARGINS.m6 }} />
           </View>
