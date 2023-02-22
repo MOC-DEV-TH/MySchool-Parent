@@ -104,4 +104,35 @@ export const RestClientApi = {
     });
     return response.json();
   },
+
+  getClassRoutine: async function (sessionId, classId, sectionId, token) {
+    const response = await fetch(AppConstants.GET_CLASS_ROUTINE_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        session_id: sessionId,
+        class_id: classId,
+        section_id: sectionId,
+      }),
+    });
+    return response.json();
+  },
+
+  getUpcomingExamDetail: async function (sessionId, examId, token) {
+    const response = await fetch(AppConstants.GET_UPCOMING_EXAM_DETAIL_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        session_id: sessionId,
+        exam_id: examId,
+      }),
+    });
+    return response.json();
+  },
 };

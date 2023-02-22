@@ -3,8 +3,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import ButtonGroup from "../../components/UI/ButtonGroup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, PADDINGS, MARGINS, IMGS, ROUTES } from "../../constants";
-import { useNavigation } from "@react-navigation/native";
+import { COLORS, PADDINGS, MARGINS, ROUTES } from "../../constants";
 import UpComingExamItem from "../../components/ItemComponents/UpComingExamItem";
 import CompletedExamItem from "../../components/ItemComponents/CompletedExamItem";
 import { useSelector, useDispatch } from "react-redux";
@@ -12,8 +11,7 @@ import * as examActions from "../../store/actions/exam";
 import { getData } from "../../utils/SessionManager";
 import AppConstants from "../../utils/AppConstants";
 
-const Exam = () => {
-  const navigation = useNavigation();
+const Exam = ({ navigation }) => {
   const dispatch = useDispatch();
   const [itemState, setItemState] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -28,49 +26,51 @@ const Exam = () => {
     loadUpcomingExam();
   }, []);
 
+  //load upcomingExam
   const loadUpcomingExam = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      await dispatch(
-        examActions.getAllUpcomingExam(
-          "9|qBzjpK8gw9qNQBHrw7JpnvtDcOumaElQ930WeuL3"
-        )
-      );
+      await getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
+        await dispatch(examActions.getAllUpcomingExam(token));
+      });
     } catch (error) {}
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
+  //load completedExam
   const loadCompletedExam = useCallback(async () => {
     setIsCompletedRefreshing(true);
     try {
-      await dispatch(
-        examActions.getAllCompletedExam(
-          "9|qBzjpK8gw9qNQBHrw7JpnvtDcOumaElQ930WeuL3"
-        )
-      );
+      await getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
+        await dispatch(examActions.getAllCompletedExam(token));
+      });
     } catch (error) {}
     setIsCompletedRefreshing(false);
   }, [dispatch, setIsCompletedRefreshing]);
 
+  //press group button
   const onPressButton = (item) => {
     console.log(item);
-    getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
-      if (item === 0) {
-        loadUpcomingExam();
-      } else if (item === 1) {
-        loadCompletedExam();
-      }
-    });
-
+    if (item === 0) {
+      loadUpcomingExam();
+    } else if (item === 1) {
+      loadCompletedExam();
+    }
     setItemState(item);
   };
-  const handleOnPressUpComingExam = () => {
-    navigation.navigate(ROUTES.EXAM_UPCOMING_RESULT_DETAIL);
+
+  //handle events
+  const handleOnPressUpComingExam = (item) => {
+    console.log(item);
+    navigation.navigate(ROUTES.EXAM_UPCOMING_RESULT_DETAIL, {
+      upComingExam: item,
+    });
   };
   const handleOnPressUpCompletedExam = () => {
     navigation.navigate(ROUTES.EXAM_COMPLETED_RESULT_DETAIL);
   };
 
+  //render UI
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{ flex: 1 }}>
@@ -99,8 +99,12 @@ const Exam = () => {
               data={upcomingExam}
               style={{ marginTop: MARGINS.m10 }}
               showsVerticalScrollIndicator={false}
-              renderItem={() => (
-                <UpComingExamItem onPress={handleOnPressUpComingExam} />
+              renderItem={(itemData) => (
+                <UpComingExamItem
+                  onItemClick={handleOnPressUpComingExam}
+                  item={itemData.item}
+                  navigation={navigation}
+                />
               )}
               keyExtractor={(item, index) => index.toString()}
             />

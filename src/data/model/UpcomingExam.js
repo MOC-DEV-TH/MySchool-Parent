@@ -1,10 +1,22 @@
 class UpcomingExam {
-  constructor(id, name,startDate,endDate,daysLeft) {
+  constructor(
+    id,
+    sessionId,
+    name,
+    note,
+    startDate,
+    endDate,
+    createdAt,
+    updatedAt
+  ) {
     this.id = id;
+    this.sessionId = sessionId;
     this.name = name;
+    this.note = note;
     this.startDate = startDate;
     this.endDate = endDate;
-    this.daysLeft = daysLeft
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }
 

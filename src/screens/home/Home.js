@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { COLORS, MARGINS, PADDINGS, ROUTES } from "../../constants";
-import { useNavigation } from "@react-navigation/native";
 import Text from "@kaloraat/react-native-text";
 import Container from "../../components/UI/Container";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -16,12 +15,11 @@ import ChildItem from "../../components/ItemComponents/ChildItem";
 import UpComingEventItem from "../../components/ItemComponents/UpComingEventItem";
 import { getData } from "../../utils/SessionManager";
 import AppConstants from "../../utils/AppConstants";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as homeActions from "../../store/actions/home";
 
-const Home = (props) => {
-  const navigation = useNavigation();
+const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
@@ -38,14 +36,21 @@ const Home = (props) => {
     });
   }, []);
 
-  const handleOnPressKidProfile = () => {
-    navigation.navigate(ROUTES.KID_PROFILE);
+  //handle event
+  const handleOnPressKidProfile = (student) => {
+    console.log(student.item);
+    navigation.navigate(ROUTES.KID_PROFILE, { studentData: student.item });
   };
+
+  //render UI
   return (
     <Container>
       <StatusBar style="light" />
       {isLoading ? (
-        <ActivityIndicator size="large" style={{alignSelf:"center",flex:1}} />
+        <ActivityIndicator
+          size="large"
+          style={{ alignSelf: "center", flex: 1 }}
+        />
       ) : (
         <KeyboardAwareScrollView>
           <View style={styles.body}>
@@ -61,11 +66,16 @@ const Home = (props) => {
             </View>
 
             <FlatList
-              data={upComingEventData}
+              data={studentData}
               horizontal={true}
               style={{ marginTop: MARGINS.m10 }}
               showsHorizontalScrollIndicator={false}
-              renderItem={() => <ChildItem onPress={handleOnPressKidProfile} />}
+              renderItem={(itemData) => (
+                <ChildItem
+                  item={itemData.item}
+                  onItemClick={handleOnPressKidProfile}
+                />
+              )}
               onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { x: scrollX } } }],
                 {
@@ -82,7 +92,7 @@ const Home = (props) => {
             <SlidingDot
               marginHorizontal={3}
               containerStyle={styles.containerStyle}
-              data={upComingEventData}
+              data={studentData}
               scrollX={scrollX}
               dotSize={10}
               dotStyle={{ backgroundColor: COLORS.white }}

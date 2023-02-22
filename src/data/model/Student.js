@@ -1,6 +1,9 @@
 class Student {
   constructor(
     id,
+    sessionId,
+    classId,
+    sectionId,
     name,
     image,
     email,
@@ -12,6 +15,9 @@ class Student {
     bloodGroup
   ) {
     this.id = id;
+    this.sessionId = sessionId,
+    this.classId = classId,
+    this.sectionId = sectionId,
     this.name = name;
     this.image = image;
     this.email = email;
@@ -20,7 +26,6 @@ class Student {
     this.rollNo = rollNo;
     this.admissionDate = admissionDate;
     this.gender = gender;
-    this.dob = dob;
     this.bloodGroup = bloodGroup;
   }
 }

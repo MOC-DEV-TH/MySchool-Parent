@@ -10,7 +10,9 @@ import { initNotification } from "./src/service/NotificationService";
 import DrawerNavigator from "./src/navigations/DrawerNavigator";
 import { getData } from "./src/utils/SessionManager";
 import AppConstants from "./src/utils/AppConstants";
+import { LogBox } from "react-native";
 
+LogBox.ignoreAllLogs();
 const store = configureStore();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -40,7 +42,7 @@ export default function App() {
       <NativeBaseProvider>
         <NavigationContainer>
           {/* {isAuthenticated ? <AuthNavigator /> : <DrawerNavigator />} */}
-          <DrawerNavigator/>
+          <AuthNavigator />
         </NavigationContainer>
       </NativeBaseProvider>
     </Provider>

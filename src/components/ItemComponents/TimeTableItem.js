@@ -1,9 +1,9 @@
-import { StyleSheet, View,Image } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { PADDINGS, IMGS, COLORS } from "../../constants";
 
-const TimeTableItem = () => {
+const TimeTableItem = (props) => {
   return (
     <View style={styles.card}>
       <View
@@ -12,11 +12,11 @@ const TimeTableItem = () => {
         <Image source={IMGS.timeTable} />
       </View>
       <View style={{ justifyContent: "center", flex: 0.6 }}>
-        <Text>9:00 am - 9:55</Text>
+        <Text>{props.item.duration}</Text>
         <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
-          Maths
+          {props.item.subject}
         </Text>
-        <Text>U Ba</Text>
+        <Text>{props.item.name}</Text>
       </View>
     </View>
   );

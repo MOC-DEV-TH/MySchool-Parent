@@ -3,11 +3,12 @@ import { StyleSheet, Image, View, TextInput } from "react-native";
 import UserInput from "../../components/UI/UserInput";
 import CustomButton from "../../components/UI/CustomButton";
 import { useNavigation } from "@react-navigation/native";
-import { COLORS, PADDINGS, ROUTES, IMGS, MARGINS } from "../../constants";
+import { COLORS, PADDINGS, IMGS, MARGINS } from "../../constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Icon, Pressable } from "native-base";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/auth";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Login = (props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={IMGS.logoWhite} style={styles.logo} />
       <UserInput
         name={"Login"}
@@ -30,7 +31,7 @@ const Login = (props) => {
         setKeyboardType="text"
         placeHolder={"Email"}
       />
-       
+
       <View style={styles.PasswordSectionStyle}>
         <TextInput
           style={{
@@ -71,7 +72,7 @@ const Login = (props) => {
           onPress={() => handleOnPressLogin()}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

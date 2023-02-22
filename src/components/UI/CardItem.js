@@ -1,10 +1,13 @@
-import { View, TouchableOpacity, Image,Text } from "react-native";
+import { View, TouchableOpacity, Image, Text } from "react-native";
 import { COLORS, IMGS, MARGINS } from "../../constants";
-import { useNavigation } from "@react-navigation/native";
-const CardItem = ({ navigateName, imageName, name }) => {
-  const navigation = useNavigation();
+
+const CardItem = ({ navigateName, imageName, name, navigation, routeData }) => {
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(navigateName)}>
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate(navigateName, { studentData: routeData })
+      }
+    >
       <View
         style={{
           height: 80,
@@ -17,7 +20,7 @@ const CardItem = ({ navigateName, imageName, name }) => {
         }}
       >
         <Image source={imageName} />
-        <Text style={{ fontWeight: "bold",flex:0.4}}>{name}</Text>
+        <Text style={{ fontWeight: "bold", flex: 0.4 }}>{name}</Text>
         <Image source={IMGS.arrowBlue} />
       </View>
     </TouchableOpacity>

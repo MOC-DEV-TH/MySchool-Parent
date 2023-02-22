@@ -1,6 +1,5 @@
 export default {
   appIcon: require("../assets/app_icon.png"),
-  bgPattern: require("../assets/drawer-cover.jpeg"),
   logoWhite: require("../assets/logo_white.png"),
   logoWhiteSmall: require("../assets/logo_white_small.png"),
   arrow_right: require("../assets/arrow_right.png"),

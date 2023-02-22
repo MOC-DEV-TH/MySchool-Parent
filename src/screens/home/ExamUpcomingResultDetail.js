@@ -2,56 +2,79 @@ import {
   StyleSheet,
   View,
   FlatList,
-  TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { COLORS, PADDINGS, MARGINS, IMGS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
+import { useSelector, useDispatch } from "react-redux";
+import * as examActions from "../../store/actions/exam";
+import { getData } from "../../utils/SessionManager";
+import AppConstants from "../../utils/AppConstants";
 
-const ExamUpcomingResultDetail = () => {
-  const [resultData, setResultData] = useState([
-    {
-      sbjName: "Myanmar",
-      grade: "A",
-      status: "PASS",
-    },
-    {
-      sbjName: "English",
-      grade: "B",
-      status: "PASS",
-    },
-    {
-      sbjName: "Maths",
-      grade: "A",
-      status: "FAIL",
-    },
-  ]);
+const ExamUpcomingResultDetail = ({ route, navigation }) => {
+  const { upComingExam } = route.params;
+  console.log(upComingExam);
 
-  const renderUpcomingItem = () => {
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  //get all upcoming detail data
+  const upComingExamData = useSelector(
+    (state) => state.exam.upcomingExamDetailData
+  );
+
+  //initial load data
+  useEffect(() => {
+    loadUpcomingExam();
+  }, []);
+
+  //load upcomingExamData
+  const loadUpcomingExam = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
+        await dispatch(
+          examActions.getUpcomingExamDetail(
+            upComingExam.sessionId,
+            upComingExam.id,
+            token
+          )
+        );
+      });
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  //render item
+  const renderUpcomingItem = (item) => {
     return (
       <View style={styles.card}>
-        <View style={{ justifyContent: "center", alignItems: "center",flex:0.4 }}>
+        <View
+          style={{ justifyContent: "center", alignItems: "center", flex: 0.4 }}
+        >
           <Image source={IMGS.timeTable} />
         </View>
-        <View style={{ justifyContent: "center",flex:0.6 }}>
-          <Text>9:00 am - 9:55</Text>
+        <View style={{ justifyContent: "center", flex: 0.6 }}>
+          <Text>{item.examDate}</Text>
           <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
-            Maths
+            {item.name}
           </Text>
-          <Text>U Ba</Text>
+          <Text>{item.duration}</Text>
         </View>
       </View>
     );
   };
+  //item separator component
   const FlatListItemSeparator = () => {
     return (
       <View
         style={{
           height: 1,
           backgroundColor: COLORS.gray,
-          marginLeft:MARGINS.m10,
-          marginRight:MARGINS.m10
+          marginLeft: MARGINS.m10,
+          marginRight: MARGINS.m10,
         }}
       />
     );
@@ -62,16 +85,20 @@ const ExamUpcomingResultDetail = () => {
       <Text medium color={COLORS.white} style={styles.title}>
         Feb Monthly Exam
       </Text>
-      <View style={{ backgroundColor: COLORS.white, borderRadius: 12 }}>
-        <FlatList
-          data={resultData}
-          style={{ marginTop: MARGINS.m10 }}
-          showsVerticalScrollIndicator={false}
-          renderItem={renderUpcomingItem}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={FlatListItemSeparator}
-        />
-      </View>
+      {isRefreshing ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <View style={{ backgroundColor: COLORS.white, borderRadius: 12 }}>
+          <FlatList
+            data={upComingExamData}
+            style={{ marginTop: MARGINS.m10 }}
+            showsVerticalScrollIndicator={false}
+            renderItem={renderUpcomingItem}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={FlatListItemSeparator}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -88,10 +115,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: COLORS.white,
     flex: 1,
-    alignItems:"center",
+    alignItems: "center",
     flexDirection: "row",
-    paddingTop:PADDINGS.p10,
-    paddingBottom:PADDINGS.p10
+    paddingTop: PADDINGS.p10,
+    paddingBottom: PADDINGS.p10,
   },
   title: {
     fontWeight: "bold",

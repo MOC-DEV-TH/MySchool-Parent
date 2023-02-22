@@ -10,15 +10,17 @@ import AppConstants, {
 export const getAllStudentData = (token) => {
   return async (dispatch) => {
     dispatch({ type: LOAD_HOME_LOADING });
-    RestClientApi.getUpComingEvent(token)
+    RestClientApi.getAllStudents(token)
       .then((response) => {
-        console.log(response.data);
+        console.log("Student", response.data);
         const student = [];
         for (const item of response.data) {
-          console.log("name");
           student.push(
             new Student(
-              item.id.toString(),
+              item.id,
+              item.session_id,
+              item.class_id,
+              item.section_id,
               item.name,
               item.image,
               item.email,

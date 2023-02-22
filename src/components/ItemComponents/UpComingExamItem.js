@@ -3,18 +3,18 @@ import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { MARGINS, IMGS, COLORS } from "../../constants";
 
-const UpComingExamItem = ({ onPress }) => {
+const UpComingExamItem = (props) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={() => props.onItemClick(props.item)}>
       <View style={styles.card}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
           <Image source={IMGS.timeTable} />
         </View>
         <View style={{ justifyContent: "center" }}>
           <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
-            Feb Monthly Exam
+            {props.item.name}
           </Text>
-          <Text>06/01/2023</Text>
+          <Text>{props.item.startDate}</Text>
         </View>
 
         <View style={{ justifyContent: "center" }}>

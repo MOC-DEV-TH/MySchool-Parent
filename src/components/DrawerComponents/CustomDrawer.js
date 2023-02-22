@@ -12,24 +12,14 @@ import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import CustomDrawerItem from "../DrawerComponents/CustomDrawerItem";
+import { useSelector } from "react-redux";
 
 const CustomDrawer = (props) => {
+  const studentData = useSelector((state) => state.home.studentData);
   const navigation = useNavigation();
-  const [children, setChildren] = useState([
-    {
-      id: 1,
-      title: "Getting Started",
-      body: "React native Accordion/Collapse component, very good to use in toggles & show/hide content",
-    },
-    {
-      id: 2,
-      title: "Components",
-      body: "AccordionList,Collapse,CollapseHeader & CollapseBody",
-    },
-  ]);
   const [expanded, setExpanded] = useState(false);
 
-  const renderChildrenItem = () => {
+  const renderChildrenItem = (item) => {
     return (
       <TouchableOpacity>
         <View style={styles.childrenItem}>
@@ -38,7 +28,7 @@ const CustomDrawer = (props) => {
             color={COLORS.textColorBlue}
             style={{ fontWeight: "bold", paddingLeft: PADDINGS.p10 }}
           >
-            Aung Aung
+            {item.name}
           </Text>
         </View>
       </TouchableOpacity>
@@ -109,14 +99,14 @@ const CustomDrawer = (props) => {
           />
           {expanded ? (
             <FlatList
-              data={children}
+              data={studentData}
               style={{
                 marginTop: MARGINS.m4,
                 marginRight: MARGINS.m10,
                 marginLeft: MARGINS.m10,
               }}
               showsVerticalScrollIndicator={false}
-              renderItem={renderChildrenItem}
+              renderItem={(itemData) => renderChildrenItem(itemData.item)}
               keyExtractor={(item, index) => index.toString()}
             />
           ) : undefined}

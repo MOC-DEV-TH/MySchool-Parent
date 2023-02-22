@@ -1,33 +1,60 @@
-import { StyleSheet, View, FlatList, Image } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import ButtonGroup from "../../components/UI/ButtonGroup";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Text from "@kaloraat/react-native-text";
 import { COLORS, PADDINGS, MARGINS, IMGS } from "../../constants";
 import TimeTableItem from "../../components/ItemComponents/TimeTableItem";
+import { useSelector, useDispatch } from "react-redux";
+import * as timeTableAction from "../../store/actions/timeTable";
+import { getData } from "../../utils/SessionManager";
+import AppConstants from "../../utils/AppConstants";
 
-const TimeTableAndRoutine = () => {
+const TimeTableAndRoutine = ({ route, navigation }) => {
+  const { studentData } = route.params;
+  console.log(studentData.name);
+
+  const [token, setToken] = useState();
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const dispatch = useDispatch();
+
+  //get all routine data
+  const routineData = useSelector((state) => state.titleTable.routineData);
+
+  //initial load data
+  useEffect(() => {
+    loadRoutineData(0);
+    getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
+      setToken(token);
+    });
+  }, []);
+
+  //load routine data
+  const loadRoutineData = useCallback(
+    async (dayIndex) => {
+      setIsRefreshing(true);
+      try {
+        await dispatch(
+          timeTableAction.getClassRoutine(
+            studentData.sessionId,
+            studentData.classId,
+            studentData.sectionId,
+            dayIndex,
+            token
+          )
+        );
+      } catch (error) {}
+      setIsRefreshing(false);
+    },
+    [dispatch, setIsRefreshing]
+  );
+
+  //press button group
   const onPressButton = (item) => {
-    console.log(item);
+    loadRoutineData(item);
   };
-  const [resultData, setResultData] = useState([
-    {
-      sbjName: "Myanmar",
-      grade: "A",
-      status: "PASS",
-    },
-    {
-      sbjName: "English",
-      grade: "B",
-      status: "PASS",
-    },
-    {
-      sbjName: "Maths",
-      grade: "A",
-      status: "FAIL",
-    },
-  ]);
-
+  //item separator component
   const FlatListItemSeparator = () => {
     return (
       <View
@@ -54,23 +81,28 @@ const TimeTableAndRoutine = () => {
           textActive={styles.textActive}
           textInActive={styles.textInActive}
         />
-        <View
-          style={{
-            backgroundColor: COLORS.white,
-            borderRadius: 12,
-            marginLeft: MARGINS.m6,
-            marginRight: MARGINS.m6,
-          }}
-        >
-          <FlatList
-            data={resultData}
-            style={{ marginTop: MARGINS.m10 }}
-            showsVerticalScrollIndicator={false}
-            renderItem={() => <TimeTableItem />}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={FlatListItemSeparator}
-          />
-        </View>
+        {isRefreshing ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <View
+            style={{
+              backgroundColor: COLORS.white,
+              borderRadius: 12,
+              marginLeft: MARGINS.m6,
+              marginRight: MARGINS.m6,
+            }}
+          >
+            <FlatList
+              isRefreshing={isRefreshing}
+              data={routineData}
+              style={{ marginTop: MARGINS.m10 }}
+              showsVerticalScrollIndicator={false}
+              renderItem={() => <TimeTableItem item={routineData} />}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={FlatListItemSeparator}
+            />
+          </View>
+        )}
       </KeyboardAwareScrollView>
     </View>
   );

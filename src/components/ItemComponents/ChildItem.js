@@ -18,7 +18,10 @@ const ChildItem = (props) => {
       imageStyle={{ borderRadius: 12 }}
       style={{ paddingBottom: PADDINGS.p16, paddingTop: PADDINGS.p16 }}
     >
-      <TouchableOpacity activeOpacity={1} onPress={props.onPress}>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => props.onItemClick(props)}
+      >
         <View style={styles.childContainer}>
           <View
             style={{
@@ -34,14 +37,14 @@ const ChildItem = (props) => {
               color={COLORS.white}
               style={{ fontWeight: "bold", paddingBottom: PADDINGS.p4 }}
             >
-              {props.name}
+              {props.item.name}
             </Text>
             <Text color={COLORS.white} style={{ paddingBottom: PADDINGS.p4 }}>
-              ID No.{props.rollNo}
+              ID No.{props.item.id}
             </Text>
             <Text color={COLORS.white} style={{ paddingBottom: PADDINGS.p4 }}>
-              {props.class}
-              <Text>({props.section})</Text>
+              {props.item.class_name}
+              <Text color={COLORS.white}>({props.item.section})</Text>
             </Text>
           </View>
           <View style={{ justifyContent: "flex-end" }}>
