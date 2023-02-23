@@ -9,6 +9,7 @@ import { Icon, Pressable } from "native-base";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/auth";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -22,57 +23,66 @@ const Login = (props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Image source={IMGS.logoWhite} style={styles.logo} />
-      <UserInput
-        name={"Login"}
-        value={email}
-        setValue={setEmail}
-        setKeyboardType="text"
-        placeHolder={"Email"}
-      />
-
-      <View style={styles.PasswordSectionStyle}>
-        <TextInput
-          style={{
-            alignSelf: "flex-start",
-            textAlign: "left",
-            height: 40,
-          }}
-          placeholder={"password"}
-          placeholderTextColor="#aaaaaa"
-          onChangeText={(text) => setPassword(text)}
-          value={password}
-          secureTextEntry={showPassword}
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
+    <KeyboardAwareScrollView
+      contentContainerStyle={{
+        flex: 1,
+        justifyContent: "center",
+        backgroundColor: COLORS.bgColor,
+      }}
+    >
+      <View style={styles.container}>
+        <Image source={IMGS.logoWhite} style={styles.logo} />
+        <UserInput
+          name={"Login"}
+          value={email}
+          setValue={setEmail}
+          setKeyboardType="text"
+          placeHolder={"Email"}
         />
 
-        <Pressable onPress={() => setShowPassword(!showPassword)}>
-          <Icon
-            style={{ color: COLORS.black }}
-            as={
-              <MaterialIcons
-                name={showPassword ? "visibility" : "visibility-off"}
-                size={24}
-                color="black"
-              />
-            }
-            mr={3}
-          ></Icon>
-        </Pressable>
-      </View>
+        <View style={styles.PasswordSectionStyle}>
+          <TextInput
+            style={{
+              alignSelf: "flex-start",
+              textAlign: "left",
+              height: 40,
+              flex: 1,
+            }}
+            placeholder={"password"}
+            placeholderTextColor="#aaaaaa"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            secureTextEntry={showPassword}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          />
 
-      <View style={{ width: 200, alignSelf: "center" }}>
-        <CustomButton
-          title="Sign In"
-          buttonStyle={{ width: 50, alignSelf: "center" }}
-          textStyle={{ fontSize: 14 }}
-          buttonColor={COLORS.black}
-          onPress={() => handleOnPressLogin()}
-        />
+          <Pressable onPress={() => setShowPassword(!showPassword)}>
+            <Icon
+              style={{ color: COLORS.black }}
+              as={
+                <MaterialIcons
+                  name={showPassword ? "visibility" : "visibility-off"}
+                  size={24}
+                  color="black"
+                />
+              }
+              mr={3}
+            ></Icon>
+          </Pressable>
+        </View>
+
+        <View style={{ width: 200, alignSelf: "center" }}>
+          <CustomButton
+            title="Sign In"
+            buttonStyle={{ width: 50, alignSelf: "center" }}
+            textStyle={{ fontSize: 14 }}
+            buttonColor={COLORS.black}
+            onPress={() => handleOnPressLogin()}
+          />
+        </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAwareScrollView>
   );
 };
 

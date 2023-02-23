@@ -29,7 +29,12 @@ const ChildItem = (props) => {
               justifyContent: "center",
             }}
           >
-            <Image source={IMGS.child} />
+            <Image
+              style={styles.image}
+              source={{
+                uri: props.item.image,
+              }}
+            />
           </View>
           <View style={{ flexDirection: "column" }}>
             <Text
@@ -67,5 +72,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingBottom: PADDINGS.p10,
     paddingTop: PADDINGS.p10,
+  },
+  image: {
+    width: 80,
+    height: 80,
+    borderRadius: 80 / 2,
   },
 });

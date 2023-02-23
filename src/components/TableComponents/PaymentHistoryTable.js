@@ -7,6 +7,7 @@ import TableHead from "./TableHead";
 import TableCell from "./TableCell";
 
 const PaymentHistoryTable = (props) => {
+  console.log("PaymentArray",props.paymentArray);
   return (
     <DataTable style={{ marginBottom: MARGINS.m14 }}>
       <View
@@ -37,7 +38,7 @@ const PaymentHistoryTable = (props) => {
         <TableHead title={"Due Date"} />
         <TableHead title={"Amount"} />
       </DataTable.Header>
-      {props.data.map((rank, i, { length }) => (
+      {props.paymentArray.map((data, i, { length }) => (
         <DataTable.Row
           style={{
             backgroundColor: COLORS.white,
@@ -66,9 +67,9 @@ const PaymentHistoryTable = (props) => {
             </TouchableOpacity>
           </View>
 
-          <TableCell data={"Mid terms"} />
-          <TableCell data={"DD/MM/YY"} />
-          <TableCell data={"xxxxx"} />
+          <TableCell data={data.fee_type} />
+          <TableCell data={data.due_date} />
+          <TableCell data={data.amount} />
         </DataTable.Row>
       ))}
     </DataTable>

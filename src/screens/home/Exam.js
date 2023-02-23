@@ -8,10 +8,10 @@ import UpComingExamItem from "../../components/ItemComponents/UpComingExamItem";
 import CompletedExamItem from "../../components/ItemComponents/CompletedExamItem";
 import { useSelector, useDispatch } from "react-redux";
 import * as examActions from "../../store/actions/exam";
-import { getData } from "../../utils/SessionManager";
-import AppConstants from "../../utils/AppConstants";
 
-const Exam = ({ navigation }) => {
+const Exam = ({ navigation, route }) => {
+  const { studentData } = route.params;
+  console.log(studentData);
   const dispatch = useDispatch();
   const [itemState, setItemState] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -30,9 +30,7 @@ const Exam = ({ navigation }) => {
   const loadUpcomingExam = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      await getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
-        await dispatch(examActions.getAllUpcomingExam(token));
-      });
+      await dispatch(examActions.getAllUpcomingExam());
     } catch (error) {}
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
@@ -41,9 +39,7 @@ const Exam = ({ navigation }) => {
   const loadCompletedExam = useCallback(async () => {
     setIsCompletedRefreshing(true);
     try {
-      await getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
-        await dispatch(examActions.getAllCompletedExam(token));
-      });
+      await dispatch(examActions.getAllCompletedExam(studentData.id));
     } catch (error) {}
     setIsCompletedRefreshing(false);
   }, [dispatch, setIsCompletedRefreshing]);
@@ -66,8 +62,12 @@ const Exam = ({ navigation }) => {
       upComingExam: item,
     });
   };
-  const handleOnPressUpCompletedExam = () => {
-    navigation.navigate(ROUTES.EXAM_COMPLETED_RESULT_DETAIL);
+  const handleOnPressUpCompletedExam = (data) => {
+    console.log("Click");
+    navigation.navigate(ROUTES.EXAM_COMPLETED_RESULT_DETAIL, {
+      student: studentData,
+      completedData: data,
+    });
   };
 
   //render UI
@@ -120,8 +120,8 @@ const Exam = ({ navigation }) => {
             showsVerticalScrollIndicator={false}
             renderItem={(itemData) => (
               <CompletedExamItem
-                onPress={handleOnPressUpCompletedExam}
-                examStatus={examActions.getExamStatus(itemData.item.mark)}
+                onItemClick={handleOnPressUpCompletedExam}
+                item={itemData}
               />
             )}
             keyExtractor={(item, index) => index.toString()}

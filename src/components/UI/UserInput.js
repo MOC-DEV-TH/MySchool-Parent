@@ -20,6 +20,7 @@ const UserInput = ({
         onChangeText={(text) => setValue(text)}
         value={value}
         placeholder={placeHolder}
+        placeholderTextColor="#aaaaaa"
         secureTextEntry={secureTextEntry}
         multiline={false}
       />

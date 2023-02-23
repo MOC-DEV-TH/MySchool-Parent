@@ -11,7 +11,7 @@ const TableCell = ({ data }) => {
         alignItems: "center",
       }}
     >
-      <Text>{data}</Text>
+      <Text style={{fontSize:12,textAlign:"center"}}>{data}</Text>
     </View>
   );
 };

@@ -1,31 +1,32 @@
 import CompletedExam from "../../data/model/CompleteExam";
 import UpcomingExam from "../../data/model/UpcomingExam";
-import UpcomingExamDetail from "../../data/model/UpcomingExamDetail";
 import { RestClientApi } from "../../network/RestApiClient";
-import AppConstants, {
+import  {
   LOAD_COMPLETED_EXAM,
   LOAD_UPCOMING_EXAM,
   LOAD_UPCOMING_EXAM_DETAIL,
 } from "../../utils/AppConstants";
 
-export const getAllCompletedExam = (token) => {
+export const getAllCompletedExam = (studentId) => {
   return async (dispatch, getState) => {
-    await RestClientApi.getCompletedExam(token).then((response) => {
+    const token = getState().auth.token;
+    await RestClientApi.getCompletedExam(token,studentId).then((response) => {
       console.log(response);
-      const completedExam = [];
-      for (const item of response) {
-        completedExam.push(new CompletedExam(item.mark, item.name));
-      }
+      // const completedExam = [];
+      // for (const item of response) {
+      //   completedExam.push(new CompletedExam(item.mark, item.name));
+      // }
       dispatch({
         type: LOAD_COMPLETED_EXAM,
-        completedExamData: completedExam,
+        completedExamData: response.details,
       });
     });
   };
 };
 
-export const getAllUpcomingExam = (token) => {
-  return async (dispatch) => {
+export const getAllUpcomingExam = () => {
+  return async (dispatch,getState) => {
+    const token = getState().auth.token;
     await RestClientApi.getUpComingExam(token).then((response) => {
       console.log(response);
       const upComingExam = [];
@@ -48,26 +49,6 @@ export const getAllUpcomingExam = (token) => {
         upcomingExamData: upComingExam,
       });
     });
-  };
-};
-
-export const getUpcomingExamDetail = (token, sessionId, examId) => {
-  return async (dispatch) => {
-    await RestClientApi.getUpcomingExamDetail(sessionId, examId, token).then(
-      (response) => {
-        console.log(response);
-        const upComingExamDeatil = [];
-        for (const item of response.details) {
-          upComingExamDeatil.push(
-            new UpcomingExamDetail(item.name, item.duration, item.exam_date)
-          );
-        }
-        dispatch({
-          type: LOAD_UPCOMING_EXAM_DETAIL,
-          upcomingExamDetailData: upComingExamDeatil,
-        });
-      }
-    );
   };
 };
 

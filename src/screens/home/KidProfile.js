@@ -8,6 +8,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 const KidProfile = ({ route, navigation }) => {
   const { studentData } = route.params;
   console.log(studentData.name);
+  console.log(studentData.id);
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{ flex: 1 }}>
@@ -32,18 +33,21 @@ const KidProfile = ({ route, navigation }) => {
           imageName={IMGS.exam}
           navigateName={ROUTES.EXAM}
           navigation={navigation}
+          routeData={studentData}
         />
         <CardItem
           name={"Payment History"}
           imageName={IMGS.paymentHistory}
           navigateName={ROUTES.PAYMENT_HISTORY}
           navigation={navigation}
+          routeData={studentData}
         />
         <CardItem
           name={"Homework"}
           imageName={IMGS.homework}
           navigateName={ROUTES.HOMEWORK}
           navigation={navigation}
+          routeData={studentData}
         />
       </KeyboardAwareScrollView>
     </View>

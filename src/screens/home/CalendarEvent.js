@@ -1,86 +1,100 @@
-import { StyleSheet, View, Platform, FlatList } from "react-native";
+import React, { useEffect, useCallback, useState } from "react";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { Calendar } from "react-native-calendars";
-import { COLORS, MARGINS, PADDINGS, IMGS } from "../../constants";
+import { COLORS, MARGINS, PADDINGS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
-import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import * as calendarEventAction from "../../store/actions/calendarEvent";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CalendarEvent = () => {
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const markedDay = {};
 
-  let markedDay = {};
-  const calendar = [
-    {
-      date: "2023-02-16",
-      type: "present",
-      name: "Christmas",
-      colorCode: "#A363A9",
-    },
-    {
-      date: "2023-02-17",
-      type: "present",
-      name: "Karen New Year",
-      colorCode: "#2B56AF",
-    },
-    {
-      date: "2023-02-18",
-      type: "absent",
-      name: "Union Day",
-      colorCode: "#96B245",
-    },
-  ];
-  calendar.map((item) => {
-    markedDay[item.date] = {
-      customStyles: {
-        container: {
-          borderWidth: 0.7,
-          borderColor: item.colorCode,
-          backgroundColor: item.colorCode,
-          opacity: 0.6,
-          elevation:10
-        },
-        text: {
-          color: "black",
-          fontWeight: "bold",
-          paddingTop: Platform.OS == "android" ? PADDINGS.p2 : undefined,
-        },
-      },
-    };
-  });
+  //get all calendar event data
+  const eventData = useSelector((state) => state.calendarEvent.calendarEvent);
+  const mapData = useSelector((state) => state.calendarEvent.mapData);
 
+  //initial load data
+  useEffect(() => {
+    loadCalendarEvent();
+  }, []);
+
+  //load calendar event data
+  const loadCalendarEvent = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(calendarEventAction.getCalendarEvent());
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  //render footer item
   const renderItem = ({ item }) => {
     return (
       <View
         style={{
-          backgroundColor: item.colorCode,
+          backgroundColor: item.color,
           padding: PADDINGS.p16,
           marginBottom: MARGINS.m12,
           borderRadius: 12,
         }}
       >
         <Text medium color={COLORS.white} style={{ fontWeight: "bold" }}>
-          {item.name}
+          {item.event_name}
         </Text>
       </View>
     );
   };
 
+  //map data to markedDate
+  mapData.map((item) => {
+    markedDay[item.date] = {
+      customStyles: {
+        container: {
+          borderWidth: 0.7,
+          borderColor: "white",
+          backgroundColor: item.bgColor,
+          opacity: 0.6,
+          elevation: 10,
+        },
+        text: {
+          color: "white",
+          fontWeight: "normal",
+        },
+      },
+    };
+  });
+
+  //render screen
   return (
     <View style={styles.container}>
-      <Calendar
-        markingType={"custom"}
-        style={{
-          borderRadius: 6,
-          marginTop: MARGINS.m16,
-          marginBottom: MARGINS.m32,
-        }}
-        markedDates={markedDay}
-      />
-
-      <FlatList
-        data={calendar}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <KeyboardAwareScrollView>
+        {isRefreshing ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <Calendar
+            markingType={"custom"}
+            markedDates={markedDay}
+            style={{
+              borderRadius: 6,
+              marginTop: MARGINS.m16,
+              marginBottom: MARGINS.m32,
+            }}
+          />
+        )}
+        <FlatList
+          data={eventData}
+          renderItem={(itemData) => renderItem(itemData)}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </KeyboardAwareScrollView>
     </View>
   );
 };

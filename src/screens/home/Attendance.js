@@ -52,6 +52,7 @@ const Attendance = () => {
       },
     };
   });
+  console.log("markedDay",markedDay);
 
   const FooterContainer = ({ style, label, count }) => {
     return (
@@ -99,12 +100,11 @@ const Attendance = () => {
           count={"12"}
           style={styles.footerContainerPresent}
         />
-         <FooterContainer
+        <FooterContainer
           label={"Absent"}
           count={"14"}
           style={styles.footerContainerAbsent}
         />
-        
       </View>
       <TouchableOpacity onPress={handleOnPressLeave}>
         <View style={styles.button}>

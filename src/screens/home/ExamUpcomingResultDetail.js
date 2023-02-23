@@ -5,13 +5,11 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { COLORS, PADDINGS, MARGINS, IMGS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { useSelector, useDispatch } from "react-redux";
-import * as examActions from "../../store/actions/exam";
-import { getData } from "../../utils/SessionManager";
-import AppConstants from "../../utils/AppConstants";
+import * as upComingExamDetailAction from "../../store/actions/upComingExamDetail";
 
 const ExamUpcomingResultDetail = ({ route, navigation }) => {
   const { upComingExam } = route.params;
@@ -21,34 +19,33 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   //get all upcoming detail data
-  const upComingExamData = useSelector(
-    (state) => state.exam.upcomingExamDetailData
+  const upComingExamDetailData = useSelector(
+    (state) => state.upComingExamDetail.upcomingExamDetailData
   );
 
   //initial load data
   useEffect(() => {
-    loadUpcomingExam();
+    loadUpcomingExamDetail();
   }, []);
 
   //load upcomingExamData
-  const loadUpcomingExam = useCallback(async () => {
+  const loadUpcomingExamDetail = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      await getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
-        await dispatch(
-          examActions.getUpcomingExamDetail(
-            upComingExam.sessionId,
-            upComingExam.id,
-            token
-          )
-        );
-      });
+      await dispatch(
+        upComingExamDetailAction.getUpcomingExamDetail(
+          upComingExam.sessionId,
+          upComingExam.id
+        )
+      );
     } catch (error) {}
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
+  console.log("DetailData", upComingExamDetailData.length);
+
   //render item
-  const renderUpcomingItem = (item) => {
+  const renderUpcomingItem = ({item}) => {
     return (
       <View style={styles.card}>
         <View
@@ -88,12 +85,18 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
       {isRefreshing ? (
         <ActivityIndicator size="large" />
       ) : (
-        <View style={{ backgroundColor: COLORS.white, borderRadius: 12 }}>
+        <View
+          style={{
+            backgroundColor:
+              upComingExamDetailData.length === 0 ? COLORS.black : COLORS.white,
+            borderRadius: 12,
+          }}
+        >
           <FlatList
-            data={upComingExamData}
+            data={upComingExamDetailData}
             style={{ marginTop: MARGINS.m10 }}
             showsVerticalScrollIndicator={false}
-            renderItem={renderUpcomingItem}
+            renderItem={(itemData)=>renderUpcomingItem(itemData)}
             keyExtractor={(item, index) => index.toString()}
             ItemSeparatorComponent={FlatListItemSeparator}
           />

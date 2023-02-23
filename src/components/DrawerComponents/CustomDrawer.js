@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   StyleSheet,
   Image,
@@ -16,12 +16,23 @@ import { useSelector } from "react-redux";
 
 const CustomDrawer = (props) => {
   const studentData = useSelector((state) => state.home.studentData);
+  const userName = useSelector((state) => state.auth.name);
   const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
 
+  console.log("UserName", userName);
+
+  useEffect(()=>{
+    
+  })
+
   const renderChildrenItem = (item) => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(ROUTES.KID_PROFILE, { studentData: item })
+        }
+      >
         <View style={styles.childrenItem}>
           <Text
             small
@@ -34,7 +45,6 @@ const CustomDrawer = (props) => {
       </TouchableOpacity>
     );
   };
-
   const handleOnPressMyProfile = () => {
     navigation.navigate(ROUTES.PROFILE);
   };
@@ -58,7 +68,7 @@ const CustomDrawer = (props) => {
             marginBottom: MARGINS.m26,
           }}
         >
-          <Text style={{ fontWeight: "bold" }}>Welcome(Name)</Text>
+          <Text style={{ fontWeight: "bold" }}>Welcome({userName})</Text>
         </View>
 
         <View

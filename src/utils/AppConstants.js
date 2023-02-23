@@ -14,21 +14,41 @@ export default {
   GET_UPCOMING_EXAM_URL: Config.APIServiceURL + "/upcoming-exams-mobile",
   GET_UPCOMING_EXAM_DETAIL_URL: Config.APIServiceURL + "/exam-schedule-mobile",
   GET_EXAM_LIST_URL: Config.APIServiceURL + "/exams/list",
-  GET_PASSED_EXAM_URL: Config.APIServiceURL + "/exams/passed-exams",
-  GET_CLASS_ROUTINE_URL: Config.APIServiceURL + "/reports/get-timetables",
+  GET_PASSED_EXAM_URL: Config.APIServiceURL + "/complete-exam-results-mobile",
+  GET_PASSED_EXAM_DETAIL_URL:
+    Config.APIServiceURL + "/complete-exam-results-details-mobile",
+  GET_CLASS_ROUTINE_URL: Config.APIServiceURL + "/get-timetables-mobile",
+  GET_UPCOMING_CALENDAR_EVENT_URL:
+    Config.APIServiceURL + "/upcoming-events-mobile",
+  GET_PROFILE_DETAIL_URL: Config.APIServiceURL + "/guardian-profile-mobile",
+  GET_HOMEWORK_URL: Config.APIServiceURL + "/homeworks-mobile/1/1",
+  GET_PAYMENT_HISTORY_URL: Config.APIServiceURL + "/payment-history-mobile/2",
+  GET_BILLING_HISTORY_URL: Config.APIServiceURL + "/billing-history-mobile/2",
 
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",
 };
 
 export const AUTHENTICATE = "AUTHENTICATE";
+export const AUTHENTICATE_TOKEN = "AUTHENTICATE_TOKEN";
 export const LOAD_HOME_LOADING = "LOAD_HOME_LOADING";
 export const LOAD_HOME_SUCCESS = "LOAD_HOME_SUCCESS";
 export const LOAD_HOME_ERROR = "LOAD_HOME_ERROR";
 export const LOAD_HOME_STUDENT = "LOAD_HOME_STUDENT";
 
 export const LOAD_COMPLETED_EXAM = "LOAD_COMPLETED_EXAM";
+export const LOAD_COMPLETED_EXAM_DETAIL = "LOAD_COMPLETED_EXAM_DETAIL";
+
 export const LOAD_UPCOMING_EXAM = "LOAD_UPCOMING_EXAM";
 export const LOAD_UPCOMING_EXAM_DETAIL = "LOAD_UPCOMING_EXAM_DETAIL";
 
+export const LOAD_UPCOMING_EVENT_CALENDAR = "LOAD_UPCOMING_EVENT_CALENDAR";
+export const LOAD_UPCOMING_EVENT_MAP_DATA = "LOAD_UPCOMING_EVENT_MAP_DATA";
+
 export const LOAD_CLASS_ROUTINE = "LOAD_CLASS_ROUTINE";
+
+export const LOAD_PROFILE_DETAIL_DATA = "LOAD_PROFILE_DETAIL_DATA";
+
+export const LOAD_HOMEWORK_DATA = "LOAD_HOMEWORK_DATA";
+export const LOAD_PAYMENT_HISTORY_DATA = "LOAD_PAYMENT_HISTORY_DATA";
+export const LOAD_BILLING_HISTORY_DATA = "LOAD_BILLING_HISTORY_DATA";

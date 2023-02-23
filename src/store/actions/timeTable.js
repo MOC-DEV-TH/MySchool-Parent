@@ -2,47 +2,84 @@ import Routine from "../../data/model/Routine";
 import { RestClientApi } from "../../network/RestApiClient";
 import { LOAD_CLASS_ROUTINE } from "../../utils/AppConstants";
 
-export const getClassRoutine = (
-  sessionId,
-  classId,
-  sectionId,
-  dayIndex,
-  token
-) => {
-  console.log(dayIndex);
-  return async (dispatch) => {
+export const getClassRoutine = (sessionId, classId, sectionId, dayIndex) => {
+  console.log(sessionId, classId, sectionId, dayIndex);
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const mondayData = [];
+    const tuesdayData = [];
+    const wedData = [];
+    const thuData = [];
+    const friDay = [];
     await RestClientApi.getClassRoutine(
       sessionId,
       classId,
       sectionId,
       token
     ).then((response) => {
-      console.log(response);
-      const routineData = [];
-      const respData = [];
+      console.log("Token", token);
+      console.log("Response", response.details.Monday);
+
       if (dayIndex === 0) {
-        respData.push(...response.details.Monday);
-      } else if (dayIndex === 1) {
-        respData.push(...response.details.Tuesday);
-      } else if (dayIndex === 2) {
-        respData.push(...response.details.Wednesday);
-      } else if (dayIndex === 3) {
-        respData.push(...response.details.Thursday);
-      } else if (dayIndex === 4) {
-        respData.push(...response.details.Friday);
-      }
+        for (const item of response.details.Monday) {
+          mondayData.push(
+            new Routine(item.name, item.duration, item.subject, item.isActive)
+          );
+        }
 
-      console.log("Array length", respData.length);
-      for (const item of respData) {
-        routineData.push(
-          new Routine(item.name, item.duration, item.subject, item.isActive)
-        );
+        dispatch({
+          type: LOAD_CLASS_ROUTINE,
+          routineData: mondayData,
+        });
       }
+      if (dayIndex === 1) {
+        for (const item of response.details.Tueday) {
+          tuesdayData.push(
+            new Routine(item.name, item.duration, item.subject, item.isActive)
+          );
+        }
 
-      dispatch({
-        type: LOAD_CLASS_ROUTINE,
-        routineData: routineData,
-      });
+        dispatch({
+          type: LOAD_CLASS_ROUTINE,
+          routineData: tuesdayData,
+        });
+      }
+      if (dayIndex === 2) {
+        for (const item of response.details.Wedday) {
+          wedData.push(
+            new Routine(item.name, item.duration, item.subject, item.isActive)
+          );
+        }
+
+        dispatch({
+          type: LOAD_CLASS_ROUTINE,
+          routineData: wedData,
+        });
+      }
+      if (dayIndex === 3) {
+        for (const item of response.details.Thurday) {
+          thuData.push(
+            new Routine(item.name, item.duration, item.subject, item.isActive)
+          );
+        }
+
+        dispatch({
+          type: LOAD_CLASS_ROUTINE,
+          routineData: thuData,
+        });
+      }
+      if (dayIndex === 4) {
+        for (const item of response.details.Friday) {
+          friDay.push(
+            new Routine(item.name, item.duration, item.subject, item.isActive)
+          );
+        }
+
+        dispatch({
+          type: LOAD_CLASS_ROUTINE,
+          routineData: friDay,
+        });
+      }
     });
   };
 };

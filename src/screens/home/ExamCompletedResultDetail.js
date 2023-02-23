@@ -1,34 +1,45 @@
 import { StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Table, Row, TableWrapper, Cell } from "react-native-table-component";
 import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
+import { useSelector, useDispatch } from "react-redux";
+import * as completedExamDetailAction from "../../store/actions/completedExamDetail";
 
-const ExamCompletedResultDetail = () => {
+const ExamCompletedResultDetail = ({ navigation, route }) => {
+  const { student, completedData } = route.params;
+  console.log("student",student);
+  const dispatch = useDispatch();
   const header = ["Subject Name", "Grade", "Status"];
-  const [resultData, setResultData] = useState([
-    {
-      sbjName: "Myanmar",
-      grade: "A",
-      status: "PASS",
-    },
-    {
-      sbjName: "English",
-      grade: "B",
-      status: "PASS",
-    },
-    {
-      sbjName: "Maths",
-      grade: "A",
-      status: "FAIL",
-    },
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  //get all completed detail data
+  const completedExamDetailData = useSelector(
+    (state) => state.completedExamDetail.completedExamDetailData
+  );
+
+  //initial load data
+  useEffect(() => {
+    loadCompletedExamDetail();
+  }, []);
+
+  //load completed detail data
+  const loadCompletedExamDetail = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(completedExamDetailAction.getCompletedExamDetail(6, 4));
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  console.log("CompletedDetailData", completedExamDetailData.length);
+
+  const tableData = completedExamDetailData.map((data) => [
+    data.subject_name,
+    "A",
+    data.final_result.pass.toString() == "false" ? "FAIL" : "PASS",
   ]);
 
-  const tableData = resultData.map((data) => [
-    data.sbjName,
-    data.grade,
-    data.status,
-  ]);
   const element = (data, index) => (
     <View>
       <Text
@@ -48,16 +59,16 @@ const ExamCompletedResultDetail = () => {
         Exam Results
       </Text>
       <Text large color={COLORS.white} style={styles.name}>
-        MG MG
+        {student.name}
       </Text>
       <Text small color={COLORS.white} style={styles.small_text}>
-        Class - Grade 8 A
+        Class - {student.class_name}
       </Text>
 
       <Text medium color={COLORS.white} style={styles.medium_text}>
-        October Monthly Exams
+        {completedData.exam_name}
       </Text>
-      <Table borderStyle={{borderWidth: 1,borderColor:"transparent"}}>
+      <Table borderStyle={{ borderWidth: 1, borderColor: "transparent" }}>
         <Row data={header} style={styles.head} textStyle={styles.header_text} />
         <Table>
           {tableData.map((rowData, index) => (
@@ -66,8 +77,8 @@ const ExamCompletedResultDetail = () => {
               style={{
                 flexDirection: "row",
                 backgroundColor: COLORS.white,
-                borderBottomLeftRadius: index + 1 === rowData.length ? 12 : 0,
-                borderBottomRightRadius: index + 1 === rowData.length ? 12 : 0,
+                borderBottomLeftRadius: index + 2 === rowData.length ? 12 : 0,
+                borderBottomRightRadius: index + 2 === rowData.length ? 12 : 0,
               }}
             >
               {rowData.map((cellData, cellIndex) => (

@@ -7,15 +7,10 @@ import { COLORS, PADDINGS, MARGINS, IMGS } from "../../constants";
 import TimeTableItem from "../../components/ItemComponents/TimeTableItem";
 import { useSelector, useDispatch } from "react-redux";
 import * as timeTableAction from "../../store/actions/timeTable";
-import { getData } from "../../utils/SessionManager";
-import AppConstants from "../../utils/AppConstants";
 
 const TimeTableAndRoutine = ({ route, navigation }) => {
   const { studentData } = route.params;
   console.log(studentData.name);
-
-  const [token, setToken] = useState();
-
   const [isRefreshing, setIsRefreshing] = useState(false);
   const dispatch = useDispatch();
 
@@ -25,9 +20,6 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
   //initial load data
   useEffect(() => {
     loadRoutineData(0);
-    getData(AppConstants.KEY_AUTH_TOKEN).then(async (token) => {
-      setToken(token);
-    });
   }, []);
 
   //load routine data
@@ -40,14 +32,13 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
             studentData.sessionId,
             studentData.classId,
             studentData.sectionId,
-            dayIndex,
-            token
+            dayIndex
           )
         );
       } catch (error) {}
       setIsRefreshing(false);
     },
-    [dispatch, setIsRefreshing]
+    []
   );
 
   //press button group
@@ -84,24 +75,17 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
         {isRefreshing ? (
           <ActivityIndicator size="large" />
         ) : (
-          <View
-            style={{
-              backgroundColor: COLORS.white,
-              borderRadius: 12,
-              marginLeft: MARGINS.m6,
-              marginRight: MARGINS.m6,
-            }}
-          >
+          <View style={{ backgroundColor:routineData.length==0 ? COLORS.black : COLORS.white, borderRadius: 12 }}>
             <FlatList
               isRefreshing={isRefreshing}
               data={routineData}
               style={{ marginTop: MARGINS.m10 }}
               showsVerticalScrollIndicator={false}
-              renderItem={() => <TimeTableItem item={routineData} />}
+              renderItem={(itemData) => <TimeTableItem item={itemData.item} />}
               keyExtractor={(item, index) => index.toString()}
               ItemSeparatorComponent={FlatListItemSeparator}
             />
-          </View>
+         </View>
         )}
       </KeyboardAwareScrollView>
     </View>

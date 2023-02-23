@@ -11,6 +11,7 @@ import DrawerNavigator from "./src/navigations/DrawerNavigator";
 import { getData } from "./src/utils/SessionManager";
 import AppConstants from "./src/utils/AppConstants";
 import { LogBox } from "react-native";
+import Auth from "./src/store/reducers/auth";
 
 LogBox.ignoreAllLogs();
 const store = configureStore();

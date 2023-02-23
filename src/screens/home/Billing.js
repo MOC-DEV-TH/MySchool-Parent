@@ -1,30 +1,36 @@
-import { StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { DataTable } from "react-native-paper";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import BillingTable from "../../components/TableComponents/BillingTable";
+import { useSelector, useDispatch } from "react-redux";
+import * as billingHistoryAction from "../../store/actions/billingHistory";
 
-const Billing = () => {
-  const [data, setData] = useState([
-    {
-      sbjName: "Myanmar",
-      grade: "A",
-      status: "Pass",
-    },
-    {
-      sbjName: "English",
-      grade: "B",
-      status: "Pass",
-    },
-    {
-      sbjName: "Maths",
-      grade: "A",
-      status: "Pass",
-    },
-  ]);
+const Billing = ({ route }) => {
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  //initial load data
+  useEffect(() => {
+    loadBillingHistoryData();
+  }, []);
+
+  //get billing history  data
+  const paidData = useSelector((state) => state.billingHistory.paid);
+  const unpaidData = useSelector((state) => state.billingHistory.unpaid);
+
+  //load billing history  data
+  const loadBillingHistoryData = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(billingHistoryAction.getAllBillingHistory());
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  console.log("PaidDataLength", paidData.length);
+  console.log("UnPaidDataLength", unpaidData.length);
 
   return (
     <View style={styles.container}>
@@ -32,9 +38,18 @@ const Billing = () => {
         <Text color={COLORS.white} style={styles.title}>
           Billing
         </Text>
-
-        <BillingTable name={"Paid"} data={data} />
-        <BillingTable name={"UnPaid"} data={data} />
+        {isRefreshing ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <View>
+            {unpaidData.length != 0 ? (
+              <BillingTable name={"UnPaid"} data={unpaidData} />
+            ) : undefined}
+            {paidData.length != 0 ? (
+              <BillingTable name={"Paid"} data={paidData} />
+            ) : undefined}
+          </View>
+        )}
       </KeyboardAwareScrollView>
     </View>
   );

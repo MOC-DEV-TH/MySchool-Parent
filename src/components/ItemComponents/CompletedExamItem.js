@@ -6,18 +6,22 @@ import { MARGINS, IMGS, COLORS, PADDINGS } from "../../constants";
 const CompletedExamItem = (props) => {
   return (
     <View>
-      <TouchableOpacity onPress={props.onPress}>
+      <TouchableOpacity onPress={() => props.onItemClick(props.item.item)}>
         <View style={styles.completedCard}>
           <Image source={IMGS.exam_complete} />
           <View style={{ flex: 0.4 }}>
-            <Text style={{ fontWeight: "bold" }}>First Term</Text>
+            <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
+              {props.item.item.exam_name}
+            </Text>
           </View>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{
                 backgroundColor:
-                  props.examStatus === "PASS" ? COLORS.present : COLORS.absent,
+                  props.item.item.final_results.pass.toString() == "true"
+                    ? COLORS.present
+                    : COLORS.absent,
                 paddingTop: PADDINGS.p2,
                 paddingBottom: PADDINGS.p2,
                 paddingLeft: PADDINGS.p10,
@@ -25,7 +29,11 @@ const CompletedExamItem = (props) => {
                 borderRadius: 12,
               }}
             >
-              <Text color={COLORS.white}>{props.examStatus}</Text>
+              <Text color={COLORS.white}>
+                {props.item.item.final_results.pass.toString() == "true"
+                  ? "PASS"
+                  : "FAIL"}
+              </Text>
             </View>
             <Image source={IMGS.arrowBlue} style={{ marginLeft: MARGINS.m6 }} />
           </View>

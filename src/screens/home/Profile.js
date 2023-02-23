@@ -1,11 +1,35 @@
-import { StyleSheet, ImageBackground, View, Image } from "react-native";
-import React from "react";
+import { StyleSheet, View } from "react-native";
+import React, { useEffect, useCallback,useState } from "react";
 import { IMGS, COLORS, PADDINGS, MARGINS } from "../../constants";
 import CustomText from "../../components/UI/CustomText";
 import Text from "@kaloraat/react-native-text";
 import CustomTextWithIcon from "../../components/UI/CustomTextWithIcon";
+import { useSelector, useDispatch } from "react-redux";
+import * as profileAction from "../../store/actions/profile";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  //initial load data
+  useEffect(() => {
+    loadProfileDetail();
+  }, []);
+
+  //get profile detail data
+  const profileDetailData = useSelector((state) => state.profile.profileDetail);
+
+  //load profile detail data
+  const loadProfileDetail = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(profileAction.getProfileDetail());
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  console.log("ProfileDetail", profileDetailData.length);
+
   const handleOnPressResidentialAddress = () => {
     console.log("OnPress Address");
   };

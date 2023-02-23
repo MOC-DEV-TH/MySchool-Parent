@@ -9,7 +9,7 @@ export default {
 
   NOTIFICATIONS: "Notifications",
   NOTIFICATIONS_DRAWER: "Notifications Drawer",
-
+ 
   SETTINGS: "Settings",
   ACCOUNT_SETTINGS: "Account Settings",
   SETTINGS_NAVIGATOR: "Settings Navigator",

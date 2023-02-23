@@ -1,31 +1,36 @@
-import { StyleSheet, View } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, ActivityIndicator } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import { COLORS, PADDINGS, MARGINS, ROUTES } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { useNavigation } from "@react-navigation/native";
 import PaymentHistoryTable from "../../components/TableComponents/PaymentHistoryTable";
+import { useSelector, useDispatch } from "react-redux";
+import * as paymentHistoryAction from "../../store/actions/paymentHistory";
 
-const PaymentHistory = () => {
-  const navigation = useNavigation();
-  const [data, setData] = useState([
-    {
-      sbjName: "Myanmar",
-      grade: "A",
-      status: "Pass",
-    },
-    {
-      sbjName: "English",
-      grade: "B",
-      status: "Pass",
-    },
-    {
-      sbjName: "Maths",
-      grade: "A",
-      status: "Pass",
-    },
-  ]);
+const PaymentHistory = ({ route }) => {
+  const { studentData } = route.params;
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
+  //initial load data
+  useEffect(() => {
+    loadPaymentHistoryData();
+  }, []);
+
+  //get payment history  data
+  const paidData = useSelector((state) => state.paymentHistory.paid);
+  const unpaidData = useSelector((state) => state.paymentHistory.unpaid);
+
+  //load payment history  data
+  const loadPaymentHistoryData = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(paymentHistoryAction.getAllPaymentHistory());
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  //render UI
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView>
@@ -33,14 +38,24 @@ const PaymentHistory = () => {
           Fees List
         </Text>
         <Text large color={COLORS.white} style={styles.name}>
-          MG MG
+          {studentData.name}
         </Text>
         <Text small color={COLORS.white} style={styles.small_text}>
-          Class - Grade 8 A
+          Class - {studentData.class_name} {studentData.section}
         </Text>
 
-        <PaymentHistoryTable name={"Paid"} data={data} />
-        <PaymentHistoryTable name={"UnPaid"} data={data} />
+        {isRefreshing ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <View>
+            {unpaidData.length != 0 ? (
+              <PaymentHistoryTable name={"UnPaid"} paymentArray={unpaidData} />
+            ) : undefined}
+            {paidData.length != 0 ? (
+              <PaymentHistoryTable name={"Paid"} paymentArray={paidData} />
+            ) : undefined}
+          </View>
+        )}
       </KeyboardAwareScrollView>
     </View>
   );

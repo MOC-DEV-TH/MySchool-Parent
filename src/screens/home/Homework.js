@@ -1,53 +1,60 @@
-import { StyleSheet, View, FlatList } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { Ionicons } from "@expo/vector-icons";
 import HomeWorkItem from "../../components/ItemComponents/HomeWorkItem";
-import Home from "./Home";
+import { useSelector, useDispatch } from "react-redux";
+import * as homeworkAction from "../../store/actions/homework";
 
-const Homework = () => {
-  const [data, setData] = useState([
-    {
-      sbjName: "Myanmar",
-      grade: "A",
-      status: "Pass",
-    },
-    {
-      sbjName: "English",
-      grade: "B",
-      status: "Pass",
-    },
-    {
-      sbjName: "Maths",
-      grade: "A",
-      status: "Pass",
-    },
-  ]);
+const Homework = ({ route }) => {
+  const { studentData } = route.params;
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
+  //initial load data
+  useEffect(() => {
+    loadHomeworkData();
+  }, []);
 
+  //get homework  data
+  const homeworkData = useSelector((state) => state.homework.homeworkData);
+
+  //load homework  data
+  const loadHomeworkData = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(homeworkAction.getAllHomeWork());
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  console.log("HomeWorkDataLength", homeworkData.length);
 
   return (
     <View style={styles.container}>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <Text medium color={COLORS.white} style={styles.title}>
           Homework
         </Text>
-        <Text medium color={COLORS.white} style={styles.name}>
-          MG MG
+        <Text large color={COLORS.white} style={styles.name}>
+          {studentData.name}
         </Text>
         <Text small color={COLORS.white} style={styles.small_text}>
-          Class - Grade 8 A
+          Class - {studentData.class_name}
         </Text>
-
-        <FlatList
-          data={data}
-          style={{ marginTop: MARGINS.m10 }}
-          showsVerticalScrollIndicator={false}
-          renderItem={()=><HomeWorkItem/>}
-          keyExtractor={(item, index) => index.toString()}
-        />
+        {isRefreshing ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <FlatList
+            data={homeworkData}
+            style={{ marginTop: MARGINS.m10 }}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            renderItem={(itemData) => <HomeWorkItem item={itemData} />}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        )}
       </KeyboardAwareScrollView>
     </View>
   );
@@ -82,5 +89,4 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: MARGINS.m2,
   },
-  
 });

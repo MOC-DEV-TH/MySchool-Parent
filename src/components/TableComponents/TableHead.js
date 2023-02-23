@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { COLORS } from "../../constants";
+import { COLORS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 
 const TableHead = ({ title }) => {
@@ -10,9 +10,11 @@ const TableHead = ({ title }) => {
         justifyContent: "center",
         flex: 1,
         alignItems: "center",
+        marginLeft:MARGINS.m4,
+        marginRight:MARGINS.m4
       }}
     >
-      <Text color={COLORS.white}>{title}</Text>
+      <Text style={{fontSize:12}} color={COLORS.white}>{title}</Text>
     </View>
   );
 };

@@ -1,7 +1,6 @@
 import Student from "../../data/model/Student";
 import { RestClientApi } from "../../network/RestApiClient";
-import AppConstants, {
-  LOAD_HOME_ERROR,
+import  {
   LOAD_HOME_LOADING,
   LOAD_HOME_STUDENT,
   LOAD_HOME_SUCCESS,

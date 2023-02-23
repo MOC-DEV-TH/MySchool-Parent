@@ -1,7 +1,8 @@
-import { AUTHENTICATE } from "../../utils/AppConstants";
+import { AUTHENTICATE, AUTHENTICATE_TOKEN } from "../../utils/AppConstants";
 
 const initialState = {
   token: null,
+  name: null,
 };
 
 export default (state = initialState, action) => {
@@ -9,6 +10,12 @@ export default (state = initialState, action) => {
     case AUTHENTICATE:
       return {
         token: action.token,
+        name: action.name,
+      };
+    case AUTHENTICATE_TOKEN:
+      return {
+        token: action.authToken,
+        name: action.userName,
       };
     default:
       return state;

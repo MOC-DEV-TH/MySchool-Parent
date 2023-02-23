@@ -19,20 +19,22 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as homeActions from "../../store/actions/home";
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   //get home data
   const isLoading = useSelector((state) => state.home.loading);
-  const isError = useSelector((state) => state.home.error);
   const studentData = useSelector((state) => state.home.studentData);
   const upComingEventData = useSelector((state) => state.home.eventData);
 
   //initial fetch home data
-  useEffect(() => {
-    getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
-      dispatch(homeActions.getAllStudentData(value));
+  useEffect(async () => {
+    await getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
+      if (value != null) {
+        dispatch(homeActions.getAllStudentData(value));
+        dispatch(authAction.setAuthToken(value));
+      }
     });
   }, []);
 

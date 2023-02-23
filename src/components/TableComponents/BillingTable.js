@@ -38,7 +38,7 @@ const BillingTable = (props) => {
         <TableHead title={"Due Date"} />
         <TableHead title={"Amount"} />
       </DataTable.Header>
-      {props.data.map((rank, i, { length }) => (
+      {props.data.map((data, i, { length }) => (
         <DataTable.Row
           style={{
             backgroundColor: COLORS.white,
@@ -47,6 +47,7 @@ const BillingTable = (props) => {
             borderBottomRightRadius: i + 1 === length ? 12 : 0,
           }}
         >
+          <TableCell data={data.student_name} />
           <View
             style={{
               justifyContent: "center",
@@ -57,6 +58,7 @@ const BillingTable = (props) => {
             <TouchableOpacity onPress={props.onPre}>
               <Text
                 style={{
+                  fontSize : 12,
                   color: COLORS.textColorBlue,
                   textDecorationLine: "underline",
                   textAlign: "center",
@@ -67,9 +69,9 @@ const BillingTable = (props) => {
             </TouchableOpacity>
           </View>
 
-          <TableCell data={"Mid terms"} />
-          <TableCell data={"DD/MM/YY"} />
-          <TableCell data={"xxxxx"} />
+          <TableCell data={data.fee_type} />
+          <TableCell data={data.due_date} />
+          <TableCell data={data.amount} />
         </DataTable.Row>
       ))}
     </DataTable>
