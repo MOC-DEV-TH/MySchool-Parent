@@ -9,7 +9,7 @@ export default {
 
   NOTIFICATIONS: "Notifications",
   NOTIFICATIONS_DRAWER: "Notifications Drawer",
- 
+
   SETTINGS: "Settings",
   ACCOUNT_SETTINGS: "Account Settings",
   SETTINGS_NAVIGATOR: "Settings Navigator",
@@ -34,4 +34,5 @@ export default {
   LEAVE_REQUEST: "Leave Request",
   INVOICE_DETAIL: "Invoice Detail",
   PAYMENT_PLATFORM: "Payment Platform",
+  START_UP: "Start Up",
 };

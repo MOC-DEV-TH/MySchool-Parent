@@ -20,6 +20,7 @@ const KidProfile = ({ route, navigation }) => {
           imageName={IMGS.attendance}
           navigateName={ROUTES.ATTENDANCE}
           navigation={navigation}
+          routeData={studentData}
         />
         <CardItem
           name={"Time Table"}

@@ -4,17 +4,44 @@ import {
   Platform,
   Image,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Calendar } from "react-native-calendars";
 import { COLORS, MARGINS, PADDINGS, IMGS, ROUTES } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import * as attendanceAction from "../../store/actions/attendance";
 
-const Attendance = () => {
+const Attendance = ({ route }) => {
+  const { studentData } = route.params;
   const navigation = useNavigation();
-
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
   let markedDay = {};
+
+  //initial load data
+  useEffect(() => {
+    loadAttendanceData();
+  }, []);
+
+  //get attendance  data
+  const attendanceData = useSelector(
+    (state) => state.attendance.attendanceData
+  );
+
+  //load attendance  data
+  const loadAttendanceData = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(attendanceAction.getStudentAttendance(studentData.id));
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  console.log("AttendanceData", attendanceData);
+
   const [calendar, setCalender] = useState([
     { date: "2023-02-16", type: "present" },
     { date: "2023-02-17", type: "present" },
@@ -52,7 +79,7 @@ const Attendance = () => {
       },
     };
   });
-  console.log("markedDay",markedDay);
+  //console.log("markedDay", markedDay);
 
   const FooterContainer = ({ style, label, count }) => {
     return (
@@ -79,44 +106,50 @@ const Attendance = () => {
 
   return (
     <View style={styles.container}>
-      <Calendar
-        markingType={"custom"}
-        style={{
-          borderRadius: 6,
-          marginTop: MARGINS.m16,
-        }}
-        markedDates={markedDay}
-      />
-
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginTop: MARGINS.m28,
-        }}
-      >
-        <FooterContainer
-          label={"Present"}
-          count={"12"}
-          style={styles.footerContainerPresent}
-        />
-        <FooterContainer
-          label={"Absent"}
-          count={"14"}
-          style={styles.footerContainerAbsent}
-        />
-      </View>
-      <TouchableOpacity onPress={handleOnPressLeave}>
-        <View style={styles.button}>
-          <Text medium style={{ fontWeight: "bold" }} color={COLORS.white}>
-            Submit Leave
-          </Text>
-          <Image
-            source={IMGS.arrow_right_white}
-            style={{ marginLeft: MARGINS.m10 }}
+      {isRefreshing ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <View>
+          <Calendar
+            markingType={"custom"}
+            style={{
+              borderRadius: 6,
+              marginTop: MARGINS.m16,
+            }}
+            markedDates={markedDay}
           />
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: MARGINS.m28,
+            }}
+          >
+            <FooterContainer
+              label={"Present"}
+              count={"12"}
+              style={styles.footerContainerPresent}
+            />
+            <FooterContainer
+              label={"Absent"}
+              count={"14"}
+              style={styles.footerContainerAbsent}
+            />
+          </View>
+          <TouchableOpacity onPress={handleOnPressLeave}>
+            <View style={styles.button}>
+              <Text medium style={{ fontWeight: "bold" }} color={COLORS.white}>
+                Submit Leave
+              </Text>
+              <Image
+                source={IMGS.arrow_right_white}
+                style={{ marginLeft: MARGINS.m10 }}
+              />
+            </View>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+      )}
     </View>
   );
 };

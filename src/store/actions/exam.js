@@ -1,16 +1,15 @@
 import CompletedExam from "../../data/model/CompleteExam";
 import UpcomingExam from "../../data/model/UpcomingExam";
 import { RestClientApi } from "../../network/RestApiClient";
-import  {
+import {
   LOAD_COMPLETED_EXAM,
   LOAD_UPCOMING_EXAM,
-  LOAD_UPCOMING_EXAM_DETAIL,
 } from "../../utils/AppConstants";
 
 export const getAllCompletedExam = (studentId) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    await RestClientApi.getCompletedExam(token,studentId).then((response) => {
+    await RestClientApi.getCompletedExam(token, studentId).then((response) => {
       console.log(response);
       // const completedExam = [];
       // for (const item of response) {
@@ -25,7 +24,7 @@ export const getAllCompletedExam = (studentId) => {
 };
 
 export const getAllUpcomingExam = () => {
-  return async (dispatch,getState) => {
+  return async (dispatch, getState) => {
     const token = getState().auth.token;
     await RestClientApi.getUpComingExam(token).then((response) => {
       console.log(response);

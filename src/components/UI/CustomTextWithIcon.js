@@ -12,7 +12,7 @@ const CustomTextWithIcon = ({
 }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onPressItem}>
+      <TouchableOpacity onPress={() => onPressItem(text)}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Ionicons name={iconName} size={20} color={COLORS.black} />
           <Text style={{ fontWeight: "bold", marginLeft: MARGINS.m14 }}>

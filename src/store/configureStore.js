@@ -11,6 +11,9 @@ import profileReducer from "./reducers/profile";
 import homeworkReducer from "./reducers/homework";
 import paymentHistoryReducer from "./reducers/paymentHistory";
 import billingHistoryReducer from "./reducers/billingHistory";
+import attendanceReducer from "./reducers/attendance";
+import paymentDetailReducer from "./reducers/paymentDetail";
+import notificationReducer from "./reducers/notification";
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -24,6 +27,9 @@ const rootReducer = combineReducers({
   homework: homeworkReducer,
   paymentHistory: paymentHistoryReducer,
   billingHistory: billingHistoryReducer,
+  attendance: attendanceReducer,
+  paymentDetail: paymentDetailReducer,
+  notification: notificationReducer,
 });
 
 const configureStore = () => {

@@ -7,7 +7,7 @@ import TableHead from "./TableHead";
 import TableCell from "./TableCell";
 
 const PaymentHistoryTable = (props) => {
-  console.log("PaymentArray",props.paymentArray);
+  console.log("PaymentArray", props.paymentArray);
   return (
     <DataTable style={{ marginBottom: MARGINS.m14 }}>
       <View
@@ -54,7 +54,9 @@ const PaymentHistoryTable = (props) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress={props.onPre}>
+            <TouchableOpacity
+              onPress={() => props.onPress(props.transaction_no)}
+            >
               <Text
                 style={{
                   color: COLORS.textColorBlue,

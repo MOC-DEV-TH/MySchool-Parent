@@ -8,8 +8,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Icon, Pressable } from "native-base";
 import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/auth";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { StatusBar } from "expo-status-bar";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -31,6 +31,7 @@ const Login = (props) => {
       }}
     >
       <View style={styles.container}>
+        <StatusBar style="light" />
         <Image source={IMGS.logoWhite} style={styles.logo} />
         <UserInput
           name={"Login"}

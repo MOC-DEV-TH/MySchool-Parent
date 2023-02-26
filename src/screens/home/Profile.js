@@ -1,6 +1,6 @@
-import { StyleSheet, View } from "react-native";
-import React, { useEffect, useCallback,useState } from "react";
-import { IMGS, COLORS, PADDINGS, MARGINS } from "../../constants";
+import { StyleSheet, View, Linking } from "react-native";
+import React, { useEffect, useCallback, useState } from "react";
+import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import CustomText from "../../components/UI/CustomText";
 import Text from "@kaloraat/react-native-text";
 import CustomTextWithIcon from "../../components/UI/CustomTextWithIcon";
@@ -28,21 +28,23 @@ const Profile = () => {
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
-  console.log("ProfileDetail", profileDetailData.length);
+  console.log("ProfileDetail", profileDetailData);
 
   const handleOnPressResidentialAddress = () => {
     console.log("OnPress Address");
   };
-  const handleOnPressPhone = () => {
-    console.log("OnPress Phone");
+  const handleOnPressPhone = (phoneNO) => {
+    console.log(phoneNO);
+    Linking.openURL("tel:" + phoneNO);
   };
-  const handleOnPressEmail = () => {
-    console.log("OnPress Email");
+  const handleOnPressEmail = (email) => {
+    console.log(email);
+    Linking.openURL("mailto:" + email);
   };
 
   return (
     <View style={styles.container}>
-      <CustomText label={"Name"} value={"Daw Mya Mya"} />
+      <CustomText label={"Name"} value={profileDetailData.name} />
       <CustomText label={"NRC No."} value={"12/xxx(N)xxx"} />
 
       <Text
@@ -56,18 +58,18 @@ const Profile = () => {
       <View style={styles.footerContainer}>
         <CustomTextWithIcon
           iconName={"mail"}
-          text={"Email Address"}
+          text={profileDetailData.email}
           onPressItem={handleOnPressEmail}
         />
         <CustomTextWithIcon
           iconName={"call"}
-          text={"Phone Number"}
+          text={profileDetailData.phone}
           onPressItem={handleOnPressPhone}
         />
         <CustomTextWithIcon
           iconName={"locate"}
           divider={false}
-          text={"Residential"}
+          text={profileDetailData.occupation}
           onPressItem={handleOnPressResidentialAddress}
         />
       </View>

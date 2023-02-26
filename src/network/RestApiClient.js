@@ -1,4 +1,3 @@
-// import { err } from "react-native-svg/lib/typescript/xml";
 import AppConstants from "../utils/AppConstants";
 
 export const RestClientApi = {
@@ -39,36 +38,17 @@ export const RestClientApi = {
     return response.json();
   },
 
-  getAttendanceStudent: async function () {
-    const response = await fetch(AppConstants.GET_ATTENDANCE_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "",
-      },
-    });
-    return response.json();
-  },
-
-  getExamSchedule: async function () {
-    const response = await fetch(AppConstants.GET_EXAM_SCHEDULE_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "",
-      },
-    });
-    return response.json();
-  },
-
-  getExamScheduleDetail: async function () {
-    const response = await fetch(AppConstants.GET_EXAM_SCHEDULE_DETAIL_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "",
-      },
-    });
+  getAttendanceStudent: async function (token, studentId) {
+    const response = await fetch(
+      AppConstants.GET_ATTENDANCE_URL + studentId + "/attendance",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.json();
   },
 
@@ -83,13 +63,17 @@ export const RestClientApi = {
     return await response.json();
   },
 
-  getExamList: async function () {
-    const response = await fetch(AppConstants.GET_EXAM_LIST_URL, {
-      method: "GET",
+  getUpcomingExamDetail: async function (sessionId, examId, token) {
+    const response = await fetch(AppConstants.GET_UPCOMING_EXAM_DETAIL_URL, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "",
+        Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({
+        session_id: sessionId,
+        exam_id: examId,
+      }),
     });
     return response.json();
   },
@@ -142,21 +126,6 @@ export const RestClientApi = {
     return response.json();
   },
 
-  getUpcomingExamDetail: async function (sessionId, examId, token) {
-    const response = await fetch(AppConstants.GET_UPCOMING_EXAM_DETAIL_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        session_id: sessionId,
-        exam_id: examId,
-      }),
-    });
-    return response.json();
-  },
-
   getCalendarEvent: async function (token) {
     const response = await fetch(AppConstants.GET_UPCOMING_CALENDAR_EVENT_URL, {
       method: "GET",
@@ -168,8 +137,50 @@ export const RestClientApi = {
     return response.json();
   },
 
-  getProfileDetail: async function (token) {
-    const response = await fetch(AppConstants.GET_PROFILE_DETAIL_URL, {
+  getProfileDetail: async function (token, userId) {
+    const response = await fetch(
+      AppConstants.GET_PROFILE_DETAIL_URL + "/" + userId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.json();
+  },
+
+  getHomework: async function (token, classId, sectionId) {
+    const response = await fetch(
+      AppConstants.GET_HOMEWORK_URL + classId + "/" + sectionId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.json();
+  },
+
+  getPaymentHistory: async function (token, studentId) {
+    const response = await fetch(
+      AppConstants.GET_PAYMENT_HISTORY_URL + studentId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.json();
+  },
+
+  getBillingHistory: async function (token,parentId) {
+    const response = await fetch(AppConstants.GET_BILLING_HISTORY_URL+parentId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -179,38 +190,17 @@ export const RestClientApi = {
     return response.json();
   },
 
-  getHomework: async function (token) {
-    const response = await fetch(AppConstants.GET_HOMEWORK_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  getPaymentDetail: async function (token, transactionId) {
+    const response = await fetch(
+      AppConstants.GET_PAYMENT_DETAIL_URL + transactionId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.json();
   },
-
-  getPaymentHistory: async function (token) {
-    const response = await fetch(AppConstants.GET_PAYMENT_HISTORY_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.json();
-  },
-
-  getBillingHistory: async function (token) {
-    const response = await fetch(AppConstants.GET_BILLING_HISTORY_URL, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.json();
-  },
-
 };
-

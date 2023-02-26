@@ -1,13 +1,13 @@
 import { StyleSheet, View, ActivityIndicator } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
-import { COLORS, PADDINGS, MARGINS } from "../../constants";
+import { COLORS, PADDINGS, MARGINS, ROUTES } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import BillingTable from "../../components/TableComponents/BillingTable";
 import { useSelector, useDispatch } from "react-redux";
 import * as billingHistoryAction from "../../store/actions/billingHistory";
 
-const Billing = ({ route }) => {
+const Billing = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -29,6 +29,14 @@ const Billing = ({ route }) => {
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
+  //handle press invoice id
+  const handleOnPressPaidInvoiceId = (id) => {
+    navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
+  };
+  const handleOnPressUnPaidInvoiceId = (id) => {
+    navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
+  };
+
   console.log("PaidDataLength", paidData.length);
   console.log("UnPaidDataLength", unpaidData.length);
 
@@ -43,10 +51,18 @@ const Billing = ({ route }) => {
         ) : (
           <View>
             {unpaidData.length != 0 ? (
-              <BillingTable name={"UnPaid"} data={unpaidData} />
+              <BillingTable
+                name={"UnPaid"}
+                data={unpaidData}
+                onPress={handleOnPressUnPaidInvoiceId}
+              />
             ) : undefined}
             {paidData.length != 0 ? (
-              <BillingTable name={"Paid"} data={paidData} />
+              <BillingTable
+                name={"Paid"}
+                data={paidData}
+                onPress={handleOnPressPaidInvoiceId}
+              />
             ) : undefined}
           </View>
         )}

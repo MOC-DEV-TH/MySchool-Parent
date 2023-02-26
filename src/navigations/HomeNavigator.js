@@ -22,6 +22,7 @@ import { Image, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import NotificationComponent from "../components/ItemComponents/NotificationComponent";
 
 const Stack = createStackNavigator();
 
@@ -62,9 +63,10 @@ function HomeNavigator() {
                 <Ionicons name="menu" size={20} color={COLORS.white} />
               </TouchableOpacity>
               <Image source={IMGS.logoWhiteSmall} style={styles.appIcon} />
-              <TouchableOpacity onPress={handleOnPressNotification}>
-                <Ionicons name="notifications" size={20} color={COLORS.white} />
-              </TouchableOpacity>
+
+              <NotificationComponent
+                onPress={handleOnPressNotification}
+              />
             </View>
           ),
         })}

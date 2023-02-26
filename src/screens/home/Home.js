@@ -18,6 +18,8 @@ import AppConstants from "../../utils/AppConstants";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as homeActions from "../../store/actions/home";
+import * as authActions from "../../store/actions/auth";
+
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -30,13 +32,23 @@ const Home = ({ navigation }) => {
 
   //initial fetch home data
   useEffect(async () => {
-    await getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
+    await getData(AppConstants.KEY_USER_DATA).then((value) => {
       if (value != null) {
-        dispatch(homeActions.getAllStudentData(value));
-        dispatch(authAction.setAuthToken(value));
+        const transformedData = JSON.parse(value);
+        const { token, userId, name } = transformedData;
+        console.log("AuthToken", token);
+        dispatch(authActions.setAuthToken(token, name, userId));
+        dispatch(homeActions.getAllStudentData(token));
       }
     });
   }, []);
+
+  //get expo token
+  useEffect(() => {
+    getData(AppConstants.KEY_EXPO_TOKEN).then((value) => {
+      console.log("Expo Push Token", value);
+    });
+  });
 
   //handle event
   const handleOnPressKidProfile = (student) => {

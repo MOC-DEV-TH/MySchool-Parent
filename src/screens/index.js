@@ -18,3 +18,4 @@ export { default as Billing } from "./home/Billing";
 export { default as LeaveRequest } from "./home/LeaveRequest";
 export { default as InvoiceDetail } from "./home/InvoiceDetail";
 export { default as PaymentPlatform } from "./home/PaymentPlatform";
+export { default as StartUpScreen } from "./startup/StartUpScreen";

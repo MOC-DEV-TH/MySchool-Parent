@@ -7,13 +7,9 @@ export default {
 
   LOGIN_URL: Config.APIServiceURL + "/loginmobile",
   GET_ALL_STUDENTS_URL: Config.APIServiceURL + "/parent/students/details",
-  GET_UPCOMING_EVENTS_URL: Config.APIServiceURL + "/calendars/upcoming-events",
-  GET_ATTENDANCE_URL: Config.APIServiceURL + "/calendars/upcoming-events",
-  GET_EXAM_SCHEDULE_URL: Config.APIServiceURL + "/exam-schedule/1",
-  GET_EXAM_SCHEDULE_DETAIL_URL: Config.APIServiceURL + "/exams/1/schedules",
+  GET_ATTENDANCE_URL: Config.APIServiceURL + "/parent/student/",
   GET_UPCOMING_EXAM_URL: Config.APIServiceURL + "/upcoming-exams-mobile",
   GET_UPCOMING_EXAM_DETAIL_URL: Config.APIServiceURL + "/exam-schedule-mobile",
-  GET_EXAM_LIST_URL: Config.APIServiceURL + "/exams/list",
   GET_PASSED_EXAM_URL: Config.APIServiceURL + "/complete-exam-results-mobile",
   GET_PASSED_EXAM_DETAIL_URL:
     Config.APIServiceURL + "/complete-exam-results-details-mobile",
@@ -21,12 +17,17 @@ export default {
   GET_UPCOMING_CALENDAR_EVENT_URL:
     Config.APIServiceURL + "/upcoming-events-mobile",
   GET_PROFILE_DETAIL_URL: Config.APIServiceURL + "/guardian-profile-mobile",
-  GET_HOMEWORK_URL: Config.APIServiceURL + "/homeworks-mobile/1/1",
-  GET_PAYMENT_HISTORY_URL: Config.APIServiceURL + "/payment-history-mobile/2",
-  GET_BILLING_HISTORY_URL: Config.APIServiceURL + "/billing-history-mobile/2",
+  GET_HOMEWORK_URL: Config.APIServiceURL + "/homeworks-mobile/",
+  GET_PAYMENT_HISTORY_URL: Config.APIServiceURL + "/payment-history-mobile/",
+  GET_BILLING_HISTORY_URL: Config.APIServiceURL + "/billing-history-mobile/",
+  GET_PAYMENT_DETAIL_URL: Config.APIServiceURL + "/payment-details-mobile/",
+
+  GET_UPCOMING_EVENTS_URL: Config.APIServiceURL + "/calendars/upcoming-events",
 
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",
+  KEY_USER_DATA: "key_user_data",
+  KEY_NOTIFICATION_COUNT: "key_notification_count",
 };
 
 export const AUTHENTICATE = "AUTHENTICATE";
@@ -52,3 +53,7 @@ export const LOAD_PROFILE_DETAIL_DATA = "LOAD_PROFILE_DETAIL_DATA";
 export const LOAD_HOMEWORK_DATA = "LOAD_HOMEWORK_DATA";
 export const LOAD_PAYMENT_HISTORY_DATA = "LOAD_PAYMENT_HISTORY_DATA";
 export const LOAD_BILLING_HISTORY_DATA = "LOAD_BILLING_HISTORY_DATA";
+
+export const LOAD_PAYMENT_DETAIL = "LOAD_PAYMENT_DETAIL";
+
+export const NOTIFICATION_RECEIVED = "NOTIFICATION_RECEIVED";

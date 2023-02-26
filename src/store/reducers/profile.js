@@ -1,7 +1,7 @@
 import { LOAD_PROFILE_DETAIL_DATA } from "../../utils/AppConstants";
 
 const initialState = {
-  profileDetail: [],
+  profileDetail: {},
 };
 
 export default (state = initialState, action) => {

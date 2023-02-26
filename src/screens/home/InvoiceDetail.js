@@ -1,11 +1,44 @@
-import { StyleSheet, View, TouchableOpacity } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import Text from "@kaloraat/react-native-text";
 import { COLORS, MARGINS, PADDINGS, ROUTES } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import * as paymentDetailAction from "../../store/actions/paymentDetail";
 
-const InvoiceDetail = () => {
+const InvoiceDetail = ({ route }) => {
+  const { transactionId } = route.params;
+  console.log("TransactionNo", transactionId);
+
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  //initial load data
+  useEffect(() => {
+    loadPaymentDetailData();
+  }, []);
+
+  //get payment detail  data
+  const paymentDetailData = useSelector(
+    (state) => state.paymentDetail.paymentDetailData
+  );
+
+  //load payment detail  data
+  const loadPaymentDetailData = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(paymentDetailAction.getPaymentDetail(transactionId));
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  console.log("PaymentDetailData", paymentDetailData);
 
   const CustomText = ({ label, value }) => {
     return (
@@ -26,33 +59,43 @@ const InvoiceDetail = () => {
 
   return (
     <View style={styles.container}>
-      <Text
-        medium
-        color={COLORS.white}
-        style={{ fontWeight: "bold", marginTop: MARGINS.m10 }}
-      >
-        Invoice Detail
-      </Text>
-      <View style={styles.box}>
-        <CustomText label={"Name"} value={"Mya Mya"} />
-        <CustomText label={"Class"} value={"Grade 8(A)"} />
-        <CustomText label={"Type"} value={"First Term School Fees"} />
-        <CustomText label={"Invoice ID"} value={"XXXXX"} />
-        <CustomText label={"Invoice Date"} value={"DD/MM/YYYY"} />
-        <CustomText label={"Due Date"} value={"DD/MM/YYYY"} />
-        <Divider />
-        <CustomText label={"Amount"} value={"200000 MMK"} />
-        <CustomText label={"Tax(5%)"} value={"10000 MMK"} />
-        <CustomText label={"Total Due"} value={"210000 MMK"} />
+      {isRefreshing ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <View>
+          <Text
+            medium
+            color={COLORS.white}
+            style={{ fontWeight: "bold", marginTop: MARGINS.m10 }}
+          >
+            Invoice Detail
+          </Text>
+          <View style={styles.box}>
+            <CustomText label={"Name"} value={"Mya Mya"} />
+            <CustomText label={"Class"} value={"Grade 8(A)"} />
+            <CustomText label={"Type"} value={"First Term School Fees"} />
+            <CustomText label={"Invoice ID"} value={"XXXXX"} />
+            <CustomText label={"Invoice Date"} value={"DD/MM/YYYY"} />
+            <CustomText label={"Due Date"} value={"DD/MM/YYYY"} />
+            <Divider />
+            <CustomText label={"Amount"} value={"200000 MMK"} />
+            <CustomText label={"Tax(5%)"} value={"10000 MMK"} />
+            <CustomText label={"Total Due"} value={"210000 MMK"} />
 
-        <TouchableOpacity onPress={handleOnPressPayNow}>
-          <View style={styles.button}>
-            <Text medium style={{ fontWeight: "bold" }} color={COLORS.white}>
-              Pay Now
-            </Text>
+            <TouchableOpacity onPress={handleOnPressPayNow}>
+              <View style={styles.button}>
+                <Text
+                  medium
+                  style={{ fontWeight: "bold" }}
+                  color={COLORS.white}
+                >
+                  Pay Now
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
-      </View>
+        </View>
+      )}
     </View>
   );
 };

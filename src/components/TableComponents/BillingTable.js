@@ -55,10 +55,12 @@ const BillingTable = (props) => {
               alignItems: "center",
             }}
           >
-            <TouchableOpacity onPress={props.onPre}>
+            <TouchableOpacity
+              onPress={() => props.onPress(props.transaction_no)}
+            >
               <Text
                 style={{
-                  fontSize : 12,
+                  fontSize: 12,
                   color: COLORS.textColorBlue,
                   textDecorationLine: "underline",
                   textAlign: "center",

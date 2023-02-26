@@ -7,7 +7,7 @@ import PaymentHistoryTable from "../../components/TableComponents/PaymentHistory
 import { useSelector, useDispatch } from "react-redux";
 import * as paymentHistoryAction from "../../store/actions/paymentHistory";
 
-const PaymentHistory = ({ route }) => {
+const PaymentHistory = ({ route, navigation }) => {
   const { studentData } = route.params;
   const dispatch = useDispatch();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -25,10 +25,18 @@ const PaymentHistory = ({ route }) => {
   const loadPaymentHistoryData = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      await dispatch(paymentHistoryAction.getAllPaymentHistory());
+      await dispatch(paymentHistoryAction.getAllPaymentHistory(studentData.id));
     } catch (error) {}
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
+
+  //handle press invoice id
+  const handleOnPressPaidInvoiceId = (id) => {
+    navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
+  };
+  const handleOnPressUnPaidInvoiceId = (id) => {
+    navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
+  };
 
   //render UI
   return (
@@ -49,10 +57,18 @@ const PaymentHistory = ({ route }) => {
         ) : (
           <View>
             {unpaidData.length != 0 ? (
-              <PaymentHistoryTable name={"UnPaid"} paymentArray={unpaidData} />
+              <PaymentHistoryTable
+                name={"UnPaid"}
+                paymentArray={unpaidData}
+                onPress={handleOnPressUnPaidInvoiceId}
+              />
             ) : undefined}
             {paidData.length != 0 ? (
-              <PaymentHistoryTable name={"Paid"} paymentArray={paidData} />
+              <PaymentHistoryTable
+                name={"Paid"}
+                paymentArray={paidData}
+                onPress={handleOnPressPaidInvoiceId}
+              />
             ) : undefined}
           </View>
         )}

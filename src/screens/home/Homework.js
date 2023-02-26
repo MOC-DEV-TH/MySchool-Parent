@@ -24,7 +24,12 @@ const Homework = ({ route }) => {
   const loadHomeworkData = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      await dispatch(homeworkAction.getAllHomeWork());
+      await dispatch(
+        homeworkAction.getAllHomeWork(
+          studentData.classId,
+          studentData.sectionId
+        )
+      );
     } catch (error) {}
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
