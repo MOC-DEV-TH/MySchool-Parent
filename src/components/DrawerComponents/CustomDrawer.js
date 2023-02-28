@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Image,
@@ -13,18 +13,20 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
 import CustomDrawerItem from "../DrawerComponents/CustomDrawerItem";
 import { useSelector } from "react-redux";
+import { useDrawerStatus } from "@react-navigation/drawer";
 
 const CustomDrawer = (props) => {
   const studentData = useSelector((state) => state.home.studentData);
   const userName = useSelector((state) => state.auth.name);
   const navigation = useNavigation();
   const [expanded, setExpanded] = useState(false);
+  const isDrawerOpen = useDrawerStatus() === "open";
 
   console.log("UserName", userName);
 
-  useEffect(()=>{
-    
-  })
+  useEffect(() => {
+    !isDrawerOpen ? setExpanded(false) : undefined;
+  }, [isDrawerOpen]);
 
   const renderChildrenItem = (item) => {
     return (
@@ -53,6 +55,18 @@ const CustomDrawer = (props) => {
   };
   const handleOnPressCalendar = () => {
     navigation.navigate(ROUTES.CALENDAR_EVENT);
+  };
+
+  const handleOnPressAboutMySchool = () => {
+    navigation.navigate(ROUTES.ABOUT_MY_SCHOOL);
+  };
+
+  const handleOnPressTermAndCondition = () => {
+    navigation.navigate(ROUTES.TERMS_AND_CONDITIONS);
+  };
+
+  const handleOnPressPrivacyPolicy = () => {
+    navigation.navigate(ROUTES.PRIVACY_POLICY);
   };
 
   return (
@@ -136,17 +150,17 @@ const CustomDrawer = (props) => {
           <CustomDrawerItem
             iconName={IMGS.about}
             label={"About MySchool"}
-            onPressItem={handleOnPressMyProfile}
+            onPressItem={handleOnPressAboutMySchool}
           />
           <CustomDrawerItem
             iconName={IMGS.termAndCondition}
             label={"Terms and Conditions"}
-            onPressItem={handleOnPressMyProfile}
+            onPressItem={handleOnPressTermAndCondition}
           />
           <CustomDrawerItem
             iconName={IMGS.privacyPolicy}
             label={"Privacy Policy"}
-            onPressItem={handleOnPressMyProfile}
+            onPressItem={handleOnPressPrivacyPolicy}
           />
         </View>
       </DrawerContentScrollView>

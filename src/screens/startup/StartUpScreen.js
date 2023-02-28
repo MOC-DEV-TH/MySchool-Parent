@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import AuthNavigator from "../../navigations/AuthNavigator";
 import DrawerNavigator from "../../navigations/DrawerNavigator";
@@ -9,20 +9,15 @@ import { getData, setData } from "../../utils/SessionManager";
 import AppConstants from "../../utils/AppConstants";
 const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
 
-const StartUpScreen = () => {
- 
+const StartUpScreen = (props) => {
+  console.log("AuthStatus",props.authStatus)
   const dispatch = useDispatch();
   const responseListener = useRef();
- 
 
   //get notification count
   const notificationCount = useSelector(
     (state) => state.notification.notificationCount
   );
-
-  useEffect(() => {
-    console.log("notiLength", parseInt(notificationCount).toString());
-  });
 
   useEffect(() => {
     // register task to run whenever is received while the app is in the background
@@ -68,8 +63,7 @@ const StartUpScreen = () => {
     }
   };
 
-
-  return (getData(AppConstants.KEY_AUTH_TOKEN)) ? <DrawerNavigator /> : <AuthNavigator />;
+  return !props.authStatus ? <AuthNavigator/> : <DrawerNavigator/> 
 };
 
 export default StartUpScreen;

@@ -4,7 +4,7 @@ import AppConstants, {
   AUTHENTICATE,
   AUTHENTICATE_TOKEN,
 } from "../../utils/AppConstants";
-import { setData } from "../../utils/SessionManager";
+import { getData, setData } from "../../utils/SessionManager";
 
 export const login = (email, password, navigation) => {
   return async (dispatch) => {
@@ -27,6 +27,16 @@ export const login = (email, password, navigation) => {
             name: response.name,
           })
         );
+        getData(AppConstants.KEY_EXPO_TOKEN).then((expoToken) => {
+          console.log("Post Expo Token", response.token);
+          RestClientApi.postExpoToken(
+            response.id,
+            expoToken,
+            response.token
+          ).then(() => {
+            console.log("Success Post Token");
+          });
+        });
         navigation.replace(ROUTES.HOME);
       } else {
         alert(response.message);

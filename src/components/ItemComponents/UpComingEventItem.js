@@ -13,9 +13,9 @@ const UpComingEventItem = (props) => {
       </View>
       <View style={{ flex: 0.7 }}>
         <View style={{ flexDirection: "column" }}>
-          <Text medium>{props.title}</Text>
+          <Text medium style={{textTransform: 'capitalize'}}>{props.item.event_name}</Text>
           <Text small color={COLORS.textColorBlue}>
-            18th June 2023
+            {props.item.start_date}
           </Text>
           <Text tiny style={{ marginTop: MARGINS.m10 }}>
             Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet

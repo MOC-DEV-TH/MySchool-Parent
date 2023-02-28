@@ -122,7 +122,7 @@ const Home = ({ navigation }) => {
               style={{ marginTop: MARGINS.m10 }}
               showsVerticalScrollIndicator={false}
               renderItem={(itemData) => (
-                <UpComingEventItem title={itemData.item.title} />
+                <UpComingEventItem item={itemData.item} />
               )}
               ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
               keyExtractor={(item, index) => index.toString()}

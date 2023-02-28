@@ -18,54 +18,50 @@ const Attendance = ({ route }) => {
   const { studentData } = route.params;
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [monthCountObj, setMonthCountObj] = useState({});
   let markedDay = {};
 
   //initial load data
   useEffect(() => {
     loadAttendanceData();
+    setMonthCountObj(
+      attendanceAction.getAttendanceByMonth(
+        attendanceData.current_month,
+        attendanceData.total_details
+      )
+    );
   }, []);
 
   //get attendance  data
   const attendanceData = useSelector(
     (state) => state.attendance.attendanceData
   );
+  const isLoading = useSelector((state) => state.attendance.loading);
 
   //load attendance  data
   const loadAttendanceData = useCallback(async () => {
-    setIsRefreshing(true);
     try {
       await dispatch(attendanceAction.getStudentAttendance(studentData.id));
     } catch (error) {}
-    setIsRefreshing(false);
-  }, [dispatch, setIsRefreshing]);
+  }, [dispatch]);
 
-  console.log("AttendanceData", attendanceData);
+  console.log("AttendanceData", attendanceData.details);
 
-  const [calendar, setCalender] = useState([
-    { date: "2023-02-16", type: "present" },
-    { date: "2023-02-17", type: "present" },
-    { date: "2023-02-18", type: "absent" },
-    { date: "2023-02-19", type: "absent" },
-    { date: "2023-02-22", type: "leave" },
-    { date: "2023-02-23", type: "leave" },
-  ]);
-
-  calendar.map((item) => {
+  attendanceData.details.map((item) => {
     markedDay[item.date] = {
       customStyles: {
         container: {
           borderWidth: 0.7,
           borderColor:
-            item.type == "present"
+            item.status.toString() == "true"
               ? COLORS.green
-              : item.type == "absent"
+              : item.status.toString() == "false"
               ? COLORS.red
               : COLORS.yellow,
           backgroundColor:
-            item.type == "present"
+            item.status.toString() == "true"
               ? COLORS.present
-              : item.type == "absent"
+              : item.status.toString() == "false"
               ? COLORS.absent
               : COLORS.leave,
           opacity: 0.6,
@@ -74,12 +70,10 @@ const Attendance = ({ route }) => {
         text: {
           color: "black",
           fontWeight: "bold",
-          paddingTop: Platform.OS == "android" ? PADDINGS.p2 : undefined,
         },
       },
     };
   });
-  //console.log("markedDay", markedDay);
 
   const FooterContainer = ({ style, label, count }) => {
     return (
@@ -92,7 +86,10 @@ const Attendance = ({ route }) => {
           {label}
         </Text>
         <View style={styles.circle}>
-          <Text color={COLORS.green} style={{ fontWeight: "bold" }}>
+          <Text
+            color={label == "Present" ? COLORS.green : COLORS.absent}
+            style={{ fontWeight: "bold" }}
+          >
             {count}
           </Text>
         </View>
@@ -106,7 +103,7 @@ const Attendance = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {isRefreshing ? (
+      {isLoading ? (
         <ActivityIndicator size="large" />
       ) : (
         <View>
@@ -117,6 +114,15 @@ const Attendance = ({ route }) => {
               marginTop: MARGINS.m16,
             }}
             markedDates={markedDay}
+            onMonthChange={(month) => {
+              console.log("month changed", month.month);
+              setMonthCountObj(
+                attendanceAction.getAttendanceByMonth(
+                  month.month,
+                  attendanceData.total_details
+                )
+              );
+            }}
           />
 
           <View
@@ -128,12 +134,12 @@ const Attendance = ({ route }) => {
           >
             <FooterContainer
               label={"Present"}
-              count={"12"}
+              count={monthCountObj.present}
               style={styles.footerContainerPresent}
             />
             <FooterContainer
               label={"Absent"}
-              count={"14"}
+              count={monthCountObj.absent}
               style={styles.footerContainerAbsent}
             />
           </View>

@@ -64,7 +64,7 @@ const PaymentHistoryTable = (props) => {
                   textAlign: "center",
                 }}
               >
-                xxxxx
+                {data.transaction_no == null ? "xxxxx" : data.transaction_no}
               </Text>
             </TouchableOpacity>
           </View>

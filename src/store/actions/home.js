@@ -39,10 +39,10 @@ export const getAllStudentData = (token) => {
       })
       .finally(() => {
         RestClientApi.getUpComingEvent(token).then((response) => {
-          console.log("UpComingEvent", response.data);
+          console.log("UpComingEvent", response);
           dispatch({
             type: LOAD_HOME_SUCCESS,
-            eventData: response.data,
+            eventData: response,
           });
         });
       });

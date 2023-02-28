@@ -1,38 +1,61 @@
-import { StyleSheet, FlatList, View } from "react-native";
-import React, { useState } from "react";
+import { StyleSheet, FlatList, View, ActivityIndicator } from "react-native";
+import React, { useState, useEffect, useCallback } from "react";
 import Text from "@kaloraat/react-native-text";
-import Container from "../../components/UI/Container";
 import { COLORS, MARGINS, PADDINGS } from "../../constants";
+import { useSelector, useDispatch } from "react-redux";
+import * as notificationAction from "../../store/actions/notification";
 
 const Notification = (props) => {
-  const [notifications, setNotifications] = useState([
-    { name: "one" },
-    { name: "one" },
-    { name: "one" },
-    { name: "one" },
-    { name: "one" },
-    { name: "one" },
-  ]);
+  const dispatch = useDispatch();
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
-  const renderNotificationItems = () => {
+  //initial load data
+  useEffect(() => {
+    loadNotificationData();
+  }, []);
+
+  //get notification  data
+  const notificationData = useSelector(
+    (state) => state.notification.notificationData
+  );
+
+  //load notification data
+  const loadNotificationData = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(notificationAction.getAllNotification());
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
+  console.log("NotificationLength", notificationData.length);
+
+  const renderNotificationItems = ({ item }) => {
     return (
       <View style={styles.noti}>
-        <Text style={{ fontWeight: "bold" }}>Notification Title</Text>
-        <Text>Lorem ipsum dolor sit amet, conse</Text>
+        <Text style={{ fontWeight: "bold" }}>{item.data.subject}</Text>
+        <Text>{item.data.body}</Text>
       </View>
     );
   };
 
+  //render UI
   return (
     <View style={styles.container}>
-      <Text medium style={styles.text}>Notifications</Text> 
-      <FlatList
-        data={notifications}
-        style={{ marginTop: MARGINS.m10 }}
-        showsVerticalScrollIndicator={false}
-        renderItem={renderNotificationItems}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      <Text medium style={styles.text}>
+        Notifications
+      </Text>
+      {isRefreshing ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <FlatList
+          data={notificationData}
+          style={{ marginTop: MARGINS.m10 }}
+          showsVerticalScrollIndicator={false}
+          renderItem={renderNotificationItems}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      )}
     </View>
   );
 };
@@ -43,21 +66,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.black,
-    padding:PADDINGS.p10
+    padding: PADDINGS.p10,
   },
   noti: {
     height: 68,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.grayLight,
     borderRadius: 12,
     alignItems: "flex-start",
     marginBottom: MARGINS.m20,
-    paddingLeft:PADDINGS.p16,
-    paddingTop:PADDINGS.p6
+    paddingLeft: PADDINGS.p16,
+    paddingTop: PADDINGS.p6,
   },
-  text : {
+  text: {
     fontWeight: "bold",
     marginTop: MARGINS.m8,
     marginBottom: MARGINS.m8,
-    color:COLORS.white
-  }
+    color: COLORS.white,
+  },
 });

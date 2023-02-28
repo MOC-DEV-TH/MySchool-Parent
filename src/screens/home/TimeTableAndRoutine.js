@@ -23,28 +23,27 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
   }, []);
 
   //load routine data
-  const loadRoutineData = useCallback(
-    async (dayIndex) => {
-      setIsRefreshing(true);
-      try {
-        await dispatch(
-          timeTableAction.getClassRoutine(
-            studentData.sessionId,
-            studentData.classId,
-            studentData.sectionId,
-            dayIndex
-          )
-        );
-      } catch (error) {}
-      setIsRefreshing(false);
-    },
-    []
-  );
+  const loadRoutineData = useCallback(async (dayIndex) => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(
+        timeTableAction.getClassRoutine(
+          studentData.sessionId,
+          studentData.classId,
+          studentData.sectionId,
+          dayIndex
+        )
+      );
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, []);
 
+  console.log("RoutineData", routineData);
   //press button group
   const onPressButton = (item) => {
     loadRoutineData(item);
   };
+
   //item separator component
   const FlatListItemSeparator = () => {
     return (
@@ -58,6 +57,8 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
       />
     );
   };
+
+  //renderUI
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{ flex: 1 }}>
@@ -75,7 +76,13 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
         {isRefreshing ? (
           <ActivityIndicator size="large" />
         ) : (
-          <View style={{ backgroundColor:routineData.length==0 ? COLORS.black : COLORS.white, borderRadius: 12 }}>
+          <View
+            style={{
+              backgroundColor:
+                routineData.length == 0 ? COLORS.black : COLORS.white,
+              borderRadius: 12,
+            }}
+          >
             <FlatList
               isRefreshing={isRefreshing}
               data={routineData}
@@ -85,7 +92,7 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
               keyExtractor={(item, index) => index.toString()}
               ItemSeparatorComponent={FlatListItemSeparator}
             />
-         </View>
+          </View>
         )}
       </KeyboardAwareScrollView>
     </View>

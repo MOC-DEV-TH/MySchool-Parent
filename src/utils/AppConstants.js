@@ -7,7 +7,7 @@ export default {
 
   LOGIN_URL: Config.APIServiceURL + "/loginmobile",
   GET_ALL_STUDENTS_URL: Config.APIServiceURL + "/parent/students/details",
-  GET_ATTENDANCE_URL: Config.APIServiceURL + "/parent/student/",
+  GET_ATTENDANCE_URL: Config.APIServiceURL + "/student-attendance-mobile/",
   GET_UPCOMING_EXAM_URL: Config.APIServiceURL + "/upcoming-exams-mobile",
   GET_UPCOMING_EXAM_DETAIL_URL: Config.APIServiceURL + "/exam-schedule-mobile",
   GET_PASSED_EXAM_URL: Config.APIServiceURL + "/complete-exam-results-mobile",
@@ -21,8 +21,8 @@ export default {
   GET_PAYMENT_HISTORY_URL: Config.APIServiceURL + "/payment-history-mobile/",
   GET_BILLING_HISTORY_URL: Config.APIServiceURL + "/billing-history-mobile/",
   GET_PAYMENT_DETAIL_URL: Config.APIServiceURL + "/payment-details-mobile/",
-
-  GET_UPCOMING_EVENTS_URL: Config.APIServiceURL + "/calendars/upcoming-events",
+  GET_NOTIFICATION_URL: Config.APIServiceURL + "/notifications",
+  POST_EXPO_TOKEN_TO_SERVER: Config.APIServiceURL + "/post-expo-token-mobile",
 
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",
@@ -36,24 +36,21 @@ export const LOAD_HOME_LOADING = "LOAD_HOME_LOADING";
 export const LOAD_HOME_SUCCESS = "LOAD_HOME_SUCCESS";
 export const LOAD_HOME_ERROR = "LOAD_HOME_ERROR";
 export const LOAD_HOME_STUDENT = "LOAD_HOME_STUDENT";
-
+export const LOAD_NOTIFICATION_DATA = "LOAD_NOTIFICATION_DATA";
 export const LOAD_COMPLETED_EXAM = "LOAD_COMPLETED_EXAM";
 export const LOAD_COMPLETED_EXAM_DETAIL = "LOAD_COMPLETED_EXAM_DETAIL";
-
 export const LOAD_UPCOMING_EXAM = "LOAD_UPCOMING_EXAM";
 export const LOAD_UPCOMING_EXAM_DETAIL = "LOAD_UPCOMING_EXAM_DETAIL";
-
 export const LOAD_UPCOMING_EVENT_CALENDAR = "LOAD_UPCOMING_EVENT_CALENDAR";
 export const LOAD_UPCOMING_EVENT_MAP_DATA = "LOAD_UPCOMING_EVENT_MAP_DATA";
-
 export const LOAD_CLASS_ROUTINE = "LOAD_CLASS_ROUTINE";
-
 export const LOAD_PROFILE_DETAIL_DATA = "LOAD_PROFILE_DETAIL_DATA";
-
 export const LOAD_HOMEWORK_DATA = "LOAD_HOMEWORK_DATA";
 export const LOAD_PAYMENT_HISTORY_DATA = "LOAD_PAYMENT_HISTORY_DATA";
 export const LOAD_BILLING_HISTORY_DATA = "LOAD_BILLING_HISTORY_DATA";
-
 export const LOAD_PAYMENT_DETAIL = "LOAD_PAYMENT_DETAIL";
-
 export const NOTIFICATION_RECEIVED = "NOTIFICATION_RECEIVED";
+export const LOAD_STUDENT_ATTENDANCE_DATA = "LOAD_STUDENT_ATTENDANCE_DATA";
+
+export const LOAD_ATTENDANCE_LOADING = "LOAD_ATTENDANCE_LOADING";
+export const LOAD_ATTENDANCE_SUCCESS = "LOAD_ATTENDANCE_SUCCESS";

@@ -1,14 +1,28 @@
 import { StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
 import CardItem from "../../components/UI/CardItem";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import * as attendanceAction from "../../store/actions/attendance";
+import { useDispatch } from "react-redux";
 
 const KidProfile = ({ route, navigation }) => {
+  const dispatch = useDispatch();
   const { studentData } = route.params;
   console.log(studentData.name);
   console.log(studentData.id);
+
+  useEffect(() => {
+    loadAttendanceData();
+  }, []);
+
+  const loadAttendanceData = useCallback(async () => {
+    try {
+      await dispatch(attendanceAction.getStudentAttendance(studentData.id));
+    } catch (error) {}
+  }, [dispatch]);
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{ flex: 1 }}>

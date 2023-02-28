@@ -8,7 +8,7 @@ import * as completedExamDetailAction from "../../store/actions/completedExamDet
 
 const ExamCompletedResultDetail = ({ navigation, route }) => {
   const { student, completedData } = route.params;
-  console.log("student",student);
+  console.log("student", student);
   const dispatch = useDispatch();
   const header = ["Subject Name", "Grade", "Status"];
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -36,7 +36,9 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
 
   const tableData = completedExamDetailData.map((data) => [
     data.subject_name,
-    "A",
+    data.final_result.entry.toString() == "false"
+      ? "-"
+      : data.final_result.results.grade,
     data.final_result.pass.toString() == "false" ? "FAIL" : "PASS",
   ]);
 

@@ -16,6 +16,9 @@ import {
   LeaveRequest,
   InvoiceDetail,
   PaymentPlatform,
+  PrivacyPolicy,
+  AboutMySchool,
+  TermsAndConditions,
 } from "../screens";
 import { ROUTES, COLORS, IMGS } from "../constants";
 import { Image, View, StyleSheet, TouchableOpacity } from "react-native";
@@ -63,10 +66,13 @@ function HomeNavigator() {
                 <Ionicons name="menu" size={20} color={COLORS.white} />
               </TouchableOpacity>
               <Image source={IMGS.logoWhiteSmall} style={styles.appIcon} />
+              <TouchableOpacity onPress={handleOnPressNotification}>
+                <Ionicons name="notifications" size={20} color={COLORS.white} />
+              </TouchableOpacity>
 
-              <NotificationComponent
+              {/* <NotificationComponent
                 onPress={handleOnPressNotification}
-              />
+              /> */}
             </View>
           ),
         })}
@@ -263,6 +269,48 @@ function HomeNavigator() {
       <Stack.Screen
         name={ROUTES.PAYMENT_PLATFORM}
         component={PaymentPlatform}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.PRIVACY_POLICY}
+        component={PrivacyPolicy}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.TERMS_AND_CONDITIONS}
+        component={TermsAndConditions}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.ABOUT_MY_SCHOOL}
+        component={AboutMySchool}
         options={{
           headerShown: true,
           headerTintColor: COLORS.white,

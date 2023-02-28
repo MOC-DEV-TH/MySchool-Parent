@@ -28,7 +28,7 @@ export const RestClientApi = {
   },
 
   getUpComingEvent: async function (token) {
-    const response = await fetch(AppConstants.GET_UPCOMING_EVENTS_URL, {
+    const response = await fetch(AppConstants.GET_UPCOMING_CALENDAR_EVENT_URL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -39,16 +39,13 @@ export const RestClientApi = {
   },
 
   getAttendanceStudent: async function (token, studentId) {
-    const response = await fetch(
-      AppConstants.GET_ATTENDANCE_URL + studentId + "/attendance",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(AppConstants.GET_ATTENDANCE_URL + studentId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.json();
   },
 
@@ -179,14 +176,17 @@ export const RestClientApi = {
     return response.json();
   },
 
-  getBillingHistory: async function (token,parentId) {
-    const response = await fetch(AppConstants.GET_BILLING_HISTORY_URL+parentId, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  getBillingHistory: async function (token, parentId) {
+    const response = await fetch(
+      AppConstants.GET_BILLING_HISTORY_URL + parentId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.json();
   },
 
@@ -201,6 +201,33 @@ export const RestClientApi = {
         },
       }
     );
+    return response.json();
+  },
+
+  getAllNotification: async function (token) {
+    const response = await fetch(AppConstants.GET_NOTIFICATION_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.json();
+  },
+
+  postExpoToken: async function (Id, expoToken, token) {
+    console.log("Post expo token to server", Id);
+    const response = await fetch(AppConstants.POST_EXPO_TOKEN_TO_SERVER, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        id: Id,
+        token: expoToken,
+      }),
+    });
     return response.json();
   },
 };

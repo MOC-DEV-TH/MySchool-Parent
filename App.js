@@ -4,13 +4,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
 import { Provider } from "react-redux";
 import configureStore from "./src/store/configureStore";
-import { LogBox } from "react-native";
+import { LogBox, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import { StartUpScreen } from "./src/screens";
-import { setData } from "./src/utils/SessionManager";
+import { getData, setData } from "./src/utils/SessionManager";
 import AppConstants from "./src/utils/AppConstants";
+import DrawerNavigator from "./src/navigations/DrawerNavigator";
 
 LogBox.ignoreAllLogs();
 const store = configureStore();
@@ -25,6 +26,8 @@ Notifications.setNotificationHandler({
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
   const [notification, setNotification] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
@@ -33,6 +36,15 @@ export default function App() {
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
     );
+    setIsRefreshing(true);
+    getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
+      if (value == null) {
+        setIsAuth(false);
+      } else {
+        setIsAuth(true);
+      }
+      setIsRefreshing(false);
+    });
 
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
@@ -56,7 +68,7 @@ export default function App() {
     <Provider store={store}>
       <NativeBaseProvider>
         <NavigationContainer>
-          <StartUpScreen />
+          {!isRefreshing ? <StartUpScreen authStatus={isAuth} /> : <DrawerNavigator/>}
         </NavigationContainer>
       </NativeBaseProvider>
     </Provider>
@@ -88,6 +100,7 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
+    setData(AppConstants.KEY_EXPO_TOKEN, token);
     console.log(token);
   } else {
     alert("Must use physical device for Push Notifications");
