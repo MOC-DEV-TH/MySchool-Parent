@@ -63,7 +63,7 @@ const TimeTableAndRoutine = ({ route, navigation }) => {
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{ flex: 1 }}>
         <Text medium color={COLORS.white} style={styles.title}>
-          Mya Mya
+          {studentData.name}
         </Text>
         <ButtonGroup
           buttons={["Mon", "Tue", "Wed", "Thu", "Fri"]}

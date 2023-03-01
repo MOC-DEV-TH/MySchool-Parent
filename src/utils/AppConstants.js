@@ -23,6 +23,7 @@ export default {
   GET_PAYMENT_DETAIL_URL: Config.APIServiceURL + "/payment-details-mobile/",
   GET_NOTIFICATION_URL: Config.APIServiceURL + "/notifications",
   POST_EXPO_TOKEN_TO_SERVER: Config.APIServiceURL + "/post-expo-token-mobile",
+  POST_LEAVE_REQUEST: Config.APIServiceURL + "/post-leave-request-mobile",
 
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",
@@ -54,3 +55,4 @@ export const LOAD_STUDENT_ATTENDANCE_DATA = "LOAD_STUDENT_ATTENDANCE_DATA";
 
 export const LOAD_ATTENDANCE_LOADING = "LOAD_ATTENDANCE_LOADING";
 export const LOAD_ATTENDANCE_SUCCESS = "LOAD_ATTENDANCE_SUCCESS";
+export const SET_INITIAL_LOAD = "SET_INITIAL_LOAD";

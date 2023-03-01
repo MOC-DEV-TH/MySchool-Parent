@@ -15,33 +15,49 @@ import ChildItem from "../../components/ItemComponents/ChildItem";
 import UpComingEventItem from "../../components/ItemComponents/UpComingEventItem";
 import { getData } from "../../utils/SessionManager";
 import AppConstants from "../../utils/AppConstants";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as homeActions from "../../store/actions/home";
 import * as authActions from "../../store/actions/auth";
 
-
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
-  const scrollX = React.useRef(new Animated.Value(0)).current;
+  const scrollX = useRef(new Animated.Value(0)).current;
 
   //get home data
   const isLoading = useSelector((state) => state.home.loading);
   const studentData = useSelector((state) => state.home.studentData);
   const upComingEventData = useSelector((state) => state.home.eventData);
 
+  //focus screen handler
+  useEffect(() => {
+    const focusHandler = navigation.addListener("focus", () => {
+      loadHomeData();
+      scrollX.setValue(0);
+    });
+    return focusHandler;
+  }, [navigation]);
+
   //initial fetch home data
   useEffect(async () => {
-    await getData(AppConstants.KEY_USER_DATA).then((value) => {
-      if (value != null) {
-        const transformedData = JSON.parse(value);
-        const { token, userId, name } = transformedData;
-        console.log("AuthToken", token);
-        dispatch(authActions.setAuthToken(token, name, userId));
-        dispatch(homeActions.getAllStudentData(token));
-      }
-    });
+    loadHomeData();
   }, []);
+
+  //load home  data
+  const loadHomeData = useCallback(
+    async (token) => {
+      await getData(AppConstants.KEY_USER_DATA).then((value) => {
+        if (value != null) {
+          const transformedData = JSON.parse(value);
+          const { token, userId, name } = transformedData;
+          console.log("AuthToken", token);
+          dispatch(authActions.setAuthToken(token, name, userId));
+          dispatch(homeActions.getAllStudentData(token));
+        }
+      });
+    },
+    [dispatch]
+  );
 
   //get expo token
   useEffect(() => {

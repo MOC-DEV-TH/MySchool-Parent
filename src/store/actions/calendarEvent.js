@@ -6,6 +6,7 @@ export const getCalendarEvent = () => {
     const token = getState().auth.token;
 
     await RestClientApi.getCalendarEvent(token).then((response) => {
+      console.log("CalendarEvent",response)
       const dateArray = [];
       for (const data of response) {
         const diffTime = Math.abs(

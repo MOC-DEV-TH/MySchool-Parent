@@ -1,16 +1,12 @@
 import React, { useEffect, useCallback, useState } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  ActivityIndicator,
-} from "react-native";
+import { StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { COLORS, MARGINS, PADDINGS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { useSelector, useDispatch } from "react-redux";
 import * as calendarEventAction from "../../store/actions/calendarEvent";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { hex2rgba } from "../../utils/Hex2Rgba";
 
 const CalendarEvent = () => {
   const dispatch = useDispatch();
@@ -58,15 +54,15 @@ const CalendarEvent = () => {
     markedDay[item.date] = {
       customStyles: {
         container: {
-          borderWidth: 0.7,
-          borderColor: "white",
-          backgroundColor: item.bgColor,
-          opacity: 0.6,
+          borderWidth: 1,
+          borderColor: item.bgColor,
+          backgroundColor: hex2rgba(item.bgColor,0.4),
+          opacity: 0.8,
           elevation: 10,
         },
         text: {
-          color: "white",
-          fontWeight: "normal",
+          color: "black",
+          opacity: 10,
         },
       },
     };

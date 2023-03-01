@@ -1,15 +1,36 @@
-import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import React, { useState } from "react";
 import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
+import { RestClientApi } from "../../network/RestApiClient";
+import { useSelector } from "react-redux";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-const LeaveRequest = () => {
+const LeaveRequest = ({ route, navigation }) => {
+  const { studentData } = route.params;
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFromDatePickerVisible, setFromDatePickerVisibility] =
+    useState(false);
+  const [isToDatePickerVisible, setToDatePickerVisibility] = useState(false);
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  //get auth token
+  const token = useSelector((state) => state.auth.token);
+
+  //Custom Input
   const UserInput = ({
     value,
     setValue,
-    setKeyboardType = "default",
     placeHolder,
     inputStyle,
     editable = true,
@@ -17,8 +38,7 @@ const LeaveRequest = () => {
     return (
       <TextInput
         style={inputStyle}
-        keyboardType={setKeyboardType}
-        onChangeText={setValue}
+        onChangeText={(text) => setValue(text)}
         value={value}
         placeholder={placeHolder}
         placeholderTextColor={COLORS.black}
@@ -27,12 +47,6 @@ const LeaveRequest = () => {
       />
     );
   };
-
-  const [isFromDatePickerVisible, setFromDatePickerVisibility] =
-    useState(false);
-  const [isToDatePickerVisible, setToDatePickerVisibility] = useState(false);
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
 
   const showToDatePicker = () => {
     setToDatePickerVisibility(true);
@@ -59,103 +73,135 @@ const LeaveRequest = () => {
     setToDate(moment(date).format("YYYY-MM-DD").toString());
   };
 
+  const handleOnPressSubmit = () => {
+    console.log(title, description, fromDate, toDate);
+    setIsLoading(true);
+    RestClientApi.postLeaveRequest(
+      studentData.id.toString(),
+      title,
+      description,
+      fromDate,
+      toDate,
+      token
+    ).then((response) => {
+      if (response.description == "success") {
+        setIsLoading(false);
+        navigation.goBack();
+      } else {
+        setIsLoading(false);
+        alert(response.description);
+      }
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      <Text medium color={COLORS.white} style={styles.title}>
-        Exam Results
-      </Text>
-      <Text large color={COLORS.white} style={styles.name}>
-        MG MG
-      </Text>
-      <Text small color={COLORS.white} style={styles.small_text}>
-        Class - Grade 8 A
-      </Text>
-      <UserInput
-        inputStyle={{
-          height: 46,
-          borderWidth: 1,
-          backgroundColor: COLORS.white,
-          paddingLeft: PADDINGS.p10,
-          borderRadius: 12,
-          marginBottom: MARGINS.m18,
-          marginTop: MARGINS.m30,
-        }}
-        placeHolder={"Title"}
-      />
-      <UserInput
-        inputStyle={{
-          height: 100,
-          borderWidth: 1,
-          backgroundColor: COLORS.white,
-          paddingLeft: PADDINGS.p10,
-          borderRadius: 12,
-          textAlignVertical: "top",
-          paddingTop: PADDINGS.p10,
-        }}
-        placeHolder={"Description"}
-      />
-      <View style={{ flexDirection: "row" }}>
-        <TouchableOpacity onPress={showFromDatePicker} style={{ flex: 1 }}>
-          <UserInput
-            inputStyle={{
-              height: 46,
-              borderWidth: 1,
-              backgroundColor: COLORS.white,
-              paddingLeft: PADDINGS.p10,
-              borderRadius: 12,
-              marginBottom: MARGINS.m18,
-              marginTop: MARGINS.m20,
-              color: COLORS.black,
-              marginRight: MARGINS.m4,
-            }}
-            placeHolder={"From Date"}
-            editable={false}
-            value={fromDate}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={showToDatePicker} style={{ flex: 1 }}>
-          <UserInput
-            inputStyle={{
-              height: 46,
-              borderWidth: 1,
-              backgroundColor: COLORS.white,
-              paddingLeft: PADDINGS.p10,
-              borderRadius: 12,
-              marginBottom: MARGINS.m18,
-              marginTop: MARGINS.m20,
-              flex: 1,
-              color: COLORS.black,
-              marginLeft: MARGINS.m4,
-            }}
-            placeHolder={"To Date"}
-            editable={false}
-            value={toDate}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <DateTimePickerModal
-        isVisible={isFromDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirmFromDate}
-        onCancel={hideFromDatePicker}
-        display={Platform.OS === "ios" ? "inline" : "default"}
-      />
-      <DateTimePickerModal
-        isVisible={isToDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirmToDate}
-        onCancel={hideToDatePicker}
-        display={Platform.OS === "ios" ? "inline" : "default"}
-      />
-
-      <TouchableOpacity style={styles.button}>
-        <Text normal color={COLORS.white}>
-          Submit
+    <KeyboardAwareScrollView style={{ backgroundColor: COLORS.black }}>
+      <View style={styles.container}>
+        <Text medium color={COLORS.white} style={styles.title}>
+          New Leave
         </Text>
-      </TouchableOpacity>
-    </View>
+        <Text large color={COLORS.white} style={styles.name}>
+          {studentData.name}
+        </Text>
+        <Text small color={COLORS.white} style={styles.small_text}>
+          Class - {studentData.class_name} {studentData.section}
+        </Text>
+        <TextInput
+          style={{
+            height: 46,
+            borderWidth: 1,
+            backgroundColor: COLORS.white,
+            paddingLeft: PADDINGS.p10,
+            borderRadius: 12,
+            marginTop: MARGINS.m30,
+          }}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
+          placeholder={"Title"}
+          placeholderTextColor={COLORS.black}
+        />
+        <TextInput
+          style={{
+            height: 100,
+            borderWidth: 1,
+            backgroundColor: COLORS.white,
+            paddingLeft: PADDINGS.p10,
+            borderRadius: 12,
+            marginTop: MARGINS.m20,
+            textAlignVertical: "top",
+            paddingTop: PADDINGS.p10,
+          }}
+          value={description}
+          onChangeText={(text) => setDescription(text)}
+          placeholder={"Description"}
+          placeholderTextColor={COLORS.black}
+        />
+        <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={showFromDatePicker} style={{ flex: 1 }}>
+            <UserInput
+              inputStyle={{
+                height: 46,
+                borderWidth: 1,
+                backgroundColor: COLORS.white,
+                paddingLeft: PADDINGS.p10,
+                borderRadius: 12,
+                marginBottom: MARGINS.m18,
+                marginTop: MARGINS.m20,
+                color: COLORS.black,
+                marginRight: MARGINS.m4,
+              }}
+              placeHolder={"From Date"}
+              editable={false}
+              value={fromDate}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={showToDatePicker} style={{ flex: 1 }}>
+            <UserInput
+              inputStyle={{
+                height: 46,
+                borderWidth: 1,
+                backgroundColor: COLORS.white,
+                paddingLeft: PADDINGS.p10,
+                borderRadius: 12,
+                marginBottom: MARGINS.m18,
+                marginTop: MARGINS.m20,
+                flex: 1,
+                color: COLORS.black,
+                marginLeft: MARGINS.m4,
+              }}
+              placeHolder={"To Date"}
+              editable={false}
+              value={toDate}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <DateTimePickerModal
+          isVisible={isFromDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirmFromDate}
+          onCancel={hideFromDatePicker}
+          display={Platform.OS === "ios" ? "inline" : "default"}
+        />
+        <DateTimePickerModal
+          isVisible={isToDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirmToDate}
+          onCancel={hideToDatePicker}
+          display={Platform.OS === "ios" ? "inline" : "default"}
+        />
+        {isLoading ? (
+          <ActivityIndicator size="large" style={{ marginTop: MARGINS.m26 }} />
+        ) : (
+          <TouchableOpacity onPress={handleOnPressSubmit} style={styles.button}>
+            <Text normal color={COLORS.white}>
+              Submit
+            </Text>
+          </TouchableOpacity>
+        )}
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -195,5 +241,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: MARGINS.m22,
     width: 150,
+  },
+  loading: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F5FCFF88",
   },
 });

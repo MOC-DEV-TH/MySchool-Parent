@@ -18,8 +18,7 @@ const UpComingEventItem = (props) => {
             {props.item.start_date}
           </Text>
           <Text tiny style={{ marginTop: MARGINS.m10 }}>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit officia consequat duis enim velit mollit.
+            {props.item.description}
           </Text>
         </View>
       </View>

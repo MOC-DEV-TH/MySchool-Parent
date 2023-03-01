@@ -230,4 +230,30 @@ export const RestClientApi = {
     });
     return response.json();
   },
+
+  postLeaveRequest: async function (
+    studentId,
+    title,
+    desc,
+    startDate,
+    endDate,
+    token
+  ) {
+    console.log("Post leaveRequest to server", studentId);
+    const response = await fetch(AppConstants.POST_LEAVE_REQUEST, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        student_id: studentId,
+        title: title,
+        descriptions: desc,
+        start_date: startDate,
+        end_date: endDate,
+      }),
+    });
+    return response.json();
+  },
 };

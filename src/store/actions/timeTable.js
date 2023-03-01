@@ -33,7 +33,7 @@ export const getClassRoutine = (sessionId, classId, sectionId, dayIndex) => {
         });
       }
       if (dayIndex === 1) {
-        for (const item of response.details.Tueday) {
+        for (const item of response.details.Tuesday) {
           tuesdayData.push(
             new Routine(item.name, item.duration, item.subject, item.isActive)
           );
@@ -45,7 +45,7 @@ export const getClassRoutine = (sessionId, classId, sectionId, dayIndex) => {
         });
       }
       if (dayIndex === 2) {
-        for (const item of response.details.Wedday) {
+        for (const item of response.details.Wednesday) {
           wedData.push(
             new Routine(item.name, item.duration, item.subject, item.isActive)
           );
@@ -57,7 +57,7 @@ export const getClassRoutine = (sessionId, classId, sectionId, dayIndex) => {
         });
       }
       if (dayIndex === 3) {
-        for (const item of response.details.Thurday) {
+        for (const item of response.details.Thursday) {
           thuData.push(
             new Routine(item.name, item.duration, item.subject, item.isActive)
           );
