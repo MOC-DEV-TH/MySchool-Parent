@@ -28,6 +28,9 @@ const Attendance = ({ route }) => {
   const isLoading = useSelector((state) => state.attendance.loading);
   const totalDetail = useSelector((state) => state.attendance.totalDetail);
   const monthDataObj = useSelector((state) => state.attendance.monthDataObj);
+  const attendanceData = useSelector(
+    (state) => state.attendance.attendanceData
+  );
 
   console.log("MonthCountObj", monthCountObj);
 
@@ -48,21 +51,21 @@ const Attendance = ({ route }) => {
     } catch (error) {}
   }, [dispatch]);
 
-  allDateData.map((item) => {
+  attendanceData.details.map((item) => {
     markedDay[item.date] = {
       customStyles: {
         container: {
           borderWidth: 0.7,
           borderColor:
-            item.status.toString() == "true"
+            item.status.toString() == "1"
               ? COLORS.green
-              : item.status.toString() == "false"
+              : item.status.toString() == "0"
               ? COLORS.red
               : COLORS.leave,
           backgroundColor:
-            item.status.toString() == "true"
+            item.status.toString() == "1"
               ? hex2rgba(COLORS.present, 0.4)
-              : item.status.toString() == "false"
+              : item.status.toString() == "0"
               ? hex2rgba(COLORS.absent, 0.4)
               : hex2rgba(COLORS.leave, 0.4),
           opacity: 0.8,
@@ -75,8 +78,8 @@ const Attendance = ({ route }) => {
     };
   });
 
-  console.log("MonthCountLength",Object.keys(monthCountObj).length)
-  console.log("MonthDataObj",monthDataObj)
+  console.log("MonthCountLength", Object.keys(monthCountObj).length);
+  console.log("AttendanceData", attendanceData);
 
   const FooterContainer = ({ style, label, count }) => {
     return (

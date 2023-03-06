@@ -6,6 +6,7 @@ import {
 } from "../../utils/AppConstants";
 
 export const getStudentAttendance = (studentId) => {
+  console.log("StudentID", studentId);
   return async (dispatch, getState) => {
     dispatch({ type: LOAD_ATTENDANCE_LOADING });
     const token = getState().auth.token;
@@ -42,29 +43,29 @@ export const getStudentAttendance = (studentId) => {
           monthObj = response.total_details.Dec;
         }
 
-        for (const data of response.leaves) {
-          const diffTime = Math.abs(
-            new Date(data.start_date) - new Date(data.end_date)
-          );
-          const diffDays = 0 | (diffTime / 864e5);
-          for (let i = 0; i <= diffDays; i++) {
-            const newDate = new Date(
-              new Date(data.start_date).getTime() + i * 864e5
-            );
+        // for (const data of response.leaves) {
+        //   const diffTime = Math.abs(
+        //     new Date(data.start_date) - new Date(data.end_date)
+        //   );
+        //   const diffDays = 0 | (diffTime / 864e5);
+        //   for (let i = 0; i <= diffDays; i++) {
+        //     const newDate = new Date(
+        //       new Date(data.start_date).getTime() + i * 864e5
+        //     );
 
-            var year = newDate.getFullYear();
-            var month = String(newDate.getMonth() + 1).padStart(2, "0");
-            var date = String(newDate.getDate()).padStart(2, "0");
+        //     var year = newDate.getFullYear();
+        //     var month = String(newDate.getMonth() + 1).padStart(2, "0");
+        //     var date = String(newDate.getDate()).padStart(2, "0");
 
-            leaveDateArray.push({
-              date: year + "-" + month + "-" + date,
-              status: "leave",
-              month: "leave month",
-            });
-          }
-        }
+        //     leaveDateArray.push({
+        //       date: year + "-" + month + "-" + date,
+        //       status: "leave",
+        //       month: "leave month",
+        //     });
+        //   }
+        // }
 
-        allDateArray.push(...leaveDateArray);
+        // allDateArray.push(...leaveDateArray);
 
         dispatch({
           type: LOAD_STUDENT_ATTENDANCE_DATA,
