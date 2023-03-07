@@ -56,6 +56,7 @@ const Homework = ({ route }) => {
             style={{ marginTop: MARGINS.m10 }}
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
+            inverted={true}
             renderItem={(itemData) => <HomeWorkItem item={itemData} />}
             keyExtractor={(item, index) => index.toString()}
           />

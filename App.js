@@ -40,10 +40,11 @@ export default function App() {
     getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
       if (value == null) {
         setIsAuth(false);
+        setIsRefreshing(false);
       } else {
         setIsAuth(true);
+        setIsRefreshing(false);
       }
-      setIsRefreshing(false);
     });
 
     notificationListener.current =
@@ -68,7 +69,11 @@ export default function App() {
     <Provider store={store}>
       <NativeBaseProvider>
         <NavigationContainer>
-          {!isRefreshing ? <StartUpScreen authStatus={isAuth} /> : <DrawerNavigator/>}
+          {!isRefreshing ? (
+            <StartUpScreen authStatus={isAuth} />
+          ) : (
+            <DrawerNavigator />
+          )}
         </NavigationContainer>
       </NativeBaseProvider>
     </Provider>
