@@ -32,10 +32,10 @@ const PaymentHistory = ({ route, navigation }) => {
 
   //handle press invoice id
   const handleOnPressPaidInvoiceId = (id) => {
-    navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
+    //navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
   };
   const handleOnPressUnPaidInvoiceId = (id) => {
-    navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
+    //navigation.navigate(ROUTES.INVOICE_DETAIL, { transactionId: id });
   };
 
   //render UI

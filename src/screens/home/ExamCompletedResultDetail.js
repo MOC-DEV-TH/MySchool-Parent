@@ -5,6 +5,7 @@ import { COLORS, PADDINGS, MARGINS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { useSelector, useDispatch } from "react-redux";
 import * as completedExamDetailAction from "../../store/actions/completedExamDetail";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const ExamCompletedResultDetail = ({ navigation, route }) => {
   const { student, completedData } = route.params;
@@ -27,12 +28,15 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
   const loadCompletedExamDetail = useCallback(async () => {
     setIsRefreshing(true);
     try {
-      await dispatch(completedExamDetailAction.getCompletedExamDetail(6, 4));
+      await dispatch(
+        completedExamDetailAction.getCompletedExamDetail(
+          student.id,
+          completedData.id
+        )
+      );
     } catch (error) {}
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
-
-  console.log("CompletedDetailData", completedExamDetailData.length);
 
   const tableData = completedExamDetailData.map((data) => [
     data.subject_name,
@@ -56,45 +60,52 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
     </View>
   );
   return (
-    <View style={styles.container}>
-      <Text medium color={COLORS.white} style={styles.title}>
-        Exam Results
-      </Text>
-      <Text large color={COLORS.white} style={styles.name}>
-        {student.name}
-      </Text>
-      <Text small color={COLORS.white} style={styles.small_text}>
-        Class - {student.class_name}
-      </Text>
+    <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Text medium color={COLORS.white} style={styles.title}>
+          Exam Results
+        </Text>
+        <Text large color={COLORS.white} style={styles.name}>
+          {student.name}
+        </Text>
+        <Text small color={COLORS.white} style={styles.small_text}>
+          Class - {student.class_name}
+        </Text>
 
-      <Text medium color={COLORS.white} style={styles.medium_text}>
-        {completedData.exam_name}
-      </Text>
-      <Table borderStyle={{ borderWidth: 1, borderColor: "transparent" }}>
-        <Row data={header} style={styles.head} textStyle={styles.header_text} />
-        <Table>
-          {tableData.map((rowData, index) => (
-            <TableWrapper
-              key={index}
-              style={{
-                flexDirection: "row",
-                backgroundColor: COLORS.white,
-                borderBottomLeftRadius: index + 2 === rowData.length ? 12 : 0,
-                borderBottomRightRadius: index + 2 === rowData.length ? 12 : 0,
-              }}
-            >
-              {rowData.map((cellData, cellIndex) => (
-                <Cell
-                  key={cellIndex}
-                  data={cellIndex === 2 ? element(cellData, index) : cellData}
-                  textStyle={styles.text}
-                />
-              ))}
-            </TableWrapper>
-          ))}
+        <Text medium color={COLORS.white} style={styles.medium_text}>
+          {completedData.exam_name}
+        </Text>
+        <Table borderStyle={{ borderWidth: 1, borderColor: "transparent"}}>
+          <Row
+            data={header}
+            style={styles.head}
+            textStyle={styles.header_text}
+          />
+          <Table>
+            {tableData.map((rowData, index) => (
+              <TableWrapper
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  backgroundColor: COLORS.white,
+                  borderBottomLeftRadius: index - 2 === rowData.length ? 12 : 0,
+                  borderBottomRightRadius:
+                    index - 2 === rowData.length ? 12 : 0,
+                }}
+              >
+                {rowData.map((cellData, cellIndex) => (
+                  <Cell
+                    key={cellIndex}
+                    data={cellIndex === 2 ? element(cellData, index) : cellData}
+                    textStyle={styles.text}
+                  />
+                ))}
+              </TableWrapper>
+            ))}
+          </Table>
         </Table>
-      </Table>
-    </View>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

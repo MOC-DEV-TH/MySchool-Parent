@@ -1,17 +1,19 @@
 import Student from "../../data/model/Student";
 import { RestClientApi } from "../../network/RestApiClient";
-import  {
+import * as notificationActions from "../../store/actions/notification";
+import AppConstants, {
   LOAD_HOME_LOADING,
   LOAD_HOME_STUDENT,
   LOAD_HOME_SUCCESS,
 } from "../../utils/AppConstants";
+import { getData, setData } from "../../utils/SessionManager";
 
 export const getAllStudentData = (token) => {
   return async (dispatch) => {
     dispatch({ type: LOAD_HOME_LOADING });
     RestClientApi.getAllStudents(token)
       .then((response) => {
-        console.log("Student", response.data);
+        console.log("Student", response);
         const student = [];
         for (const item of response.data) {
           student.push(
@@ -36,10 +38,17 @@ export const getAllStudentData = (token) => {
           type: LOAD_HOME_STUDENT,
           studentData: student,
         });
+
+      
+        console.log("Notification Total",response.noti_total)
+        setData(
+          AppConstants.KEY_NOTIFICATION_COUNT,
+          response.noti_total.toString()
+        );
       })
       .finally(() => {
         RestClientApi.getUpComingEvent(token).then((response) => {
-          console.log("UpComingEvent", response);
+          //console.log("UpComingEvent", response);
           dispatch({
             type: LOAD_HOME_SUCCESS,
             eventData: response,

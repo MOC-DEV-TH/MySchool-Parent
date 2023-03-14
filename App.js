@@ -8,10 +8,12 @@ import { LogBox, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
-import { StartUpScreen } from "./src/screens";
 import { getData, setData } from "./src/utils/SessionManager";
 import AppConstants from "./src/utils/AppConstants";
 import DrawerNavigator from "./src/navigations/DrawerNavigator";
+import AuthNavigator from "./src/navigations/AuthNavigator";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StartUpScreen } from "./src/screens";
 
 LogBox.ignoreAllLogs();
 const store = configureStore();
@@ -28,25 +30,31 @@ export default function App() {
   const [notification, setNotification] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isAuth, setIsAuth] = useState(false);
+  const [hasLaunched, setHasLaunched] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
   useEffect(() => {
-    setData(AppConstants.KEY_NOTIFICATION_COUNT, "0");
+    const getAuthToken = async () => {
+      const hasLaunch = await getData(AppConstants.KEY_AUTH_TOKEN);
+      console.log("HashLaunched", hasLaunch);
+      if (hasLaunch) {
+        setHasLaunched(true);
+      } else {
+        await setData(AppConstants.KEY_AUTH_TOKEN, hasLaunch);
+      }
+    };
+
+    getAuthToken().catch((error) => {
+      console.log("Error", error);
+    });
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.clear();
     registerForPushNotificationsAsync().then((token) =>
       setExpoPushToken(token)
     );
-    setIsRefreshing(true);
-    getData(AppConstants.KEY_AUTH_TOKEN).then((value) => {
-      if (value == null) {
-        setIsAuth(false);
-        setIsRefreshing(false);
-      } else {
-        setIsAuth(true);
-        setIsRefreshing(false);
-      }
-    });
-
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
         setNotification(notification);
@@ -69,11 +77,8 @@ export default function App() {
     <Provider store={store}>
       <NativeBaseProvider>
         <NavigationContainer>
-          {!isRefreshing ? (
-            <StartUpScreen authStatus={isAuth} />
-          ) : (
-            <DrawerNavigator />
-          )}
+          {hasLaunched ? <DrawerNavigator /> : <AuthNavigator />}
+          <StartUpScreen />
         </NavigationContainer>
       </NativeBaseProvider>
     </Provider>

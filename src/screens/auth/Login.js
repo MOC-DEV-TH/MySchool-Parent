@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { StyleSheet, Image, View, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  View,
+  TextInput,
+} from "react-native";
 import UserInput from "../../components/UI/UserInput";
 import CustomButton from "../../components/UI/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, PADDINGS, IMGS, MARGINS } from "../../constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Icon, Pressable } from "native-base";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as authActions from "../../store/actions/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StatusBar } from "expo-status-bar";
@@ -18,8 +23,10 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
 
-  const handleOnPressLogin = () => {
-    dispatch(authActions.login(email, password, navigation));
+  const handleOnPressLogin = async () => {
+    try {
+      await dispatch(authActions.login(email, password, navigation));
+    } catch (error) {}
   };
 
   return (
@@ -115,5 +122,17 @@ const styles = StyleSheet.create({
     paddingLeft: PADDINGS.p10,
     paddingTop: PADDINGS.p2,
     borderRadius: 12,
+  },
+  loadingContainer: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    width: 100,
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.black,
   },
 });

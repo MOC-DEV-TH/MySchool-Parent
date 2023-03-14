@@ -29,11 +29,13 @@ export default {
   KEY_AUTH_TOKEN: "key_auth_token",
   KEY_USER_DATA: "key_user_data",
   KEY_NOTIFICATION_COUNT: "key_notification_count",
+  LAST_NOTI_COUNT: "Last noti count",
 };
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const AUTHENTICATE_TOKEN = "AUTHENTICATE_TOKEN";
-export const LOAD_HOME_LOADING = "LOAD_HOME_LOADING";
+export const LOAD_HOME_LOADING = "LOGIN_LOADING";
+export const LOGIN_LOADING = "LOAD_HOME_LOADING";
 export const LOAD_HOME_SUCCESS = "LOAD_HOME_SUCCESS";
 export const LOAD_HOME_ERROR = "LOAD_HOME_ERROR";
 export const LOAD_HOME_STUDENT = "LOAD_HOME_STUDENT";

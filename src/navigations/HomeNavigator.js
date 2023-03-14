@@ -21,23 +21,20 @@ import {
   TermsAndConditions,
 } from "../screens";
 import { ROUTES, COLORS, IMGS } from "../constants";
-import { Image, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import { Ionicons } from "@expo/vector-icons";
-import NotificationComponent from "../components/ItemComponents/NotificationComponent";
+import { getData, setData } from "../utils/SessionManager";
+import AppConstants from "../utils/AppConstants";
+import React, { useEffect, useState, useCallback } from "react";
 
 const Stack = createStackNavigator();
 
 function HomeNavigator() {
   const navigation = useNavigation();
-
-  const handleOnPressMenu = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
-  const handleOnPressNotification = () => {
-    navigation.navigate(ROUTES.NOTIFICATIONS);
-  };
+  let [notiCount, setNotiCount] = useState("0");
 
   return (
     <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
@@ -48,33 +45,7 @@ function HomeNavigator() {
           headerTintColor: COLORS.white,
           headerBackTitle: "Back",
           headerBackTitleVisible: false,
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: COLORS.bgColor,
-          },
-          headerTitle: () => (
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                flex: 1,
-                width: "100%",
-              }}
-            >
-              <TouchableOpacity onPress={handleOnPressMenu}>
-                <Ionicons name="menu" size={20} color={COLORS.white} />
-              </TouchableOpacity>
-              <Image source={IMGS.logoWhiteSmall} style={styles.appIcon} />
-              <TouchableOpacity onPress={handleOnPressNotification}>
-                <Ionicons name="notifications" size={20} color={COLORS.white} />
-              </TouchableOpacity>
-
-              {/* <NotificationComponent
-                onPress={handleOnPressNotification}
-              /> */}
-            </View>
-          ),
+          headerShown: false,
         })}
       />
 

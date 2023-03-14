@@ -8,13 +8,12 @@ export const setData = async (key, value) => {
   }
 };
 export const getData = async (key) => {
-  var value;
   try {
-    await AsyncStorage.getItem(key).then((val) => {
-      value = val;
-    });
+    const value = await AsyncStorage.getItem(key);
+    if (value !== null) {
+      return value;
+    }
   } catch (e) {
     console.log("Error reading value");
   }
-  return value;
 };

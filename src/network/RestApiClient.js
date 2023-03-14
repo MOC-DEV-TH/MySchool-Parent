@@ -84,7 +84,7 @@ export const RestClientApi = {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        student_id: 6,
+        student_id: studentId,
       }),
     });
     return response.json();

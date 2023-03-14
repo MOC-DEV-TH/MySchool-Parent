@@ -10,14 +10,8 @@ import AppConstants from "../../utils/AppConstants";
 const BACKGROUND_NOTIFICATION_TASK = "BACKGROUND-NOTIFICATION-TASK";
 
 const StartUpScreen = (props) => {
-  console.log("AuthStatus",props.authStatus)
   const dispatch = useDispatch();
   const responseListener = useRef();
-
-  //get notification count
-  const notificationCount = useSelector(
-    (state) => state.notification.notificationCount
-  );
 
   useEffect(() => {
     // register task to run whenever is received while the app is in the background
@@ -46,7 +40,6 @@ const StartUpScreen = (props) => {
   const handleNewNotification = async () => {
     try {
       getData(AppConstants.KEY_NOTIFICATION_COUNT).then((count) => {
-        console.log("Store Notification Count::", count);
         dispatch(
           notificationActions.receiveNotification(
             (parseInt(count) + 1).toString()
@@ -63,7 +56,7 @@ const StartUpScreen = (props) => {
     }
   };
 
-  return !props.authStatus ? <AuthNavigator/> : <DrawerNavigator/> 
+  return;
 };
 
 export default StartUpScreen;

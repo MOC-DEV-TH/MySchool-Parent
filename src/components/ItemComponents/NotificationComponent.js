@@ -1,15 +1,12 @@
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
-import { useSelector } from "react-redux";
 import { COLORS } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 
 const NotificationComponent = (props) => {
-  const notificationCount = useSelector(
-    (state) => state.notification.notificationCount
-  );
-  console.log("NotificationCount", notificationCount);
+  console.log("NotificationCount", props.notificationCount);
+
   return (
     <View>
       <TouchableOpacity onPress={props.onPress}>
@@ -38,7 +35,7 @@ const NotificationComponent = (props) => {
               top: 3,
             }}
           >
-            {notificationCount}
+            {props.notificationCount}
           </Text>
         </View>
       </TouchableOpacity>

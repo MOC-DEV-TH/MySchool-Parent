@@ -12,6 +12,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case NOTIFICATION_RECEIVED:
       return {
+        ...state,
         notificationCount: action.notiCount,
       };
     case LOAD_NOTIFICATION_DATA:

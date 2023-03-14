@@ -45,7 +45,7 @@ const Profile = () => {
   return (
     <View style={styles.container}>
       <CustomText label={"Name"} value={profileDetailData.name} />
-      <CustomText label={"NRC No."} value={"12/xxx(N)xxx"} />
+      {/* <CustomText label={"NRC No."} value={"12/xxx(N)xxx"} /> */}
 
       <Text
         medium

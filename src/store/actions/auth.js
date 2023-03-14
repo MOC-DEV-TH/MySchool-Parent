@@ -3,12 +3,13 @@ import { RestClientApi } from "../../network/RestApiClient";
 import AppConstants, {
   AUTHENTICATE,
   AUTHENTICATE_TOKEN,
+  LOGIN_LOADING,
 } from "../../utils/AppConstants";
 import { getData, setData } from "../../utils/SessionManager";
 
 export const login = (email, password, navigation) => {
   return async (dispatch) => {
-    RestClientApi.login(email, password).then((response) => {
+    await RestClientApi.login(email, password).then((response) => {
       console.log(response);
       if (response.status == AppConstants.LOGIN_STATUS_CODE) {
         dispatch({
