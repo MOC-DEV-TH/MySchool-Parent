@@ -135,16 +135,13 @@ export const RestClientApi = {
   },
 
   getProfileDetail: async function (token, userId) {
-    const response = await fetch(
-      AppConstants.GET_PROFILE_DETAIL_URL + "/" + userId,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetch(AppConstants.GET_USER_DETAIL_URL, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.json();
   },
 

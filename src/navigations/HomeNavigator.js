@@ -19,6 +19,7 @@ import {
   PrivacyPolicy,
   AboutMySchool,
   TermsAndConditions,
+  Login,
 } from "../screens";
 import { ROUTES, COLORS, IMGS } from "../constants";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
@@ -284,6 +285,20 @@ function HomeNavigator() {
         component={AboutMySchool}
         options={{
           headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.LOGIN}
+        component={Login}
+        options={{
+          headerShown: false,
           headerTintColor: COLORS.white,
           headerTitleAlign: "center",
           headerStyle: {

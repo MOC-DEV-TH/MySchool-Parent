@@ -24,6 +24,7 @@ export default {
   GET_NOTIFICATION_URL: Config.APIServiceURL + "/notifications",
   POST_EXPO_TOKEN_TO_SERVER: Config.APIServiceURL + "/post-expo-token-mobile",
   POST_LEAVE_REQUEST: Config.APIServiceURL + "/post-leave-request-mobile",
+  GET_USER_DETAIL_URL: Config.APIServiceURL + "/users/details",
 
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",

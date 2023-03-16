@@ -19,11 +19,11 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "buildNumber" : "1",
-      "bundleIdentifier": "com.moc.mySchoolParent"
+      "buildNumber": "1",
+      "bundleIdentifier": "com.moc.myschoolParent"
     },
     "android": {
-      "package": "com.moc.mySchoolParent",
+      "package": "com.moc.myschoolParent",
       "googleServicesFile": "./google-services.json",
       "versionCode": 1,
       "adaptiveIcon": {
@@ -41,7 +41,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "e0ff5370-8f56-44fa-a273-6616016d4c67"
+        "projectId": "3c5b0113-0632-44e7-aa90-959be73c85f8"
       }
     }
   }

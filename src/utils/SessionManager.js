@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppConstants from "./AppConstants";
 
 export const setData = async (key, value) => {
   try {
@@ -15,5 +16,14 @@ export const getData = async (key) => {
     }
   } catch (e) {
     console.log("Error reading value");
+  }
+};
+
+export const isAuthenticated = async () => {
+  try {
+    const data = await AsyncStorage.getItem(AppConstants.KEY_AUTH_TOKEN);
+    if (data) return true;
+  } catch (e) {
+    return false;
   }
 };

@@ -8,12 +8,12 @@ import { LogBox, ActivityIndicator } from "react-native";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
-import { getData, setData } from "./src/utils/SessionManager";
+import { getData, isAuthenticated, setData } from "./src/utils/SessionManager";
 import AppConstants from "./src/utils/AppConstants";
 import DrawerNavigator from "./src/navigations/DrawerNavigator";
 import AuthNavigator from "./src/navigations/AuthNavigator";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StartUpScreen } from "./src/screens";
+import * as SplashScreen from "expo-splash-screen";
 
 LogBox.ignoreAllLogs();
 const store = configureStore();
@@ -26,38 +26,19 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
-  const [expoPushToken, setExpoPushToken] = useState("");
-  const [notification, setNotification] = useState(false);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
-  const [hasLaunched, setHasLaunched] = useState(false);
+  const [flag, setFlag] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  useEffect(() => {
-    const getAuthToken = async () => {
-      const hasLaunch = await getData(AppConstants.KEY_AUTH_TOKEN);
-      console.log("HashLaunched", hasLaunch);
-      if (hasLaunch) {
-        setHasLaunched(true);
-      } else {
-        await setData(AppConstants.KEY_AUTH_TOKEN, hasLaunch);
-      }
-    };
+  const [appReady, setAppReady] = useState(false);
+  const [user, setUser] = useState();
 
-    getAuthToken().catch((error) => {
-      console.log("Error", error);
-    });
-  }, []);
-
+  //init notification
   useEffect(() => {
-    AsyncStorage.clear();
-    registerForPushNotificationsAsync().then((token) =>
-      setExpoPushToken(token)
-    );
+    registerForPushNotificationsAsync().then((token) => {});
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
-        setNotification(notification);
+        //setNotification(notification);
       });
 
     responseListener.current =
@@ -73,11 +54,38 @@ export default function App() {
     };
   }, []);
 
+  //check is auth
+  useEffect(() => {
+    async function prepare() {
+      try {
+        // Keep the splash screen visible while we fetch resources
+        await SplashScreen.preventAutoHideAsync();
+
+        // Make any API calls you need to do here
+        const user = await getData(AppConstants.KEY_AUTH_TOKEN);
+        if (!user) return;
+
+        setUser(user);
+      } catch (e) {
+        logger.log(e);
+      } finally {
+        // Tell the application to render
+        setAppReady(true);
+        await SplashScreen.hideAsync();
+      }
+    }
+    prepare();
+  }, []);
+
+  if (!appReady) {
+    return null;
+  }
+
   return (
     <Provider store={store}>
       <NativeBaseProvider>
         <NavigationContainer>
-          {hasLaunched ? <DrawerNavigator /> : <AuthNavigator />}
+          {user ? <DrawerNavigator /> : <AuthNavigator />}
           <StartUpScreen />
         </NavigationContainer>
       </NativeBaseProvider>

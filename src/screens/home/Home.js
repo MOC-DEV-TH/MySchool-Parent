@@ -31,6 +31,11 @@ const Home = ({ navigation }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   let [notiCount, setNotiCount] = useState("0");
 
+  //initial fetch home data
+  useEffect(async () => {
+    loadHomeData();
+  }, []);
+
   //get home data
   const isLoading = useSelector((state) => state.home.loading);
   const studentData = useSelector((state) => state.home.studentData);
@@ -100,11 +105,6 @@ const Home = ({ navigation }) => {
     });
     return focusHandler;
   }, [navigation]);
-
-  //initial fetch home data
-  useEffect(async () => {
-    loadHomeData();
-  }, []);
 
   //load home  data
   const loadHomeData = useCallback(

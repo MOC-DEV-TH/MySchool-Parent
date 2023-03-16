@@ -14,6 +14,8 @@ import { useNavigation } from "@react-navigation/native";
 import CustomDrawerItem from "../DrawerComponents/CustomDrawerItem";
 import { useSelector } from "react-redux";
 import { useDrawerStatus } from "@react-navigation/drawer";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Login } from "../../screens";
 
 const CustomDrawer = (props) => {
   const studentData = useSelector((state) => state.home.studentData);
@@ -67,6 +69,11 @@ const CustomDrawer = (props) => {
 
   const handleOnPressPrivacyPolicy = () => {
     navigation.navigate(ROUTES.PRIVACY_POLICY);
+  };
+
+  const handleOnPressLogout = () => {
+    AsyncStorage.clear();
+    navigation.navigate(ROUTES.LOGIN_NAVIGATOR);
   };
 
   return (
@@ -161,6 +168,12 @@ const CustomDrawer = (props) => {
             iconName={IMGS.privacyPolicy}
             label={"Privacy Policy"}
             onPressItem={handleOnPressPrivacyPolicy}
+          />
+
+          <CustomDrawerItem
+            iconName={IMGS.privacyPolicy}
+            label={"Logout"}
+            onPressItem={handleOnPressLogout}
           />
         </View>
       </DrawerContentScrollView>

@@ -2,6 +2,7 @@ import { LOAD_PROFILE_DETAIL_DATA } from "../../utils/AppConstants";
 
 const initialState = {
   profileDetail: {},
+  address: null,
 };
 
 export default (state = initialState, action) => {
@@ -9,6 +10,7 @@ export default (state = initialState, action) => {
     case LOAD_PROFILE_DETAIL_DATA:
       return {
         profileDetail: action.profileDetail,
+        address: action.address,
       };
     default:
       return state;

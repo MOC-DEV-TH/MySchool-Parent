@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   StyleSheet,
   Image,
   View,
   TextInput,
+  BackHandler
 } from "react-native";
 import UserInput from "../../components/UI/UserInput";
 import CustomButton from "../../components/UI/CustomButton";
@@ -22,6 +23,21 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
+
+  //on back press
+  useEffect(() => {
+    const backAction = () => {
+      BackHandler.exitApp();
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
 
   const handleOnPressLogin = async () => {
     try {

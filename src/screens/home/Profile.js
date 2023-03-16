@@ -18,6 +18,7 @@ const Profile = () => {
 
   //get profile detail data
   const profileDetailData = useSelector((state) => state.profile.profileDetail);
+  const address = useSelector((state) => state.profile.address);
 
   //load profile detail data
   const loadProfileDetail = useCallback(async () => {
@@ -67,9 +68,9 @@ const Profile = () => {
           onPressItem={handleOnPressPhone}
         />
         <CustomTextWithIcon
-          iconName={"locate"}
+          iconName={"location"}
           divider={false}
-          text={profileDetailData.occupation}
+          text={address}
           onPressItem={handleOnPressResidentialAddress}
         />
       </View>

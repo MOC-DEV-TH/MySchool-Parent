@@ -8,6 +8,7 @@ import {
 } from "../screens";
 import HomeNavigator from "./HomeNavigator";
 import CustomDrawer from "../components/DrawerComponents/CustomDrawer";
+import AuthNavigator from "./AuthNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -34,6 +35,15 @@ function DrawerNavigator() {
           drawerItemStyle: { height: 0 },
         }}
         component={HomeNavigator}
+      />
+
+      <Drawer.Screen
+        name={ROUTES.LOGIN_NAVIGATOR}
+        options={{
+          title: "",
+          drawerItemStyle: { height: 0 },
+        }}
+        component={AuthNavigator}
       />
 
       {/* <Drawer.Screen

@@ -1,5 +1,6 @@
 export default {
   LOGIN: "Login",
+  LOGIN_NAVIGATOR: "Login",
   REGISTER: "Register",
   FORGOT_PASSWORD: "Forgot Password",
 
