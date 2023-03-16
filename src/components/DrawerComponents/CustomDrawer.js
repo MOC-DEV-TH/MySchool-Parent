@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Login } from "../../screens";
+import AppConstants from "../../utils/AppConstants";
 
 const CustomDrawer = (props) => {
   const studentData = useSelector((state) => state.home.studentData);
@@ -72,7 +73,8 @@ const CustomDrawer = (props) => {
   };
 
   const handleOnPressLogout = () => {
-    AsyncStorage.clear();
+    AsyncStorage.removeItem(AppConstants.KEY_USER_DATA);
+    AsyncStorage.removeItem(AppConstants.KEY_AUTH_TOKEN);
     navigation.navigate(ROUTES.LOGIN_NAVIGATOR);
   };
 
