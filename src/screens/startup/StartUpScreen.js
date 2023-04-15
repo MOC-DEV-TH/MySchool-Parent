@@ -1,7 +1,5 @@
 import { StyleSheet } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
-import AuthNavigator from "../../navigations/AuthNavigator";
-import DrawerNavigator from "../../navigations/DrawerNavigator";
 import * as Notifications from "expo-notifications";
 import * as notificationActions from "../../store/actions/notification";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,7 +54,7 @@ const StartUpScreen = (props) => {
     }
   };
 
-  return;
+  return ;
 };
 
 export default StartUpScreen;

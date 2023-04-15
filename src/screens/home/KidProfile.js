@@ -5,7 +5,7 @@ import CardItem from "../../components/UI/CardItem";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as attendanceAction from "../../store/actions/attendance";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 const KidProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -13,6 +13,9 @@ const KidProfile = ({ route, navigation }) => {
   console.log(studentData.name);
   console.log(studentData.id);
 
+  //get auth token
+  const baseUrl = useSelector((state) => state.baseURL.baseUrl);
+  console.log("BaseUrl",baseUrl)
   useEffect(() => {
     loadAttendanceData();
   }, []);

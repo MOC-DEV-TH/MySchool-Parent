@@ -75,6 +75,7 @@ const CustomDrawer = (props) => {
   const handleOnPressLogout = () => {
     AsyncStorage.removeItem(AppConstants.KEY_USER_DATA);
     AsyncStorage.removeItem(AppConstants.KEY_AUTH_TOKEN);
+    AsyncStorage.removeItem(AppConstants.KEY_BASE_URL);
     navigation.navigate(ROUTES.LOGIN_NAVIGATOR);
   };
 

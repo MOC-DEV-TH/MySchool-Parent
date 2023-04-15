@@ -5,29 +5,28 @@ export default {
     "eyJpdiI6IklVOFg4T0k5Mm5DVWR2Ylo5ZTBFN0E9PSIsInZhbHVlIjoiMzFRNGt6T3lTRUxwblg5UGptUXV0UmhOcldQWjhYdFdNZjZDV0hRUXdINGxKUlJna0VaZkhRTVNrVUNnNlprMTdvYjBvS21vQUkyc1lXWEMvMjJUejNDdGFuSE1QeHpmZUhPNVY1RVh5NEg4K2JURnJJTnF1Mk8zYm5mQWp5eGMiLCJtYWMiOiI2OGUwZjQwZjE2ZjMzYjI4OGI1NTk4NDZkMDJhMmIyNmQxODAzNDE1MTE3OWViOGI2ZTlmNzcwODg2YjVlZmZhIiwidGFnIjoiIn0=",
   LOGIN_STATUS_CODE: "000",
 
-  LOGIN_URL: Config.APIServiceURL + "/loginmobile",
-  GET_ALL_STUDENTS_URL: Config.APIServiceURL + "/parent/students/details",
-  GET_ATTENDANCE_URL: Config.APIServiceURL + "/student-attendance-mobile/",
-  GET_UPCOMING_EXAM_URL: Config.APIServiceURL + "/upcoming-exams-mobile",
-  GET_UPCOMING_EXAM_DETAIL_URL: Config.APIServiceURL + "/exam-schedule-mobile",
-  GET_PASSED_EXAM_URL: Config.APIServiceURL + "/complete-exam-results-mobile",
-  GET_PASSED_EXAM_DETAIL_URL:
-    Config.APIServiceURL + "/complete-exam-results-details-mobile",
-  GET_CLASS_ROUTINE_URL: Config.APIServiceURL + "/get-timetables-mobile",
-  GET_UPCOMING_CALENDAR_EVENT_URL:
-    Config.APIServiceURL + "/upcoming-events-mobile",
-  GET_PROFILE_DETAIL_URL: Config.APIServiceURL + "/guardian-profile-mobile",
-  GET_HOMEWORK_URL: Config.APIServiceURL + "/homeworks-mobile/",
-  GET_PAYMENT_HISTORY_URL: Config.APIServiceURL + "/payment-history-mobile/",
-  GET_BILLING_HISTORY_URL: Config.APIServiceURL + "/billing-history-mobile/",
-  GET_PAYMENT_DETAIL_URL: Config.APIServiceURL + "/payment-details-mobile/",
-  GET_NOTIFICATION_URL: Config.APIServiceURL + "/notifications",
-  POST_EXPO_TOKEN_TO_SERVER: Config.APIServiceURL + "/post-expo-token-mobile",
-  POST_LEAVE_REQUEST: Config.APIServiceURL + "/post-leave-request-mobile",
-  GET_USER_DETAIL_URL: Config.APIServiceURL + "/users/details",
+  LOGIN_URL: "/api/loginmobile",
+  GET_ALL_STUDENTS_URL: "/api/parent/students/details",
+  GET_ATTENDANCE_URL: "/api/student-attendance-mobile/",
+  GET_UPCOMING_EXAM_URL: "/api/upcoming-exams-mobile",
+  GET_UPCOMING_EXAM_DETAIL_URL: "/api/exam-schedule-mobile",
+  GET_PASSED_EXAM_URL: "/api/complete-exam-results-mobile",
+  GET_PASSED_EXAM_DETAIL_URL: "/api/complete-exam-results-details-mobile",
+  GET_CLASS_ROUTINE_URL: "/api/get-timetables-mobile",
+  GET_UPCOMING_CALENDAR_EVENT_URL: "/api/upcoming-events-mobile",
+  GET_PROFILE_DETAIL_URL: "/api/guardian-profile-mobile",
+  GET_HOMEWORK_URL: "/api/homeworks-mobile/",
+  GET_PAYMENT_HISTORY_URL: "/api/payment-history-mobile/",
+  GET_BILLING_HISTORY_URL: "/api/billing-history-mobile/",
+  GET_PAYMENT_DETAIL_URL: "/api/payment-details-mobile/",
+  GET_NOTIFICATION_URL: "/api/notifications",
+  POST_EXPO_TOKEN_TO_SERVER: "/api/post-expo-token-mobile",
+  POST_LEAVE_REQUEST: "/api/post-leave-request-mobile",
+  GET_USER_DETAIL_URL: "/api/users/details",
 
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",
+  KEY_BASE_URL: "key_base_url",
   KEY_USER_DATA: "key_user_data",
   KEY_NOTIFICATION_COUNT: "key_notification_count",
   LAST_NOTI_COUNT: "Last noti count",
@@ -55,6 +54,7 @@ export const LOAD_BILLING_HISTORY_DATA = "LOAD_BILLING_HISTORY_DATA";
 export const LOAD_PAYMENT_DETAIL = "LOAD_PAYMENT_DETAIL";
 export const NOTIFICATION_RECEIVED = "NOTIFICATION_RECEIVED";
 export const LOAD_STUDENT_ATTENDANCE_DATA = "LOAD_STUDENT_ATTENDANCE_DATA";
+export const SET_BASE_URL = "SET_BASE_URL";
 
 export const LOAD_ATTENDANCE_LOADING = "LOAD_ATTENDANCE_LOADING";
 export const LOAD_ATTENDANCE_SUCCESS = "LOAD_ATTENDANCE_SUCCESS";

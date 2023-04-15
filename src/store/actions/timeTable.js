@@ -6,6 +6,7 @@ export const getClassRoutine = (sessionId, classId, sectionId, dayIndex) => {
   console.log(sessionId, classId, sectionId, dayIndex);
   return async (dispatch, getState) => {
     const token = getState().auth.token;
+    const baseUrl = getState().baseURL.baseUrl;
     const mondayData = [];
     const tuesdayData = [];
     const wedData = [];
@@ -15,7 +16,8 @@ export const getClassRoutine = (sessionId, classId, sectionId, dayIndex) => {
       sessionId,
       classId,
       sectionId,
-      token
+      token,
+      baseUrl
     ).then((response) => {
       console.log("Token", token);
       console.log("Response", response.details.Monday);

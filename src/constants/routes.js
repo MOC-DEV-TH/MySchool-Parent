@@ -1,6 +1,7 @@
 export default {
   LOGIN: "Login",
-  LOGIN_NAVIGATOR: "Login",
+  SCHOOL_CODE: "School Code",
+  LOGIN_NAVIGATOR: "School Code",
   REGISTER: "Register",
   FORGOT_PASSWORD: "Forgot Password",
 

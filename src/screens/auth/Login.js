@@ -1,21 +1,16 @@
-import React, { useState,useEffect } from "react";
-import {
-  StyleSheet,
-  Image,
-  View,
-  TextInput,
-  BackHandler
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Image, View, TextInput, BackHandler } from "react-native";
 import UserInput from "../../components/UI/UserInput";
 import CustomButton from "../../components/UI/CustomButton";
 import { useNavigation } from "@react-navigation/native";
-import { COLORS, PADDINGS, IMGS, MARGINS } from "../../constants";
+import { COLORS, PADDINGS, IMGS, MARGINS, ROUTES } from "../../constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Icon, Pressable } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import * as authActions from "../../store/actions/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StatusBar } from "expo-status-bar";
+import LoadingDialog from "../../components/UI/LoadingDialog";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -23,11 +18,12 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
+  let [showLoadingDialog, setShowLoadingDialog] = useState(false);
 
   //on back press
   useEffect(() => {
     const backAction = () => {
-      BackHandler.exitApp();
+      navigation.navigate(ROUTES.SCHOOL_CODE);
       return true;
     };
     const backHandler = BackHandler.addEventListener(
@@ -38,11 +34,18 @@ const Login = (props) => {
     return () => backHandler.remove();
   }, []);
 
-
   const handleOnPressLogin = async () => {
-    try {
-      await dispatch(authActions.login(email, password, navigation));
-    } catch (error) {}
+    if (email == "") {
+      alert("email can't be empty.");
+    } else if (password == "") {
+      alert("password can't be empty.");
+    } else {
+      try {
+        setShowLoadingDialog(true);
+        await dispatch(authActions.login(email, password, navigation));
+        setShowLoadingDialog(false);
+      } catch (error) {}
+    }
   };
 
   return (
@@ -53,6 +56,10 @@ const Login = (props) => {
         backgroundColor: COLORS.bgColor,
       }}
     >
+      <LoadingDialog
+        showAlert={showLoadingDialog}
+        setShowAlert={setShowLoadingDialog}
+      />
       <View style={styles.container}>
         <StatusBar style="light" />
         <Image source={IMGS.logoWhite} style={styles.logo} />

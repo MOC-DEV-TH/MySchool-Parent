@@ -20,6 +20,7 @@
     "expo-notifications": "~0.17.0",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "expo-updates": "~0.15.6",
     "moment": "^2.29.4",
     "native-base": "^3.4.25",
     "react": "18.1.0",
@@ -27,6 +28,7 @@
     "react-native-animated-pagination-dots": "^0.1.73",
     "react-native-calendars": "^1.1293.0",
     "react-native-gesture-handler": "~2.8.0",
+    "react-native-indicators": "^0.17.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal-datetime-picker": "^14.0.1",
     "react-native-paper": "^5.2.0",
@@ -38,8 +40,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
-    "redux-thunk": "^2.4.2",
-    "expo-updates": "~0.15.6"
+    "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

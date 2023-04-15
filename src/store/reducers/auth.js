@@ -1,12 +1,9 @@
-import {
-  AUTHENTICATE,
-  AUTHENTICATE_TOKEN,
-} from "../../utils/AppConstants";
+import { AUTHENTICATE, AUTHENTICATE_TOKEN } from "../../utils/AppConstants";
 
 const initialState = {
   token: null,
   name: null,
-  userID: null
+  userID: null,
 };
 
 export default (state = initialState, action) => {

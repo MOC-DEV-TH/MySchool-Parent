@@ -4,9 +4,10 @@ import { LOAD_UPCOMING_EVENT_CALENDAR } from "../../utils/AppConstants";
 export const getCalendarEvent = () => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
+    const baseUrl = getState().baseURL.baseUrl;
 
-    await RestClientApi.getCalendarEvent(token).then((response) => {
-      console.log("CalendarEvent",response)
+    await RestClientApi.getCalendarEvent(token, baseUrl).then((response) => {
+      console.log("CalendarEvent", response);
       const dateArray = [];
       for (const data of response) {
         const diffTime = Math.abs(
@@ -23,19 +24,18 @@ export const getCalendarEvent = () => {
           var date = String(newDate.getDate()).padStart(2, "0");
 
           dateArray.push({
-            date: year+'-'+month+'-'+date,
+            date: year + "-" + month + "-" + date,
             bgColor: data.color,
           });
         }
       }
 
-      console.log('DATEHERE', dateArray);
+      console.log("DATEHERE", dateArray);
 
       dispatch({
         type: LOAD_UPCOMING_EVENT_CALENDAR,
         mapData: dateArray,
         data: response,
-        
       });
     });
   };

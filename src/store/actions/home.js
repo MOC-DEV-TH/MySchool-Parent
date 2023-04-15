@@ -9,9 +9,11 @@ import AppConstants, {
 import { getData, setData } from "../../utils/SessionManager";
 
 export const getAllStudentData = (token) => {
-  return async (dispatch) => {
+  console.log("TokenData",token)
+  return async (dispatch, getState) => {
+    const baseUrl = getState().baseURL.baseUrl;
     dispatch({ type: LOAD_HOME_LOADING });
-    RestClientApi.getAllStudents(token)
+    RestClientApi.getAllStudents(token, baseUrl)
       .then((response) => {
         console.log("Student", response);
         const student = [];
@@ -39,16 +41,15 @@ export const getAllStudentData = (token) => {
           studentData: student,
         });
 
-      
-        console.log("Notification Total",response.noti_total)
+        console.log("Notification Total", response.noti_total);
         setData(
           AppConstants.KEY_NOTIFICATION_COUNT,
           response.noti_total.toString()
         );
       })
       .finally(() => {
-        RestClientApi.getUpComingEvent(token).then((response) => {
-          //console.log("UpComingEvent", response);
+        RestClientApi.getUpComingEvent(token, baseUrl).then((response) => {
+          console.log("UpComingEvent", response);
           dispatch({
             type: LOAD_HOME_SUCCESS,
             eventData: response,

@@ -4,16 +4,17 @@ import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
 import { Provider } from "react-redux";
 import configureStore from "./src/store/configureStore";
-import { LogBox, ActivityIndicator } from "react-native";
+import { LogBox } from "react-native";
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
-import { getData, isAuthenticated, setData } from "./src/utils/SessionManager";
+import { getData, setData } from "./src/utils/SessionManager";
 import AppConstants from "./src/utils/AppConstants";
 import DrawerNavigator from "./src/navigations/DrawerNavigator";
 import AuthNavigator from "./src/navigations/AuthNavigator";
 import { StartUpScreen } from "./src/screens";
 import * as SplashScreen from "expo-splash-screen";
+import * as authActions from "./src/store/actions/auth";
 
 LogBox.ignoreAllLogs();
 const store = configureStore();
@@ -26,12 +27,20 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
-  const [flag, setFlag] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-
   const [appReady, setAppReady] = useState(false);
   const [user, setUser] = useState();
+
+  //dispatch base url
+  useEffect(() => {
+    getData(AppConstants.KEY_BASE_URL).then((baseUrl) => {
+      console.log("BaseUrl", baseUrl);
+      if (baseUrl != undefined) {
+        store.dispatch(authActions.setBaseUrl(baseUrl));
+      }
+    });
+  });
 
   //init notification
   useEffect(() => {

@@ -26,6 +26,8 @@ const LeaveRequest = ({ route, navigation }) => {
   const [description, setDescription] = useState(null);
   //get auth token
   const token = useSelector((state) => state.auth.token);
+  //get auth token
+  const baseUrl = useSelector((state) => state.baseURL.baseUrl);
 
   //Custom Input
   const UserInput = ({
@@ -82,7 +84,8 @@ const LeaveRequest = ({ route, navigation }) => {
       description,
       fromDate,
       toDate,
-      token
+      token,
+      baseUrl
     ).then((response) => {
       if (response.description == "success") {
         setIsLoading(false);

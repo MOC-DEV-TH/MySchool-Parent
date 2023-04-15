@@ -9,24 +9,28 @@ import {
 export const getAllCompletedExam = (studentId) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    await RestClientApi.getCompletedExam(token, studentId).then((response) => {
-      console.log(response);
-      // const completedExam = [];
-      // for (const item of response) {
-      //   completedExam.push(new CompletedExam(item.mark, item.name));
-      // }
-      dispatch({
-        type: LOAD_COMPLETED_EXAM,
-        completedExamData: response.details,
-      });
-    });
+    const baseUrl = getState().baseURL.baseUrl;
+    await RestClientApi.getCompletedExam(token, studentId, baseUrl).then(
+      (response) => {
+        console.log(response);
+        // const completedExam = [];
+        // for (const item of response) {
+        //   completedExam.push(new CompletedExam(item.mark, item.name));
+        // }
+        dispatch({
+          type: LOAD_COMPLETED_EXAM,
+          completedExamData: response.details,
+        });
+      }
+    );
   };
 };
 
 export const getAllUpcomingExam = () => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    await RestClientApi.getUpComingExam(token).then((response) => {
+    const baseUrl = getState().auth.baseUrl;
+    await RestClientApi.getUpComingExam(token, baseUrl).then((response) => {
       console.log(response);
       const upComingExam = [];
       for (const item of response) {

@@ -17,7 +17,8 @@ export const receiveNotification = (notificationCount) => {
 export const getAllNotification = () => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    await RestClientApi.getAllNotification(token).then((response) => {
+    const baseUrl = getState().baseURL.baseUrl;
+    await RestClientApi.getAllNotification(token, baseUrl).then((response) => {
       console.log("NotificationResponse", response);
       setData(AppConstants.LAST_NOTI_COUNT, response.length.toString());
       dispatch({

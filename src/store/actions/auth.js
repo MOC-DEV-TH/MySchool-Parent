@@ -1,15 +1,12 @@
 import { ROUTES } from "../../constants";
 import { RestClientApi } from "../../network/RestApiClient";
-import AppConstants, {
-  AUTHENTICATE,
-  AUTHENTICATE_TOKEN,
-  LOGIN_LOADING,
-} from "../../utils/AppConstants";
+import AppConstants, { AUTHENTICATE } from "../../utils/AppConstants";
 import { getData, setData } from "../../utils/SessionManager";
 
 export const login = (email, password, navigation) => {
-  return async (dispatch) => {
-    await RestClientApi.login(email, password).then((response) => {
+  return async (dispatch, getState) => {
+    const baseUrl = getState().baseURL.baseUrl;
+    await RestClientApi.login(email, password, baseUrl).then((response) => {
       console.log(response);
       if (response.status == AppConstants.LOGIN_STATUS_CODE) {
         dispatch({
@@ -33,7 +30,8 @@ export const login = (email, password, navigation) => {
           RestClientApi.postExpoToken(
             response.id,
             expoToken,
-            response.token
+            response.token,
+            baseUrl
           ).then(() => {
             console.log("Success Post Token");
           });
@@ -45,7 +43,6 @@ export const login = (email, password, navigation) => {
     });
   };
 };
-
 export const setAuthToken = (token, userName, userId) => {
   return (dispatch) => {
     dispatch({

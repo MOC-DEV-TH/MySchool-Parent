@@ -8,14 +8,15 @@ import {
 export const getStudentAttendance = (studentId) => {
   console.log("StudentID", studentId);
   return async (dispatch, getState) => {
-    dispatch({ type: LOAD_ATTENDANCE_LOADING });
     const token = getState().auth.token;
-    console.log(token);
-    await RestClientApi.getAttendanceStudent(token, studentId).then(
+    const baseUrl = getState().baseURL.baseUrl;
+    dispatch({ type: LOAD_ATTENDANCE_LOADING });
+    console.log("Token",baseUrl);
+    await RestClientApi.getAttendanceStudent(token, studentId, baseUrl).then(
       (response) => {
+        console.log("Attendance Response",response)
         const allDateArray = response.details;
-        const leaveDateArray = [];
-
+        
         let monthObj = {};
         if (response.current_month == 1) {
           monthObj = response.total_details.Jan;

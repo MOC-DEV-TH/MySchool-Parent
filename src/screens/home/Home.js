@@ -21,6 +21,7 @@ import React, { useEffect, useCallback, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as homeActions from "../../store/actions/home";
 import * as authActions from "../../store/actions/auth";
+import * as baseUrlAction from "../../store/actions/baseUrl";
 import { Ionicons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -30,6 +31,9 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const scrollX = useRef(new Animated.Value(0)).current;
   let [notiCount, setNotiCount] = useState("0");
+
+  //get auth token
+  const baseUrl = useSelector((state) => state.baseURL.baseUrl);
 
   //initial fetch home data
   useEffect(async () => {
