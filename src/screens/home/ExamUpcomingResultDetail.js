@@ -45,7 +45,7 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
   console.log("DetailData", upComingExamDetailData.length);
 
   //render item
-  const renderUpcomingItem = ({item}) => {
+  const renderUpcomingItem = ({ item }) => {
     return (
       <View style={styles.card}>
         <View
@@ -80,7 +80,7 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Text medium color={COLORS.white} style={styles.title}>
-        Feb Monthly Exam
+        {upComingExam.name}
       </Text>
       {isRefreshing ? (
         <ActivityIndicator size="large" />
@@ -96,7 +96,7 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
             data={upComingExamDetailData}
             style={{ marginTop: MARGINS.m10 }}
             showsVerticalScrollIndicator={false}
-            renderItem={(itemData)=>renderUpcomingItem(itemData)}
+            renderItem={(itemData) => renderUpcomingItem(itemData)}
             keyExtractor={(item, index) => index.toString()}
             ItemSeparatorComponent={FlatListItemSeparator}
           />
