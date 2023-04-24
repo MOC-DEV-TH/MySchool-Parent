@@ -19,7 +19,7 @@ const CompletedExamItem = (props) => {
             <View
               style={{
                 backgroundColor:
-                  props.item.item.final_results.pass.toString() == "true"
+                  props.item.item.exam_result.pass.toString() == "true"
                     ? COLORS.present
                     : COLORS.absent,
                 paddingTop: PADDINGS.p2,
@@ -30,7 +30,7 @@ const CompletedExamItem = (props) => {
               }}
             >
               <Text color={COLORS.white}>
-                {props.item.item.final_results.pass.toString() == "true"
+                {props.item.item.exam_result.pass.toString() == "true"
                   ? "PASS"
                   : "FAIL"}
               </Text>

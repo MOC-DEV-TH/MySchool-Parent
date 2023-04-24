@@ -39,7 +39,13 @@ const Exam = ({ navigation, route }) => {
   const loadCompletedExam = useCallback(async () => {
     setIsCompletedRefreshing(true);
     try {
-      await dispatch(examActions.getAllCompletedExam(studentData.id));
+      await dispatch(
+        examActions.getAllCompletedExam(
+          studentData.id,
+          studentData.sectionId,
+          studentData.classId
+        )
+      );
     } catch (error) {}
     setIsCompletedRefreshing(false);
   }, [dispatch, setIsCompletedRefreshing]);

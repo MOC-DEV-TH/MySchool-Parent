@@ -14,7 +14,7 @@ export const getStudentAttendance = (studentId) => {
     console.log("Token",baseUrl);
     await RestClientApi.getAttendanceStudent(token, studentId, baseUrl).then(
       (response) => {
-        console.log("Attendance Response",response)
+        //console.log("Attendance Response",response)
         const allDateArray = response.details;
         
         let monthObj = {};

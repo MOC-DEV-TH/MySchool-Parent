@@ -6,32 +6,32 @@ import {
   LOAD_UPCOMING_EXAM,
 } from "../../utils/AppConstants";
 
-export const getAllCompletedExam = (studentId) => {
+export const getAllCompletedExam = (studentId, sectionId, classId) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const baseUrl = getState().baseURL.baseUrl;
-    await RestClientApi.getCompletedExam(token, studentId, baseUrl).then(
-      (response) => {
-        console.log(response);
-        // const completedExam = [];
-        // for (const item of response) {
-        //   completedExam.push(new CompletedExam(item.mark, item.name));
-        // }
-        dispatch({
-          type: LOAD_COMPLETED_EXAM,
-          completedExamData: response.details,
-        });
-      }
-    );
+    await RestClientApi.getCompletedExam(
+      token,
+      studentId,
+      sectionId,
+      classId,
+      baseUrl
+    ).then((response) => {
+      console.log("CompletedExam", response);
+      dispatch({
+        type: LOAD_COMPLETED_EXAM,
+        completedExamData: response.detail,
+      });
+    });
   };
 };
 
 export const getAllUpcomingExam = () => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
-    const baseUrl = getState().auth.baseUrl;
+    const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getUpComingExam(token, baseUrl).then((response) => {
-      console.log(response);
+      console.log("UpcomingExam", response);
       const upComingExam = [];
       for (const item of response) {
         upComingExam.push(

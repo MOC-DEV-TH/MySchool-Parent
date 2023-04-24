@@ -84,7 +84,13 @@ export const RestClientApi = {
     return response.json();
   },
 
-  getCompletedExam: async function (token, studentId, baseUrl) {
+  getCompletedExam: async function (
+    token,
+    studentId,
+    sectionId,
+    classId,
+    baseUrl
+  ) {
     console.log("StudentID", studentId);
     const response = await fetch(baseUrl + AppConstants.GET_PASSED_EXAM_URL, {
       method: "POST",
@@ -94,13 +100,15 @@ export const RestClientApi = {
       },
       body: JSON.stringify({
         student_id: studentId,
+        class_id: classId,
+        section_id: sectionId,
       }),
     });
     return response.json();
   },
 
   getCompletedExamDetail: async function (token, studentId, examId, baseUrl) {
-    console.log("StudentID", studentId);
+    console.log("ExamId", examId);
     const response = await fetch(
       baseUrl + AppConstants.GET_PASSED_EXAM_DETAIL_URL,
       {

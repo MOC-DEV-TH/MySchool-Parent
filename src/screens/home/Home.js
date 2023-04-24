@@ -34,7 +34,7 @@ const Home = ({ navigation }) => {
 
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
-
+  console.log("BaseUrl",baseUrl)
   //initial fetch home data
   useEffect(async () => {
     loadHomeData();

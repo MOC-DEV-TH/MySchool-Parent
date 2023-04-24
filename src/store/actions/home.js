@@ -15,7 +15,6 @@ export const getAllStudentData = (token) => {
     dispatch({ type: LOAD_HOME_LOADING });
     RestClientApi.getAllStudents(token, baseUrl)
       .then((response) => {
-        console.log("Student", response);
         const student = [];
         for (const item of response.data) {
           student.push(

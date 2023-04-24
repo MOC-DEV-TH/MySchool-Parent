@@ -22,8 +22,8 @@ const SchoolCode = (props) => {
       api_url: "http://uat.myschool.fyi",
     },
     {
-      code: "DEV001",
-      api_url: "https://myschool.myanmaronlinecreations.com",
+      code: "YKSPS",
+      api_url: "https://yksps.myschool.fyi",
     },
     {
       code: "PROD001",

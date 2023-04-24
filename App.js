@@ -14,7 +14,7 @@ import DrawerNavigator from "./src/navigations/DrawerNavigator";
 import AuthNavigator from "./src/navigations/AuthNavigator";
 import { StartUpScreen } from "./src/screens";
 import * as SplashScreen from "expo-splash-screen";
-import * as authActions from "./src/store/actions/auth";
+import * as baseUrlAction from "./src/store/actions/baseUrl";
 
 LogBox.ignoreAllLogs();
 const store = configureStore();
@@ -31,16 +31,6 @@ export default function App() {
   const responseListener = useRef();
   const [appReady, setAppReady] = useState(false);
   const [user, setUser] = useState();
-
-  //dispatch base url
-  useEffect(() => {
-    getData(AppConstants.KEY_BASE_URL).then((baseUrl) => {
-      console.log("BaseUrl", baseUrl);
-      if (baseUrl != undefined) {
-        store.dispatch(authActions.setBaseUrl(baseUrl));
-      }
-    });
-  });
 
   //init notification
   useEffect(() => {
@@ -63,6 +53,12 @@ export default function App() {
     };
   }, []);
 
+  useEffect(() => {
+    getData(AppConstants.KEY_BASE_URL).then((baseUrl) => {
+      store.dispatch(baseUrlAction.setBaseUrl(baseUrl));
+    });
+  });
+
   //check is auth
   useEffect(() => {
     async function prepare() {
@@ -71,6 +67,7 @@ export default function App() {
         await SplashScreen.preventAutoHideAsync();
 
         // Make any API calls you need to do here
+
         const user = await getData(AppConstants.KEY_AUTH_TOKEN);
         if (!user) return;
 

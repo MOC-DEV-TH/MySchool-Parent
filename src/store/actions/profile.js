@@ -13,6 +13,7 @@ export const getProfileDetail = () => {
           type: LOAD_PROFILE_DETAIL_DATA,
           profileDetail: response,
           address: response.guardian.address,
+          phone: response.guardian.phone,
         });
       }
     );

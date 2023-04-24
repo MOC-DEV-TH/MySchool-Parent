@@ -9,7 +9,6 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 const ExamCompletedResultDetail = ({ navigation, route }) => {
   const { student, completedData } = route.params;
-  console.log("student", student);
   const dispatch = useDispatch();
   const header = ["Subject Name", "Grade", "Status"];
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -31,7 +30,7 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
       await dispatch(
         completedExamDetailAction.getCompletedExamDetail(
           student.id,
-          completedData.id
+          completedData.exam_id
         )
       );
     } catch (error) {}
@@ -43,7 +42,11 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
     data.final_result.entry.toString() == "false"
       ? "-"
       : data.final_result.results.grade,
-    data.final_result.pass.toString() == "false" ? "FAIL" : "PASS",
+    data.final_result.pass === null
+      ? "N/A"
+      : data.final_result.pass.toString() == "false"
+      ? "FAIL"
+      : "PASS",
   ]);
 
   const element = (data, index) => (
@@ -75,7 +78,7 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
         <Text medium color={COLORS.white} style={styles.medium_text}>
           {completedData.exam_name}
         </Text>
-        <Table borderStyle={{ borderWidth: 1, borderColor: "transparent"}}>
+        <Table borderStyle={{ borderWidth: 1, borderColor: "transparent" }}>
           <Row
             data={header}
             style={styles.head}

@@ -19,6 +19,7 @@ const Profile = () => {
   //get profile detail data
   const profileDetailData = useSelector((state) => state.profile.profileDetail);
   const address = useSelector((state) => state.profile.address);
+  const phone = useSelector((state) => state.profile.phone);
 
   //load profile detail data
   const loadProfileDetail = useCallback(async () => {
@@ -64,7 +65,7 @@ const Profile = () => {
         />
         <CustomTextWithIcon
           iconName={"call"}
-          text={profileDetailData.phone}
+          text={phone}
           onPressItem={handleOnPressPhone}
         />
         <CustomTextWithIcon
