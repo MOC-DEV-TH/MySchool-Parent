@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  SafeAreaView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { COLORS, MARGINS, PADDINGS, ROUTES, IMGS } from "../../constants";
@@ -21,10 +22,8 @@ import React, { useEffect, useCallback, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as homeActions from "../../store/actions/home";
 import * as authActions from "../../store/actions/auth";
-import * as baseUrlAction from "../../store/actions/baseUrl";
 import { Ionicons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import NotificationComponent from "../../components/ItemComponents/NotificationComponent";
 
 const Home = ({ navigation }) => {
@@ -34,7 +33,7 @@ const Home = ({ navigation }) => {
 
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
-  console.log("BaseUrl",baseUrl)
+  console.log("BaseUrl", baseUrl);
   //initial fetch home data
   useEffect(async () => {
     loadHomeData();
@@ -149,7 +148,7 @@ const Home = ({ navigation }) => {
   return (
     <Container>
       <StatusBar style="light" />
-      <SafeAreaView
+      <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
@@ -158,6 +157,9 @@ const Home = ({ navigation }) => {
           backgroundColor: COLORS.primary,
           paddingLeft: PADDINGS.p10,
           paddingRight: PADDINGS.p10,
+          height: 100,
+          alignContent: "center",
+          paddingTop: 25,
         }}
       >
         <TouchableOpacity onPress={handleOnPressMenu}>
@@ -168,7 +170,7 @@ const Home = ({ navigation }) => {
           onPress={handleOnPressNotification}
           notificationCount={notiCount}
         />
-      </SafeAreaView>
+      </View>
       {isLoading ? (
         <ActivityIndicator
           size="large"

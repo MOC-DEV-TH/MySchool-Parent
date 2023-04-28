@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MySchoolParent",
+    "name": "MySchool International",
     "slug": "MySchoolParent",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -20,7 +20,18 @@
     "ios": {
       "supportsTablet": false,
       "buildNumber": "1",
-      "bundleIdentifier": "com.moc.myschoolParent"
+      "bundleIdentifier": "com.moc.myschoolParentIos",
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification"
+        ],
+        "NSLocationWhenInUseUsageDescription": "Allow myschoolParentIos client app to use your location for better job assignment",
+        "NSLocationUsageDescription": "Allow myschoolParentIos client app to use your location for better job assignment",
+        "NSLocationAlwaysUsageDescription": "Allow myschoolParentIos client app to use your location for better job assignment",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow myschoolParentIos client app to use your location for better job assignment"
+      }
     },
     "android": {
       "package": "com.moc.myschoolParent",

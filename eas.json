@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 3.6.1"
+    "version": ">= 3.6.1",
+    "promptToConfigurePushNotifications": false
   },
   "build": {
     "development": {
@@ -19,7 +20,7 @@
       }
     },
     "production": {
-      "node" : "16.1.0",
+      "node": "16.1.0",
       "ios": {
         "resourceClass": "m1-medium"
       }

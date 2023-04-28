@@ -75,7 +75,6 @@ const SchoolCode = (props) => {
           name={"Enter Code"}
           value={code}
           setValue={setCode}
-          setKeyboardType="text"
           placeHolder={"Enter School Code"}
         />
         <View style={{ width: 200, alignSelf: "center" }}>

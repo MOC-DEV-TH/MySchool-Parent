@@ -4,11 +4,11 @@ import { COLORS, PADDINGS } from "../../constants";
 const Container = (props) => {
 
   return (
-    <SafeAreaView
+    <View
       style={{ backgroundColor: COLORS.black, flex: 1, }}
     >
       {props.children}
-    </SafeAreaView>
+    </View>
   );
 };
 
