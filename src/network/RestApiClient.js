@@ -286,4 +286,14 @@ export const RestClientApi = {
     });
     return response.json();
   },
+
+  getSchoolCode: async function (schoolCode) {
+    const response = await fetch(
+      AppConstants.GET_SCHOOL_CODE_URL + schoolCode,
+      {
+        method: "GET",
+      }
+    );
+    return response.json();
+  },
 };

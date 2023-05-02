@@ -5,31 +5,18 @@ import CustomButton from "../../components/UI/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, PADDINGS, IMGS, MARGINS, ROUTES } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
-import * as baseUrlAction from "../../store/actions/baseUrl";
+import * as baseUrlAction from "../../store/actions/schoolCode";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StatusBar } from "expo-status-bar";
 import { setData } from "../../utils/SessionManager";
 import AppConstants from "../../utils/AppConstants";
+import LoadingDialog from "../../components/UI/LoadingDialog";
 
 const SchoolCode = (props) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [code, setCode] = useState("");
-
-  const schoolCodeData = [
-    {
-      code: "UAT001",
-      api_url: "http://uat.myschool.fyi",
-    },
-    {
-      code: "YKSPS",
-      api_url: "https://yksps.myschool.fyi",
-    },
-    {
-      code: "PROD001",
-      api_url: "https://myschool.myanmaronlinecreations.com",
-    },
-  ];
+  let [showLoadingDialog, setShowLoadingDialog] = useState(false);
 
   //on back press
   useEffect(() => {
@@ -45,18 +32,45 @@ const SchoolCode = (props) => {
     return () => backHandler.remove();
   }, []);
 
+  // ** OLD Press Function
+  // const handleOnPressNext = async () => {
+  //   const found = schoolCodeData.find((obj) => {
+  //     return obj.code === code;
+  //   });
+  //   console.log("SchoolCodeUrl", found);
+  //   if (code == "") {
+  //     alert("school code can't be empty.");
+  //   } else if (found == undefined) {
+  //     alert("invalid school code!");
+  //   } else {
+  //     setData(AppConstants.KEY_BASE_URL, found.api_url);
+  //     dispatch(baseUrlAction.setBaseUrl(found.api_url, navigation));
+  //   }
+  // };
+// const schoolCodeData = [
+  //   {
+  //     code: "UAT001",
+  //     api_url: "http://uat.myschool.fyi",
+  //   },
+  //   {
+  //     code: "YKSPS",
+  //     api_url: "https://yksps.myschool.fyi",
+  //   },
+  //   {
+  //     code: "PROD001",
+  //     api_url: "https://myschool.myanmaronlinecreations.com",
+  //   },
+  // ];
+
   const handleOnPressNext = async () => {
-    const found = schoolCodeData.find((obj) => {
-      return obj.code === code;
-    });
-    console.log("SchoolCodeUrl", found);
     if (code == "") {
       alert("school code can't be empty.");
-    } else if (found == undefined) {
-      alert("invalid school code!");
     } else {
-      setData(AppConstants.KEY_BASE_URL, found.api_url);
-      dispatch(baseUrlAction.setBaseUrl(found.api_url, navigation));
+      try {
+        setShowLoadingDialog(true);
+        await dispatch(baseUrlAction.getSchoolCodeUrl(code, navigation));
+        setShowLoadingDialog(false);
+      } catch (error) {}
     }
   };
 
@@ -69,6 +83,10 @@ const SchoolCode = (props) => {
       }}
     >
       <View style={styles.container}>
+        <LoadingDialog
+          showAlert={showLoadingDialog}
+          setShowAlert={setShowLoadingDialog}
+        />
         <StatusBar style="light" />
         <Image source={IMGS.logoWhite} style={styles.logo} />
         <UserInput
