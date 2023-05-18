@@ -91,9 +91,10 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
                 style={{
                   flexDirection: "row",
                   backgroundColor: COLORS.white,
-                  borderBottomLeftRadius: index - 2 === rowData.length ? 12 : 0,
+                  borderBottomLeftRadius:
+                    index === completedExamDetailData.length - 1 ? 12 : 0,
                   borderBottomRightRadius:
-                    index - 2 === rowData.length ? 12 : 0,
+                    index === completedExamDetailData.length - 1 ? 12 : 0,
                 }}
               >
                 {rowData.map((cellData, cellIndex) => (
