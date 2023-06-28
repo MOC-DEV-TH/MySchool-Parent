@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useState, useRef } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import {NavigationContainer} from '@react-navigation/native';
 import { NativeBaseProvider } from "native-base";
 import { Provider } from "react-redux";
 import configureStore from "./src/store/configureStore";

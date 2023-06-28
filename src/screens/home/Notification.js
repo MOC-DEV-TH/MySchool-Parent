@@ -69,13 +69,13 @@ const styles = StyleSheet.create({
     padding: PADDINGS.p10,
   },
   noti: {
-    height: 68,
     backgroundColor: COLORS.grayLight,
     borderRadius: 12,
     alignItems: "flex-start",
     marginBottom: MARGINS.m20,
     paddingLeft: PADDINGS.p16,
-    paddingTop: PADDINGS.p6,
+    paddingTop: PADDINGS.p16,
+    paddingBottom: PADDINGS.p16,
   },
   text: {
     fontWeight: "bold",
