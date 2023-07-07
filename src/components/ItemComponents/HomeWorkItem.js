@@ -20,15 +20,22 @@ const HomeWorkItem = (props) => {
       <Text
         style={{ fontSize: 16, fontWeight: "bold", marginTop: MARGINS.m10 }}
       >
+        Subject{" "}
+      </Text>
+      <Text style={{ marginBottom: MARGINS.m10 }}>
+        {props.item.item.subject}
+      </Text>
+
+      <Text
+        style={{ fontSize: 16, fontWeight: "bold", marginTop: MARGINS.m10 }}
+      >
         Homework Title{" "}
       </Text>
       <Text style={{ marginBottom: MARGINS.m10 }}>{props.item.item.title}</Text>
 
       <View style={styles.horizontalDivider} />
 
-      <Text style={styles.text}>
-        {props.item.item.description}
-      </Text>
+      <Text style={styles.text}>{props.item.item.description}</Text>
     </View>
   );
 };

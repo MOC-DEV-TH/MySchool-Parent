@@ -1,5 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Image, View, TextInput, BackHandler } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  StyleSheet,
+  Image,
+  View,
+  TextInput,
+  BackHandler,
+  PanResponder,
+} from "react-native";
 import UserInput from "../../components/UI/UserInput";
 import CustomButton from "../../components/UI/CustomButton";
 import { useNavigation } from "@react-navigation/native";
@@ -19,6 +26,18 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(true);
   let [showLoadingDialog, setShowLoadingDialog] = useState(false);
+
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (_, gestureState) => {
+        if (gestureState.dx < -50) {
+          console.log("Swiped left!");
+          alert("Swipe Left");
+        }
+      },
+    })
+  ).current;
 
   //on back press
   useEffect(() => {
@@ -60,7 +79,7 @@ const Login = (props) => {
         showAlert={showLoadingDialog}
         setShowAlert={setShowLoadingDialog}
       />
-      <View style={styles.container}>
+      <View {...panResponder.panHandlers} style={styles.container}>
         <StatusBar style="light" />
         <Image source={IMGS.logoWhite} style={styles.logo} />
         <UserInput

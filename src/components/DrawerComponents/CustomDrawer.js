@@ -10,7 +10,7 @@ import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import Text from "@kaloraat/react-native-text";
 import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
 import Icon from "react-native-vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
 import CustomDrawerItem from "../DrawerComponents/CustomDrawerItem";
 import { useSelector } from "react-redux";
 import { useDrawerStatus } from "@react-navigation/drawer";
@@ -76,7 +76,14 @@ const CustomDrawer = (props) => {
     AsyncStorage.removeItem(AppConstants.KEY_USER_DATA);
     AsyncStorage.removeItem(AppConstants.KEY_AUTH_TOKEN);
     AsyncStorage.removeItem(AppConstants.KEY_BASE_URL);
-    navigation.navigate(ROUTES.LOGIN_NAVIGATOR);
+    //navigation.navigate(ROUTES.LOGIN_NAVIGATOR);
+    props.navigation.closeDrawer();
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: "School Code" }],
+      })
+    );
   };
 
   return (

@@ -25,6 +25,7 @@ import * as authActions from "../../store/actions/auth";
 import { Ionicons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
 import NotificationComponent from "../../components/ItemComponents/NotificationComponent";
+import { checkForUpdates } from "../../helper/AppVersionCheck";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -34,6 +35,12 @@ const Home = ({ navigation }) => {
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
   console.log("BaseUrl", baseUrl);
+
+  //check force update app version
+  useEffect(() => {
+    checkForUpdates();
+  }, []);
+
   //initial fetch home data
   useEffect(async () => {
     loadHomeData();
@@ -104,6 +111,7 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     const focusHandler = navigation.addListener("focus", () => {
       loadHomeData();
+      checkForUpdates();
       scrollX.setValue(0);
     });
     return focusHandler;

@@ -296,4 +296,14 @@ export const RestClientApi = {
     );
     return response.json();
   },
+
+  checkRequireUpdate: async function () {
+    const response = await fetch(
+      AppConstants.CHECK_REQUIRE_UPDATE,
+      {
+        method: "GET",
+      }
+    );
+    return response.json();
+  },
 };

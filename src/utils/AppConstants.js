@@ -24,6 +24,7 @@ export default {
   POST_LEAVE_REQUEST: "/api/post-leave-request-mobile",
   GET_USER_DETAIL_URL: "/api/users/details",
   GET_SCHOOL_CODE_URL: "https://uat.myschool.fyi/api/get-url-mobile/",
+  CHECK_REQUIRE_UPDATE: "https://uat.myschool.fyi/api/config",
 
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",
