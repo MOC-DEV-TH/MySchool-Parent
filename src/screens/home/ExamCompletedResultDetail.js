@@ -85,7 +85,7 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
   );
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView style={{ backgroundColor: COLORS.black }}>
       <View style={styles.container}>
         <Text medium color={COLORS.white} style={styles.title}>
           Exam Results
@@ -100,7 +100,9 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
         <Text medium color={COLORS.white} style={styles.medium_text}>
           {completedData.exam_name}
         </Text>
-        <Table borderStyle={{ borderWidth: 1, borderColor: "transparent" }}>
+        <Table
+          borderStyle={{ borderWidth: 0, borderColor: "transparent" }}
+        >
           <Row
             data={header}
             style={styles.head}
@@ -132,8 +134,10 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
         </Table>
 
         <View style={{ height: 20 }} />
-
-        <Table borderStyle={{ borderWidth: 1, borderColor: "transparent" }}>
+        <Text medium color={COLORS.white} style={styles.medium_text}>
+          Result Rule
+        </Text>
+        <Table borderStyle={{ borderWidth: 0, borderColor: "transparent" }}>
           <Row
             data={examResultHeader}
             style={styles.head}
