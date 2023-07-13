@@ -2,13 +2,20 @@ import UpcomingExamDetail from "../../data/model/UpcomingExamDetail";
 import { RestClientApi } from "../../network/RestApiClient";
 import { LOAD_UPCOMING_EXAM_DETAIL } from "../../utils/AppConstants";
 
-export const getUpcomingExamDetail = (sessionId, examId) => {
+export const getUpcomingExamDetail = (
+  sessionId,
+  examId,
+  class_id,
+  section_id
+) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getUpcomingExamDetail(
       sessionId,
       examId,
+      class_id,
+      section_id,
       token,
       baseUrl
     ).then((response) => {

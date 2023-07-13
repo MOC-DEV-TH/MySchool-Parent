@@ -66,6 +66,7 @@ const Exam = ({ navigation, route }) => {
     console.log(item);
     navigation.navigate(ROUTES.EXAM_UPCOMING_RESULT_DETAIL, {
       upComingExam: item,
+      student: studentData,
     });
   };
   const handleOnPressUpCompletedExam = (data) => {

@@ -11,16 +11,22 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
   const { student, completedData } = route.params;
   const dispatch = useDispatch();
   const header = ["Subject Name", "Grade", "Status"];
+  const examResultHeader = ["Grade", "Min Mark", "Max Mark"];
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   //get all completed detail data
   const completedExamDetailData = useSelector(
     (state) => state.completedExamDetail.completedExamDetailData
   );
+  //get all completed detail data
+  const examResultData = useSelector(
+    (state) => state.completedExamDetail.examResultData
+  );
 
   //initial load data
   useEffect(() => {
     loadCompletedExamDetail();
+    loadExamResultRuleData();
   }, []);
 
   //load completed detail data
@@ -37,6 +43,15 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
+  //load completed detail data
+  const loadExamResultRuleData = useCallback(async () => {
+    setIsRefreshing(true);
+    try {
+      await dispatch(completedExamDetailAction.getExamResultRules());
+    } catch (error) {}
+    setIsRefreshing(false);
+  }, [dispatch, setIsRefreshing]);
+
   const tableData = completedExamDetailData.map((data) => [
     data.subject_name,
     data.final_result.entry.toString() == "false"
@@ -47,6 +62,12 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
       : data.final_result.pass.toString() == "false"
       ? "FAIL"
       : "PASS",
+  ]);
+
+  const examResultTableData = examResultData.map((data) => [
+    data.name,
+    data.min_mark,
+    data.max_mark,
   ]);
 
   const element = (data, index) => (
@@ -62,8 +83,9 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
       </Text>
     </View>
   );
+
   return (
-    <KeyboardAwareScrollView contentContainerStyle={{ flex: 1 }}>
+    <KeyboardAwareScrollView>
       <View style={styles.container}>
         <Text medium color={COLORS.white} style={styles.title}>
           Exam Results
@@ -101,6 +123,39 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
                   <Cell
                     key={cellIndex}
                     data={cellIndex === 2 ? element(cellData, index) : cellData}
+                    textStyle={styles.text}
+                  />
+                ))}
+              </TableWrapper>
+            ))}
+          </Table>
+        </Table>
+
+        <View style={{ height: 20 }} />
+
+        <Table borderStyle={{ borderWidth: 1, borderColor: "transparent" }}>
+          <Row
+            data={examResultHeader}
+            style={styles.head}
+            textStyle={styles.header_text}
+          />
+          <Table>
+            {examResultTableData.map((rowData, index) => (
+              <TableWrapper
+                key={index}
+                style={{
+                  flexDirection: "row",
+                  backgroundColor: COLORS.white,
+                  borderBottomLeftRadius:
+                    index === examResultData.length - 1 ? 12 : 0,
+                  borderBottomRightRadius:
+                    index === examResultData.length - 1 ? 12 : 0,
+                }}
+              >
+                {rowData.map((cellData, cellIndex) => (
+                  <Cell
+                    key={cellIndex}
+                    data={cellData}
                     textStyle={styles.text}
                   />
                 ))}

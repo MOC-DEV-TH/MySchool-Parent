@@ -66,7 +66,15 @@ export const RestClientApi = {
     return await response.json();
   },
 
-  getUpcomingExamDetail: async function (sessionId, examId, token, baseUrl) {
+  getUpcomingExamDetail: async function (
+    sessionId,
+    examId,
+    class_id,
+    section_id,
+    token,
+    baseUrl
+  ) {
+    console.log("AllID", sessionId,examId,class_id,section_id);
     const response = await fetch(
       baseUrl + AppConstants.GET_UPCOMING_EXAM_DETAIL_URL,
       {
@@ -78,6 +86,8 @@ export const RestClientApi = {
         body: JSON.stringify({
           session_id: sessionId,
           exam_id: examId,
+          class_id: class_id,
+          section_id: section_id,
         }),
       }
     );
@@ -109,6 +119,7 @@ export const RestClientApi = {
 
   getCompletedExamDetail: async function (token, studentId, examId, baseUrl) {
     console.log("ExamId", examId);
+    console.log("StudentId", studentId);
     const response = await fetch(
       baseUrl + AppConstants.GET_PASSED_EXAM_DETAIL_URL,
       {
@@ -298,12 +309,23 @@ export const RestClientApi = {
   },
 
   checkRequireUpdate: async function () {
+    const response = await fetch(AppConstants.CHECK_REQUIRE_UPDATE, {
+      method: "GET",
+    });
+    return response.json();
+  },
+
+  getExamResultRules: async function (token, baseUrl) {
     const response = await fetch(
-      AppConstants.CHECK_REQUIRE_UPDATE,
+      baseUrl + AppConstants.GET_EXAM_RESULT_RULE_URL,
       {
         method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
-    return response.json();
+    return await response.json();
   },
 };

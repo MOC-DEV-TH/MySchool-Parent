@@ -12,8 +12,9 @@ import { useSelector, useDispatch } from "react-redux";
 import * as upComingExamDetailAction from "../../store/actions/upComingExamDetail";
 
 const ExamUpcomingResultDetail = ({ route, navigation }) => {
-  const { upComingExam } = route.params;
+  const { upComingExam, student } = route.params;
   console.log(upComingExam);
+  console.log("StudentData", student);
 
   const dispatch = useDispatch();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -35,7 +36,9 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
       await dispatch(
         upComingExamDetailAction.getUpcomingExamDetail(
           upComingExam.sessionId,
-          upComingExam.id
+          upComingExam.id,
+          student.classId,
+          student.sectionId
         )
       );
     } catch (error) {}
