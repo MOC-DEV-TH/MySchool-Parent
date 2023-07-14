@@ -74,7 +74,12 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
     <View>
       <Text
         style={{
-          color: data == "PASS" ? COLORS.present : COLORS.absent,
+          color:
+            data == "PASS"
+              ? COLORS.present
+              : data == "FAIL"
+              ? COLORS.absent
+              : COLORS.primary,
           alignItems: "center",
           textAlign: "center",
         }}
@@ -100,9 +105,7 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
         <Text medium color={COLORS.white} style={styles.medium_text}>
           {completedData.exam_name}
         </Text>
-        <Table
-          borderStyle={{ borderWidth: 0, borderColor: "transparent" }}
-        >
+        <Table borderStyle={{ borderWidth: 0, borderColor: "transparent" }}>
           <Row
             data={header}
             style={styles.head}
