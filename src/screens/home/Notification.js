@@ -35,6 +35,7 @@ const Notification = (props) => {
       <View style={styles.noti}>
         <Text style={{ fontWeight: "bold" }}>{item.data.subject}</Text>
         <Text>{item.data.body}</Text>
+        <Text style={{ opacity: 0.5 }}>{item.created_ago}</Text>
       </View>
     );
   };
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
     paddingLeft: PADDINGS.p16,
     paddingTop: PADDINGS.p16,
     paddingBottom: PADDINGS.p16,
+    paddingRight: PADDINGS.p16,
   },
   text: {
     fontWeight: "bold",
