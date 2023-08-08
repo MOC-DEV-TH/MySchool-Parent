@@ -1,5 +1,6 @@
 import { View, TouchableOpacity, Image, Text } from "react-native";
 import { COLORS, IMGS, MARGINS } from "../../constants";
+import SvgUri from "react-native-svg-uri";
 
 const CardItem = ({ navigateName, imageName, name, navigation, routeData }) => {
   return (
@@ -19,7 +20,7 @@ const CardItem = ({ navigateName, imageName, name, navigation, routeData }) => {
           marginBottom: MARGINS.m26,
         }}
       >
-        <Image source={imageName} />
+        <SvgUri width="30" height="30" source={imageName} />
         <Text style={{ fontWeight: "bold", flex: 0.4 }}>{name}</Text>
         <Image source={IMGS.arrowBlue} />
       </View>

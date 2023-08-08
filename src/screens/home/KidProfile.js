@@ -5,7 +5,7 @@ import CardItem from "../../components/UI/CardItem";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as attendanceAction from "../../store/actions/attendance";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const KidProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const KidProfile = ({ route, navigation }) => {
 
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
-  console.log("BaseUrl",baseUrl)
+  console.log("BaseUrl", baseUrl);
   useEffect(() => {
     loadAttendanceData();
   }, []);
@@ -26,6 +26,7 @@ const KidProfile = ({ route, navigation }) => {
     } catch (error) {}
   }, [dispatch]);
 
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView style={{ flex: 1 }}>
@@ -34,36 +35,43 @@ const KidProfile = ({ route, navigation }) => {
         </Text>
         <CardItem
           name={"Attendance"}
-          imageName={IMGS.attendance}
+          imageName={IMGS.attendance_svg}
           navigateName={ROUTES.ATTENDANCE}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Time Table"}
-          imageName={IMGS.timeTable}
+          imageName={IMGS.timeTable_svg}
           navigateName={ROUTES.TIME_TABLE_AND_ROUTINE}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Exams"}
-          imageName={IMGS.exam}
+          imageName={IMGS.exam_svg}
           navigateName={ROUTES.EXAM}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Payment History"}
-          imageName={IMGS.paymentHistory}
+          imageName={IMGS.payment_svg}
           navigateName={ROUTES.PAYMENT_HISTORY}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Homework"}
-          imageName={IMGS.homework}
+          imageName={IMGS.homework_svg}
           navigateName={ROUTES.HOMEWORK}
+          navigation={navigation}
+          routeData={studentData}
+        />
+        <CardItem
+          name={"Message"}
+          imageName={IMGS.message_svg}
+          navigateName={ROUTES.MESSAGE}
           navigation={navigation}
           routeData={studentData}
         />

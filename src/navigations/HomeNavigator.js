@@ -20,6 +20,8 @@ import {
   AboutMySchool,
   TermsAndConditions,
   Login,
+  SendMessage,
+  SendMessageHistory,
 } from "../screens";
 import { ROUTES, COLORS, IMGS } from "../constants";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
@@ -30,12 +32,17 @@ import { Ionicons } from "@expo/vector-icons";
 import { getData, setData } from "../utils/SessionManager";
 import AppConstants from "../utils/AppConstants";
 import React, { useEffect, useState, useCallback } from "react";
+import SvgUri from "react-native-svg-uri";
 
 const Stack = createStackNavigator();
 
 function HomeNavigator() {
   const navigation = useNavigation();
   let [notiCount, setNotiCount] = useState("0");
+
+  const HeaderImage = (props) => (
+    <SvgUri width="40" height="40" source={IMGS.attendance_svg} />
+  );
 
   return (
     <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
@@ -299,6 +306,34 @@ function HomeNavigator() {
         component={Login}
         options={{
           headerShown: false,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.MESSAGE}
+        component={SendMessage}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.MESSAGE_HISTORY}
+        component={SendMessageHistory}
+        options={{
+          headerShown: true,
           headerTintColor: COLORS.white,
           headerTitleAlign: "center",
           headerStyle: {

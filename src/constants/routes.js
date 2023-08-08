@@ -31,6 +31,8 @@ export default {
   HOMEWORK: "Homework",
   PROFILE: "Profile",
   ATTENDANCE: "Attendance",
+  MESSAGE: "Message",
+  MESSAGE_HISTORY: "Message History",
   CALENDAR_EVENT: "Calendar Event",
   BILLING: "Billing",
   LEAVE_REQUEST: "Leave Request",

@@ -74,7 +74,7 @@ export const RestClientApi = {
     token,
     baseUrl
   ) {
-    console.log("AllID", sessionId,examId,class_id,section_id);
+    console.log("AllID", sessionId, examId, class_id, section_id);
     const response = await fetch(
       baseUrl + AppConstants.GET_UPCOMING_EXAM_DETAIL_URL,
       {
@@ -327,5 +327,36 @@ export const RestClientApi = {
       }
     );
     return await response.json();
+  },
+
+  getTeacherDDLList: async function (token, classId, sectionId, baseUrl) {
+    console.log("DDLRequest", classId, sectionId);
+    const response = await fetch(
+      baseUrl + AppConstants.GET_TEACHER_DDL_LIST + classId + "/" + sectionId,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.json();
+  },
+
+  postMessage: async function (id, text, token, baseUrl) {
+    console.log("Post message to server", id);
+    const response = await fetch(baseUrl + AppConstants.POST_MESSAGE, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        to_id: id,
+        text: text,
+      }),
+    });
+    return response.json();
   },
 };

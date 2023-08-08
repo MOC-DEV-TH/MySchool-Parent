@@ -26,6 +26,8 @@ export default {
   GET_SCHOOL_CODE_URL: "https://uat.myschool.fyi/api/get-url-mobile/",
   GET_EXAM_RESULT_RULE_URL: "/api/exam-result-rules",
   CHECK_REQUIRE_UPDATE: "https://uat.myschool.fyi/api/config",
+  GET_TEACHER_DDL_LIST: "/api/teacher-list/",
+  POST_MESSAGE: "/api/user/messages",
 
 
   KEY_EXPO_TOKEN: "key_expo_token",
@@ -60,6 +62,7 @@ export const NOTIFICATION_RECEIVED = "NOTIFICATION_RECEIVED";
 export const LOAD_STUDENT_ATTENDANCE_DATA = "LOAD_STUDENT_ATTENDANCE_DATA";
 export const SET_BASE_URL = "SET_BASE_URL";
 export const LOAD_EXAM_RESULT_DATA = "LOAD_EXAM_RESULT_DATA";
+export const SET_TEACHER_DDL_DATA = "SET_TEACHER_DDL_DATA";
 
 export const LOAD_ATTENDANCE_LOADING = "LOAD_ATTENDANCE_LOADING";
 export const LOAD_ATTENDANCE_SUCCESS = "LOAD_ATTENDANCE_SUCCESS";
