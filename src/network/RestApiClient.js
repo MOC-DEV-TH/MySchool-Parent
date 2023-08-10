@@ -359,4 +359,23 @@ export const RestClientApi = {
     });
     return response.json();
   },
+
+  getMessageList: async function (pageIndex, token, baseUrl) {
+    console.log(
+      "URL",
+      token,
+      baseUrl + AppConstants.GET_MESSAGE_LIST + "page=" + pageIndex
+    );
+    const response = await fetch(
+      baseUrl + AppConstants.GET_MESSAGE_LIST + "page=" + pageIndex,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.json();
+  },
 };

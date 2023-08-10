@@ -28,6 +28,7 @@ export default {
   CHECK_REQUIRE_UPDATE: "https://uat.myschool.fyi/api/config",
   GET_TEACHER_DDL_LIST: "/api/teacher-list/",
   POST_MESSAGE: "/api/user/messages",
+  GET_MESSAGE_LIST: "/api/user/messages?",
 
 
   KEY_EXPO_TOKEN: "key_expo_token",

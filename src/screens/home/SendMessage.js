@@ -12,6 +12,7 @@ import DropdownData from "../../components/UI/DropdownData";
 import CustomRadioButton from "../../components/UI/CustomRadioButton";
 import { useDispatch } from "react-redux";
 import * as sendMessageActions from "../../store/actions/sendMessage";
+import LoadingDialog from "../../components/UI/LoadingDialog";
 
 const SendMessage = ({ navigation, route }) => {
   const [text, setText] = useState("");
@@ -88,6 +89,10 @@ const SendMessage = ({ navigation, route }) => {
       style={styles.container}
     >
       <View>
+      <LoadingDialog
+        showAlert={showLoadingDialog}
+        setShowAlert={setShowLoadingDialog}
+      />
         <Text style={styles.title}>Send Message</Text>
         <View
           style={{
@@ -145,6 +150,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 150,
     paddingHorizontal: 10,
+    paddingVertical:10,
     textAlignVertical: "top",
     borderRadius: 8,
     backgroundColor: COLORS.white,
