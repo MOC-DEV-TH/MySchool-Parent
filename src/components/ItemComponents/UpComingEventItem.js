@@ -2,6 +2,7 @@ import { StyleSheet, View, Image, Dimensions } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { MARGINS, IMGS, COLORS } from "../../constants";
+import SvgUri from "react-native-svg-uri";
 
 const UpComingEventItem = (props) => {
   return (
@@ -9,7 +10,7 @@ const UpComingEventItem = (props) => {
       <View
         style={{ flex: 0.4, justifyContent: "center", alignItems: "center" }}
       >
-        <Image source={IMGS.group} />
+        <SvgUri width="40" height="40" source={IMGS.event_svg} />
       </View>
       <View style={{ flex: 0.7 }}>
         <View style={{ flexDirection: "column" }}>

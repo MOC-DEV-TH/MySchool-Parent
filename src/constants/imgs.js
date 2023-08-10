@@ -36,4 +36,7 @@ export default {
   payment_svg: require("../assets/svgs/payment.svg"),
   homework_svg: require("../assets/svgs/homework.svg"),
   message_svg: require("../assets/svgs/message.svg"),
+  logout_svg: require("../assets/svgs/logout.svg"),
+  logout: require("../assets/logout.png"),
+  logo_white_svg: require("../assets/svgs/logo_white.svg"),
 };

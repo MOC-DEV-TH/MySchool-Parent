@@ -59,22 +59,12 @@ const SendMessageHistory = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.contentText}>From : </Text>
-
-          <Text style={styles.contentText}>{item.from_name}</Text>
+      <View style={styles.textContainer}>
+        <View style={styles.left}>
+          <Text style={styles.left_text}>{"From :" + item.from_name}</Text>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.contentText}>To : </Text>
-          <Text style={styles.contentText}>{item.to_name}</Text>
+        <View style={styles.text}>
+          <Text style={styles.text}>{"To :" + item.to_name}</Text>
         </View>
       </View>
       <Text style={styles.description}>{item.text}</Text>
@@ -107,10 +97,23 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: PADDINGS.p10,
   },
-  contentText: {
-    color: COLORS.black,
-    marginBottom: MARGINS.m10,
-    alignSelf: "center",
+  textContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+  },
+  text: {
+    fontSize: 14,
+    textAlign: "right",
+  },
+  left_text: {
+    fontSize: 14,
+    textAlign: "left",
+  },
+  left: {
+    flex: 2, // Occupy 50% of the available width
+  },
+  right: {
+    flex: 1, // Occupy 50% of the available width
   },
   itemContainer: {
     padding: 10,
@@ -128,6 +131,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.gray,
     marginBottom: MARGINS.m10,
+    marginTop:MARGINS.m4
   },
   title: {
     fontWeight: "bold",

@@ -181,7 +181,7 @@ const CustomDrawer = (props) => {
           />
 
           <CustomDrawerItem
-            iconName={IMGS.privacyPolicy}
+            iconName={IMGS.logout}
             label={"Logout"}
             onPressItem={handleOnPressLogout}
           />
