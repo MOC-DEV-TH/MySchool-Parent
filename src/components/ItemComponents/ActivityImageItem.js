@@ -7,10 +7,9 @@ import {
 } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
-import { PADDINGS, IMGS, COLORS, MARGINS } from "../../constants";
+import { IMGS, COLORS, MARGINS } from "../../constants";
 import SvgUri from "react-native-svg-uri";
 
-const screenWidth = Dimensions.get("window").width;
 const ActivityImageItem = (props) => {
   return (
     <TouchableOpacity
@@ -28,18 +27,25 @@ const ActivityImageItem = (props) => {
         >
           <SvgUri width="50" height="50" source={IMGS.activity_svg} />
         </View>
-        <View style={{ flex: 0.7 }}>
-          <View style={{ flexDirection: "column" }}>
-            <Text medium style={{ textTransform: "capitalize" }}>
-              Activity Photos
-            </Text>
-            <Text small color={COLORS.textColorBlue}>
-              
-            </Text>
-            <Text tiny style={{ marginTop: MARGINS.m10 }}>
-              View More {">>"}
-            </Text>
-          </View>
+        <View style={{ flex: 0.4 }}>
+          <Text
+            medium
+            style={{ textTransform: "capitalize", fontWeight: "bold" }}
+          >
+            Activity Photos
+          </Text>
+        </View>
+        <View style={{ flex: 0.4 }}>
+          <Text
+            tiny
+            style={{
+              textTransform: "capitalize",
+              color: COLORS.bgColor,
+              alignSelf: "center",
+            }}
+          >
+            View More {">>"}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
