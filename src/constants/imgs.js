@@ -39,4 +39,6 @@ export default {
   logout_svg: require("../assets/svgs/logout.svg"),
   logout: require("../assets/logout.png"),
   logo_white_svg: require("../assets/svgs/logo_white.svg"),
+  activity_svg: require("../assets/svgs/activity.svg"),
+  event_svg: require("../assets/svgs/event.svg"),
 };

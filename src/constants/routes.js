@@ -39,4 +39,6 @@ export default {
   INVOICE_DETAIL: "Invoice Detail",
   PAYMENT_PLATFORM: "Payment Platform",
   START_UP: "Start Up",
+  ACTIVITY: "Activity",
+  ACTIVITY_GALLERY: "Activity Gallery",
 };

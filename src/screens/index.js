@@ -21,3 +21,5 @@ export { default as PaymentPlatform } from "./home/PaymentPlatform";
 export { default as StartUpScreen } from "./startup/StartUpScreen";
 export { default as SendMessage } from "./home/SendMessage";
 export { default as SendMessageHistory } from "./home/SendMessageHistory";
+export { default as Activity } from "./home/Activity";
+export { default as ActivityImageGallery } from "./home/ActivityImageGallery";

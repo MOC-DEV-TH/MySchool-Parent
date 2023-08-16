@@ -22,6 +22,8 @@ import {
   Login,
   SendMessage,
   SendMessageHistory,
+  Activity,
+  ActivityImageGallery,
 } from "../screens";
 import { ROUTES, COLORS, IMGS } from "../constants";
 import { Image, View, StyleSheet, TouchableOpacity, Text } from "react-native";
@@ -332,6 +334,34 @@ function HomeNavigator() {
       <Stack.Screen
         name={ROUTES.MESSAGE_HISTORY}
         component={SendMessageHistory}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.ACTIVITY}
+        component={Activity}
+        options={{
+          headerShown: true,
+          headerTintColor: COLORS.white,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: COLORS.bgColor,
+          },
+          headerTitle: () => <Image source={IMGS.logoWhiteSmall} />,
+        }}
+      />
+
+      <Stack.Screen
+        name={ROUTES.ACTIVITY_GALLERY}
+        component={ActivityImageGallery}
         options={{
           headerShown: true,
           headerTintColor: COLORS.white,

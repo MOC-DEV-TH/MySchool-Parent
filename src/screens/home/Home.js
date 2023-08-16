@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
-  SafeAreaView,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { COLORS, MARGINS, PADDINGS, ROUTES, IMGS } from "../../constants";
@@ -26,6 +25,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { DrawerActions } from "@react-navigation/native";
 import NotificationComponent from "../../components/ItemComponents/NotificationComponent";
 import { checkForUpdates } from "../../helper/AppVersionCheck";
+import ActivityImageItem from "../../components/ItemComponents/ActivityImageItem";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -152,6 +152,10 @@ const Home = ({ navigation }) => {
     navigation.navigate(ROUTES.NOTIFICATIONS);
   };
 
+  const handleOnPressActivity = () => {
+    navigation.navigate(ROUTES.ACTIVITY);
+  };
+
   //render UI
   return (
     <Container>
@@ -230,7 +234,10 @@ const Home = ({ navigation }) => {
               dotSize={10}
               dotStyle={{ backgroundColor: COLORS.white }}
             />
-
+            <Text medium style={styles.activityText}>
+              Activities
+            </Text>
+            <ActivityImageItem onClick={handleOnPressActivity} />
             <Text medium style={styles.upcomingText}>
               Upcoming Events
             </Text>
@@ -282,6 +289,10 @@ const styles = StyleSheet.create({
     color: COLORS.white,
   },
   upcomingText: {
+    color: COLORS.white,
+    marginTop: 20,
+  },
+  activityText: {
     color: COLORS.white,
     marginTop: 50,
   },

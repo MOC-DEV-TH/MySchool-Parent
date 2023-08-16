@@ -29,6 +29,7 @@ export default {
   GET_TEACHER_DDL_LIST: "/api/teacher-list/",
   POST_MESSAGE: "/api/user/messages",
   GET_MESSAGE_LIST: "/api/user/messages?",
+  GET_ACTIVITIES: "/api/activities",
 
 
   KEY_EXPO_TOKEN: "key_expo_token",
@@ -64,6 +65,7 @@ export const LOAD_STUDENT_ATTENDANCE_DATA = "LOAD_STUDENT_ATTENDANCE_DATA";
 export const SET_BASE_URL = "SET_BASE_URL";
 export const LOAD_EXAM_RESULT_DATA = "LOAD_EXAM_RESULT_DATA";
 export const SET_TEACHER_DDL_DATA = "SET_TEACHER_DDL_DATA";
+export const SET_ACTIVITY_DATA = "SET_ACTIVITY_DATA";
 
 export const LOAD_ATTENDANCE_LOADING = "LOAD_ATTENDANCE_LOADING";
 export const LOAD_ATTENDANCE_SUCCESS = "LOAD_ATTENDANCE_SUCCESS";

@@ -378,4 +378,15 @@ export const RestClientApi = {
     );
     return response.json();
   },
+
+  getActivities: async function (token, baseURL) {
+    const response = await fetch(baseURL + AppConstants.GET_ACTIVITIES, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.json();
+  },
 };

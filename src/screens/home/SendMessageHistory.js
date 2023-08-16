@@ -122,11 +122,7 @@ const styles = StyleSheet.create({
     marginTop: MARGINS.m10,
     borderRadius: 8,
   },
-  title: {
-    fontSize: 12,
-    marginBottom: MARGINS.m10,
-    marginTop: MARGINS.m10,
-  },
+  
   description: {
     fontSize: 12,
     color: COLORS.gray,

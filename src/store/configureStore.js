@@ -16,6 +16,7 @@ import paymentDetailReducer from "./reducers/paymentDetail";
 import notificationReducer from "./reducers/notification";
 import baseUrlReducer from "./reducers/baseUrl";
 import sendMessageReducer from "./reducers/sendMessage";
+import activityReducer from "./reducers/activity";
 
 
 const rootReducer = combineReducers({
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   notification: notificationReducer,
   baseURL: baseUrlReducer,
   sendMessage: sendMessageReducer,
+  activity: activityReducer,
 });
 
 const configureStore = () => {
