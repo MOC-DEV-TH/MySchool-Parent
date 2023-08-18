@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { MARGINS, IMGS, COLORS } from "../../constants";
@@ -10,12 +10,23 @@ const UpComingEventItem = (props) => {
       <View
         style={{ flex: 0.4, justifyContent: "center", alignItems: "center" }}
       >
-        <SvgUri width="40" height="40" source={IMGS.event_svg} />
+        {/* <SvgUri width="40" height="40" source={IMGS.event_svg} /> */}
+        <Image
+          source={IMGS.group}
+          resizeMode="contain"
+          style={{ height: 50, width: 50 }}
+        />
       </View>
       <View style={{ flex: 0.7 }}>
         <View style={{ flexDirection: "column" }}>
-          <Text medium style={{textTransform: 'capitalize'}}>{props.item.event_name}</Text>
-          <Text small color={COLORS.textColorBlue} style={{fontWeight:'bold',fontSize:12}}>
+          <Text medium style={{ textTransform: "capitalize" }}>
+            {props.item.event_name}
+          </Text>
+          <Text
+            small
+            color={COLORS.textColorBlue}
+            style={{ fontWeight: "bold", fontSize: 12 }}
+          >
             {props.item.start_date}
           </Text>
           <Text tiny style={{ marginTop: MARGINS.m4 }}>

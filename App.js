@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import React, { useEffect, useState, useRef } from "react";
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider } from "native-base";
 import { Provider } from "react-redux";
 import configureStore from "./src/store/configureStore";
@@ -29,20 +29,25 @@ Notifications.setNotificationHandler({
 export default function App() {
   const notificationListener = useRef();
   const responseListener = useRef();
+  const [expoPushToken, setExpoPushToken] = useState("");
+  const [notification, setNotification] = useState(false);
   const [appReady, setAppReady] = useState(false);
   const [user, setUser] = useState();
 
   //init notification
   useEffect(() => {
-    registerForPushNotificationsAsync().then((token) => {});
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
     notificationListener.current =
       Notifications.addNotificationReceivedListener((notification) => {
-        //setNotification(notification);
+        setNotification(notification);
       });
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
         console.log(response);
+        setNotification(notification);
       });
 
     return () => {
@@ -105,7 +110,7 @@ async function registerForPushNotificationsAsync() {
   if (Platform.OS === "android") {
     await Notifications.setNotificationChannelAsync("default", {
       name: "default",
-      importance: Notifications.AndroidImportance.MAX,
+      importance: Notifications.AndroidImportance.DEFAULT,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: "#FF231F7C",
     });
@@ -117,10 +122,12 @@ async function registerForPushNotificationsAsync() {
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
+      console.log("finalStatus", status);
       finalStatus = status;
     }
+
     if (finalStatus !== "granted") {
-      alert("Failed to get push token for push notification!");
+      alert('Failed to get push token for push notification!');
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;

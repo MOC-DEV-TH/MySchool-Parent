@@ -35,42 +35,42 @@ const KidProfile = ({ route, navigation }) => {
         </Text>
         <CardItem
           name={"Attendance"}
-          imageName={IMGS.attendance_svg}
+          imageName={IMGS.attendance}
           navigateName={ROUTES.ATTENDANCE}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Time Table"}
-          imageName={IMGS.timeTable_svg}
+          imageName={IMGS.timeTable}
           navigateName={ROUTES.TIME_TABLE_AND_ROUTINE}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Exams"}
-          imageName={IMGS.exam_svg}
+          imageName={IMGS.exam}
           navigateName={ROUTES.EXAM}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Payment History"}
-          imageName={IMGS.payment_svg}
+          imageName={IMGS.paymentHistory}
           navigateName={ROUTES.PAYMENT_HISTORY}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Homework"}
-          imageName={IMGS.homework_svg}
+          imageName={IMGS.homework}
           navigateName={ROUTES.HOMEWORK}
           navigation={navigation}
           routeData={studentData}
         />
         <CardItem
           name={"Message"}
-          imageName={IMGS.message_svg}
+          imageName={IMGS.message}
           navigateName={ROUTES.MESSAGE}
           navigation={navigation}
           routeData={studentData}

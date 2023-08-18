@@ -20,7 +20,8 @@ const CardItem = ({ navigateName, imageName, name, navigation, routeData }) => {
           marginBottom: MARGINS.m26,
         }}
       >
-        <SvgUri width="30" height="30" source={imageName} />
+        {/* <SvgUri width="30" height="30" source={imageName} /> */}
+        <Image source={imageName}/>
         <Text style={{ fontWeight: "bold", flex: 0.4 }}>{name}</Text>
         <Image source={IMGS.arrowBlue} />
       </View>

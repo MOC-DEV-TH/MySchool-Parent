@@ -25,7 +25,8 @@ const ActivityImageItem = (props) => {
         <View
           style={{ flex: 0.4, justifyContent: "center", alignItems: "center" }}
         >
-          <SvgUri width="50" height="50" source={IMGS.activity_svg} />
+          {/* <SvgUri width="50" height="50" source={IMGS.activity_svg} /> */}
+          <Image source={IMGS.activity} resizeMode='contain' style={{height:50,width:50}}/>
         </View>
         <View style={{ flex: 0.4 }}>
           <Text
