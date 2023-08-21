@@ -21,20 +21,23 @@ export const getTeacherDDLList = (classId, sectionId) => {
   };
 };
 
-export const postMessageToServer = (id, text, navigation) => {
+export const postMessageToServer = (id, text, expoPushToken, navigation) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const baseUrl = getState().baseURL.baseUrl;
-    await RestClientApi.postMessage(id, text, token, baseUrl).then(
-      (response) => {
-        console.log("PostMessage", response);
-        if (response.status == 200) {
-          navigation.navigate(ROUTES.MESSAGE_HISTORY);
-        }
-        else {
-          alert(response.message)
-        }
+    await RestClientApi.postMessage(
+      id,
+      text,
+      token,
+      baseUrl,
+      expoPushToken
+    ).then((response) => {
+      console.log("PostMessage", response);
+      if (response.status == 200) {
+        navigation.navigate(ROUTES.MESSAGE_HISTORY);
+      } else {
+        alert(response.message);
       }
-    );
+    });
   };
 };

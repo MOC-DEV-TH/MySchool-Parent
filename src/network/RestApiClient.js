@@ -344,8 +344,8 @@ export const RestClientApi = {
     return response.json();
   },
 
-  postMessage: async function (id, text, token, baseUrl) {
-    console.log("Post message to server", id);
+  postMessage: async function (id, text, token, baseUrl,expoToken) {
+    console.log("Post message to server", expoToken);
     const response = await fetch(baseUrl + AppConstants.POST_MESSAGE, {
       method: "POST",
       headers: {
@@ -355,6 +355,7 @@ export const RestClientApi = {
       body: JSON.stringify({
         to_id: id,
         text: text,
+        token:expoToken
       }),
     });
     return response.json();

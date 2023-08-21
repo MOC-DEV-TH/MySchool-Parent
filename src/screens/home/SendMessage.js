@@ -13,18 +13,29 @@ import CustomRadioButton from "../../components/UI/CustomRadioButton";
 import { useDispatch } from "react-redux";
 import * as sendMessageActions from "../../store/actions/sendMessage";
 import LoadingDialog from "../../components/UI/LoadingDialog";
+import { getData } from "../../utils/SessionManager";
+import AppConstants from "../../utils/AppConstants";
 
 const SendMessage = ({ navigation, route }) => {
   const [text, setText] = useState("");
   const [teacherSelectedId, setTeacherSelectedId] = useState("");
   const [selectedOption, setSelectedOption] = useState("option1");
   let [showLoadingDialog, setShowLoadingDialog] = useState(false);
+  const [expoPushToken, setExpoPushToken] = useState("");
   const dispatch = useDispatch();
   const { studentData } = route.params;
 
   useEffect(() => {
     loadTeacherDDLData();
   }, []);
+
+  useEffect(() => {
+    //get expo token
+    getData(AppConstants.KEY_EXPO_TOKEN).then((value) => {
+      console.log("Expo Push Token", value);
+      setExpoPushToken(value);
+    });
+  });
 
   const loadTeacherDDLData = useCallback(async () => {
     try {
@@ -49,7 +60,12 @@ const SendMessage = ({ navigation, route }) => {
         try {
           setShowLoadingDialog(true);
           await dispatch(
-            sendMessageActions.postMessageToServer("", text, navigation)
+            sendMessageActions.postMessageToServer(
+              "",
+              text,
+              expoPushToken,
+              navigation
+            )
           );
           setShowLoadingDialog(false);
         } catch (error) {}
@@ -66,6 +82,7 @@ const SendMessage = ({ navigation, route }) => {
             sendMessageActions.postMessageToServer(
               teacherSelectedId,
               text,
+              expoPushToken,
               navigation
             )
           );
@@ -89,10 +106,10 @@ const SendMessage = ({ navigation, route }) => {
       style={styles.container}
     >
       <View>
-      <LoadingDialog
-        showAlert={showLoadingDialog}
-        setShowAlert={setShowLoadingDialog}
-      />
+        <LoadingDialog
+          showAlert={showLoadingDialog}
+          setShowAlert={setShowLoadingDialog}
+        />
         <Text style={styles.title}>Send Message</Text>
         <View
           style={{
@@ -150,7 +167,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 150,
     paddingHorizontal: 10,
-    paddingVertical:10,
+    paddingVertical: 10,
     textAlignVertical: "top",
     borderRadius: 8,
     backgroundColor: COLORS.white,
