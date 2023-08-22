@@ -15,6 +15,7 @@ import AuthNavigator from "./src/navigations/AuthNavigator";
 import { StartUpScreen } from "./src/screens";
 import * as SplashScreen from "expo-splash-screen";
 import * as baseUrlAction from "./src/store/actions/baseUrl";
+import Constants from "expo-constants";
 
 LogBox.ignoreAllLogs();
 const store = configureStore();
@@ -127,11 +128,14 @@ async function registerForPushNotificationsAsync() {
     }
 
     if (finalStatus !== "granted") {
-      alert('Failed to get push token for push notification!');
+      alert("Failed to get push token for push notification!");
       return;
     }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    setData(AppConstants.KEY_EXPO_TOKEN, token);
+
+    token = await Notifications.getExpoPushTokenAsync({
+      projectId: Constants.expoConfig.extra.eas.projectId,
+    });
+    setData(AppConstants.KEY_EXPO_TOKEN, token.data);
     console.log(token);
   } else {
     alert("Must use physical device for Push Notifications");

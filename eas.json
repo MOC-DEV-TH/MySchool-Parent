@@ -1,29 +1,25 @@
 {
   "cli": {
-    "version": ">= 3.6.1",
-    "promptToConfigurePushNotifications": false
+    "version": ">= 4.1.2"
   },
   "build": {
     "development": {
       "extends": "production",
       "developmentClient": true,
       "distribution": "internal",
-      "ios": {
-        "resourceClass": "m1-medium"
-      }
+      "channel": "development"
     },
     "preview": {
       "extends": "production",
       "distribution": "internal",
-      "ios": {
-        "resourceClass": "m1-medium"
+      "channel": "preview",
+      "android": {
+        "buildType": "apk"
       }
     },
     "production": {
       "node": "16.1.0",
-      "ios": {
-        "resourceClass": "m1-medium"
-      }
+      "channel": "production"
     }
   },
   "submit": {
