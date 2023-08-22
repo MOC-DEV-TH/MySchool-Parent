@@ -52,7 +52,7 @@ const SendMessageHistory = () => {
   const renderFooterLoader = () => {
     return moreLoading ? (
       <View style={{ marginVertical: MARGINS.m20 }}>
-        <ActivityIndicator size={"large"} color={"#000"} />
+        <ActivityIndicator size={"large"} />
       </View>
     ) : null;
   };
@@ -71,21 +71,20 @@ const SendMessageHistory = () => {
     </View>
   );
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Message</Text>
-      <FlatList
-        initialNumToRender={15}
-        data={messages}
-        renderItem={renderItem}
-        nestedScrollEnabled
-        keyExtractor={(item, index) => index.toString()}
-        onMomentumScrollBegin={() => setOnEndReachedCalledDuringMomentum(false)}
-        onMomentumScrollEnd={onEndReached}
-        onEndReachedThreshold={0.01}
-        ListFooterComponent={renderFooterLoader}
-        showsVerticalScrollIndicator={false}
-      />
-    </View>
+    <FlatList
+      initialNumToRender={15}
+      data={messages}
+      renderItem={renderItem}
+      nestedScrollEnabled
+      keyExtractor={(item, index) => index.toString()}
+      onMomentumScrollBegin={() => setOnEndReachedCalledDuringMomentum(false)}
+      onMomentumScrollEnd={onEndReached}
+      onEndReachedThreshold={0.01}
+      ListFooterComponent={renderFooterLoader}
+      showsVerticalScrollIndicator={false}
+      style={{ marginTop: MARGINS.m20 }}
+      contentContainerStyle={{ paddingBottom: 100 }}
+    />
   );
 };
 
@@ -96,6 +95,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.black,
     flex: 1,
     padding: PADDINGS.p10,
+    height: 1000,
+    marginTop: MARGINS.m20,
   },
   textContainer: {
     flexDirection: "row",
@@ -122,12 +123,12 @@ const styles = StyleSheet.create({
     marginTop: MARGINS.m10,
     borderRadius: 8,
   },
-  
+
   description: {
     fontSize: 12,
     color: COLORS.gray,
     marginBottom: MARGINS.m10,
-    marginTop:MARGINS.m4
+    marginTop: MARGINS.m4,
   },
   title: {
     fontWeight: "bold",

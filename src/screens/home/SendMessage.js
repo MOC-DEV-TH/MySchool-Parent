@@ -15,6 +15,8 @@ import * as sendMessageActions from "../../store/actions/sendMessage";
 import LoadingDialog from "../../components/UI/LoadingDialog";
 import { getData } from "../../utils/SessionManager";
 import AppConstants from "../../utils/AppConstants";
+import ButtonGroup from "../../components/UI/ButtonGroup";
+import SendMessageHistory from "./SendMessageHistory";
 
 const SendMessage = ({ navigation, route }) => {
   const [text, setText] = useState("");
@@ -22,6 +24,7 @@ const SendMessage = ({ navigation, route }) => {
   const [selectedOption, setSelectedOption] = useState("option1");
   let [showLoadingDialog, setShowLoadingDialog] = useState(false);
   const [expoPushToken, setExpoPushToken] = useState("");
+  const [buttonState, setButtonState] = useState(0);
   const dispatch = useDispatch();
   const { studentData } = route.params;
 
@@ -99,56 +102,79 @@ const SendMessage = ({ navigation, route }) => {
     console.log("TeacherID", id);
     setTeacherSelectedId(id);
   };
+
+  const onPressButton = (item) => {
+    console.log("ButtonState", item);
+    setButtonState(item);
+  };
+
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={handleScreenTouch}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <View>
-        <LoadingDialog
-          showAlert={showLoadingDialog}
-          setShowAlert={setShowLoadingDialog}
-        />
-        <Text style={styles.title}>Send Message</Text>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginBottom: MARGINS.m10,
-          }}
-        >
-          <CustomRadioButton
-            label="To Admin"
-            checked={selectedOption === "option1"}
-            onPress={() => handleOptionChange("option1")}
-          />
-          <CustomRadioButton
-            label="To Teacher"
-            checked={selectedOption === "option2"}
-            onPress={() => handleOptionChange("option2")}
+        <View style={{ marginBottom: MARGINS.m30, marginTop: MARGINS.m16 }}>
+          <ButtonGroup
+            buttons={["Send Message", "Message History"]}
+            onItemClick={onPressButton}
+            buttonActive={styles.btnActive}
+            buttonInactive={styles.btnInactive}
+            textActive={styles.textActive}
+            textInActive={styles.textInActive}
           />
         </View>
 
-        <Text style={styles.contentText}>Choose Teacher:</Text>
-        <DropdownData
-          onItemClick={onItemClick}
-          isToAdmin={selectedOption == "option1" ? true : false}
-        />
-        <Text style={styles.contentText}>Message:</Text>
-        <TextInput
-          style={styles.textArea}
-          value={text}
-          onChangeText={(newText) => setText(newText)}
-          placeholder="Type your text here..."
-          multiline={true}
-          numberOfLines={4}
-        />
-        <TouchableOpacity onPress={handleOnPressSend} style={styles.button}>
-          <Text style={{ color: COLORS.white }}>Send</Text>
-        </TouchableOpacity>
+        {buttonState === 0 ? (
+          <TouchableOpacity activeOpacity={1} onPress={handleScreenTouch}>
+            <View style={{paddingTop:PADDINGS.p20}}>
+              <LoadingDialog
+                showAlert={showLoadingDialog}
+                setShowAlert={setShowLoadingDialog}
+              />
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  marginBottom: MARGINS.m10,
+                }}
+              >
+                <CustomRadioButton
+                  label="To Admin"
+                  checked={selectedOption === "option1"}
+                  onPress={() => handleOptionChange("option1")}
+                />
+                <CustomRadioButton
+                  label="To Teacher"
+                  checked={selectedOption === "option2"}
+                  onPress={() => handleOptionChange("option2")}
+                />
+              </View>
+
+              <Text style={styles.contentText}>Choose Teacher:</Text>
+              <DropdownData
+                onItemClick={onItemClick}
+                isToAdmin={selectedOption == "option1" ? true : false}
+              />
+              <Text style={styles.contentText}>Message:</Text>
+              <TextInput
+                style={styles.textArea}
+                value={text}
+                onChangeText={(newText) => setText(newText)}
+                placeholder="Type your text here..."
+                multiline={true}
+                numberOfLines={4}
+              />
+              <TouchableOpacity
+                onPress={handleOnPressSend}
+                style={styles.button}
+              >
+                <Text style={{ color: COLORS.white }}>Send</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <SendMessageHistory />
+        )}
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -185,6 +211,34 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignItems: "flex-start",
     marginTop: MARGINS.m6,
+    color: COLORS.white,
+  },
+  btnInactive: {
+    flex: 1,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    marginHorizontal: 10,
+  },
+  btnActive: {
+    flex: 1,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 0.5,
+    borderColor: COLORS.black,
+    backgroundColor: COLORS.bgColor,
+    borderRadius: 12,
+    marginHorizontal: 10,
+  },
+  textInActive: {
+    color: COLORS.textColorBlue,
+  },
+  textActive: {
     color: COLORS.white,
   },
 });
