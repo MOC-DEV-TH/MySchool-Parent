@@ -2,6 +2,7 @@ import { StyleSheet, View, Image } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { PADDINGS, IMGS, COLORS } from "../../constants";
+import { SubTimeTableSvg } from "../../assets";
 
 const TimeTableItem = (props) => {
   return (
@@ -9,7 +10,7 @@ const TimeTableItem = (props) => {
       <View
         style={{ justifyContent: "center", alignItems: "center", flex: 0.4 }}
       >
-        <Image source={IMGS.timeTable} />
+        <SubTimeTableSvg/>
       </View>
       <View style={{ justifyContent: "center", flex: 0.6 }}>
         <Text>{props.item.duration}</Text>

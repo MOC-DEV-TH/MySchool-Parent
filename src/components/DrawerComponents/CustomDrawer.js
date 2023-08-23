@@ -17,6 +17,16 @@ import { useDrawerStatus } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Login } from "../../screens";
 import AppConstants from "../../utils/AppConstants";
+import {
+  AboutSvg,
+  BillingSvg,
+  CalendarSvg,
+  ChildSvg,
+  LogoutSvg,
+  PrivacySvg,
+  ProfileSvg,
+  TermAndConditionSvg,
+} from "../../assets";
 
 const CustomDrawer = (props) => {
   const studentData = useSelector((state) => state.home.studentData);
@@ -108,13 +118,13 @@ const CustomDrawer = (props) => {
 
         <View style={styles.drawerListWrapper}>
           <CustomDrawerItem
-            iconName={IMGS.profile}
+            iconName={<ProfileSvg />}
             label={"My Profile"}
             onPressItem={handleOnPressMyProfile}
           />
 
           <DrawerItem
-            icon={() => <Image source={IMGS.children} />}
+            icon={() => <ChildSvg />}
             style={{
               backgroundColor: COLORS.bgColor,
               marginBottom: expanded ? undefined : MARGINS.m10,
@@ -153,42 +163,42 @@ const CustomDrawer = (props) => {
           ) : undefined}
 
           <CustomDrawerItem
-            iconName={IMGS.event_schedule}
+            iconName={<CalendarSvg />}
             label={"Calendar"}
             onPressItem={handleOnPressCalendar}
           />
 
           <CustomDrawerItem
-            iconName={IMGS.billing}
+            iconName={<BillingSvg />}
             label={"Billing"}
             onPressItem={handleOnPressBilling}
           />
 
           <CustomDrawerItem
-            iconName={IMGS.about}
+            iconName={<AboutSvg />}
             label={"About MySchool"}
             onPressItem={handleOnPressAboutMySchool}
           />
           <CustomDrawerItem
-            iconName={IMGS.termAndCondition}
+            iconName={<TermAndConditionSvg />}
             label={"Terms and Conditions"}
             onPressItem={handleOnPressTermAndCondition}
           />
           <CustomDrawerItem
-            iconName={IMGS.privacyPolicy}
+            iconName={<PrivacySvg />}
             label={"Privacy Policy"}
             onPressItem={handleOnPressPrivacyPolicy}
           />
 
           <CustomDrawerItem
-            iconName={IMGS.logout}
+            iconName={<LogoutSvg width={20} height={20} />}
             label={"Logout"}
             onPressItem={handleOnPressLogout}
           />
         </View>
       </DrawerContentScrollView>
       <View style={styles.footerView}>
-        <Text small>App Version 1.0</Text>
+        <Text small>App Version 1.0.1</Text>
       </View>
     </View>
   );

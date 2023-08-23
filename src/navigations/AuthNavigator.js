@@ -3,12 +3,17 @@ import { Login, StartUpScreen } from "../screens";
 import { ROUTES, COLORS } from "../constants";
 import DrawerNavigator from "./DrawerNavigator";
 import SchoolCode from "../screens/auth/SchoolCode";
+import { TransitionPresets } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
 function AuthNavigator() {
   return (
-    <Stack.Navigator initialRouteName={ROUTES.SCHOOL_CODE}>
+    <Stack.Navigator
+    screenOptions={{
+        ...TransitionPresets.SlideFromRightIOS,
+      }}
+     initialRouteName={ROUTES.SCHOOL_CODE}>
       <Stack.Screen
         name={ROUTES.LOGIN}
         component={Login}

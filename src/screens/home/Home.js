@@ -26,6 +26,7 @@ import { DrawerActions } from "@react-navigation/native";
 import NotificationComponent from "../../components/ItemComponents/NotificationComponent";
 import { checkForUpdates } from "../../helper/AppVersionCheck";
 import ActivityImageItem from "../../components/ItemComponents/ActivityImageItem";
+import { LogoWhiteSvg } from "../../assets";
 
 const Home = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -177,7 +178,8 @@ const Home = ({ navigation }) => {
         <TouchableOpacity onPress={handleOnPressMenu}>
           <Ionicons name="menu" size={20} color={COLORS.white} />
         </TouchableOpacity>
-        <Image source={IMGS.logoWhiteSmall} style={styles.appIcon} />
+        {/* <Image source={IMGS.logoWhiteSmall} style={styles.appIcon} /> */}
+        <LogoWhiteSvg/>
         <NotificationComponent
           onPress={handleOnPressNotification}
           notificationCount={notiCount}

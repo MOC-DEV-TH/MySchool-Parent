@@ -2,13 +2,14 @@ import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { MARGINS, IMGS, COLORS } from "../../constants";
+import { RightArrowSvg, SubExamSvg } from "../../assets";
 
 const UpComingExamItem = (props) => {
   return (
     <TouchableOpacity onPress={() => props.onItemClick(props.item)}>
       <View style={styles.card}>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
-          <Image source={IMGS.timeTable} />
+          <SubExamSvg/>
         </View>
         <View style={{ justifyContent: "center" }}>
           <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
@@ -18,7 +19,7 @@ const UpComingExamItem = (props) => {
         </View>
 
         <View style={{ justifyContent: "center" }}>
-          <Image source={IMGS.arrowBlue} style={{ marginLeft: MARGINS.m6 }} />
+         <RightArrowSvg/>
         </View>
       </View>
     </TouchableOpacity>

@@ -11,6 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import { setData } from "../../utils/SessionManager";
 import AppConstants from "../../utils/AppConstants";
 import LoadingDialog from "../../components/UI/LoadingDialog";
+import { LogoWhiteBigSvg, LogoWhiteSvg } from "../../assets";
 
 const SchoolCode = (props) => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const SchoolCode = (props) => {
   //     dispatch(baseUrlAction.setBaseUrl(found.api_url, navigation));
   //   }
   // };
-// const schoolCodeData = [
+  // const schoolCodeData = [
   //   {
   //     code: "UAT001",
   //     api_url: "http://uat.myschool.fyi",
@@ -88,7 +89,7 @@ const SchoolCode = (props) => {
           setShowAlert={setShowLoadingDialog}
         />
         <StatusBar style="light" />
-        <Image source={IMGS.logoWhite} style={styles.logo} />
+        <LogoWhiteBigSvg style={styles.logo} />
         <UserInput
           name={"Enter Code"}
           value={code}

@@ -4,10 +4,10 @@
     "slug": "MySchoolParent",
     "version": "1.0.1",
     "orientation": "portrait",
-    "icon": "./src/assets/logo.png",
+    "icon": "./src/assets/pngs/logo.png",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/pngs/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -39,7 +39,7 @@
       "googleServicesFile": "./google-services.json",
       "versionCode": 2,
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/logo.png",
+        "foregroundImage": "./src/assets/pngs/logo.png",
         "backgroundColor": "#FFFFFF"
       },
       "permissions": [
@@ -49,7 +49,7 @@
       ]
     },
     "web": {
-      "favicon": "./src/assets/favicon.png"
+      "favicon": "./src/assets/pngs/favicon.png"
     },
     "extra": {
       "eas": {

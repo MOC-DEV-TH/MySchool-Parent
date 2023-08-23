@@ -1,8 +1,9 @@
 import { View, TouchableOpacity, Image, Text } from "react-native";
+import { RightArrowSvg } from "../../assets";
 import { COLORS, IMGS, MARGINS } from "../../constants";
-import SvgUri from "react-native-svg-uri";
 
 const CardItem = ({ navigateName, imageName, name, navigation, routeData }) => {
+  console.log("ImageName", imageName);
   return (
     <TouchableOpacity
       onPress={() =>
@@ -20,10 +21,9 @@ const CardItem = ({ navigateName, imageName, name, navigation, routeData }) => {
           marginBottom: MARGINS.m26,
         }}
       >
-        {/* <SvgUri width="30" height="30" source={imageName} /> */}
-        <Image source={imageName}/>
+        {imageName}
         <Text style={{ fontWeight: "bold", flex: 0.4 }}>{name}</Text>
-        <Image source={IMGS.arrowBlue} />
+        <RightArrowSvg />
       </View>
     </TouchableOpacity>
   );

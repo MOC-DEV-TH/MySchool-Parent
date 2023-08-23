@@ -18,6 +18,7 @@ import * as authActions from "../../store/actions/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StatusBar } from "expo-status-bar";
 import LoadingDialog from "../../components/UI/LoadingDialog";
+import { LogoWhiteBigSvg } from "../../assets";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -81,7 +82,7 @@ const Login = (props) => {
       />
       <View {...panResponder.panHandlers} style={styles.container}>
         <StatusBar style="light" />
-        <Image source={IMGS.logoWhite} style={styles.logo} />
+        <LogoWhiteBigSvg style={styles.logo}/>
         <UserInput
           name={"Login"}
           value={email}

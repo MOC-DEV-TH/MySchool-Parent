@@ -9,6 +9,7 @@ import {
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { PADDINGS, IMGS, COLORS } from "../../constants";
+import { RightArrowWhiteSvg } from "../../assets";
 
 const screenWidth = Dimensions.get("window").width;
 const ChildItem = (props) => {
@@ -53,7 +54,7 @@ const ChildItem = (props) => {
             </Text>
           </View>
           <View style={{ justifyContent: "flex-end" }}>
-            <Image source={IMGS.arrow_right_white} />
+            <RightArrowWhiteSvg />
           </View>
         </View>
       </TouchableOpacity>

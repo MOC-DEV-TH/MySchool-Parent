@@ -10,6 +10,7 @@ import { COLORS, PADDINGS, MARGINS, IMGS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { useSelector, useDispatch } from "react-redux";
 import * as upComingExamDetailAction from "../../store/actions/upComingExamDetail";
+import { SubExamDetailSvg } from "../../assets";
 
 const ExamUpcomingResultDetail = ({ route, navigation }) => {
   const { upComingExam, student } = route.params;
@@ -54,7 +55,7 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
         <View
           style={{ justifyContent: "center", alignItems: "center", flex: 0.4 }}
         >
-          <Image source={IMGS.timeTable} />
+          <SubExamDetailSvg/>
         </View>
         <View style={{ justifyContent: "center", flex: 0.6 }}>
           <Text>{item.examDate}</Text>

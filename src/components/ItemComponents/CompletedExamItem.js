@@ -2,13 +2,14 @@ import { StyleSheet, View, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { MARGINS, IMGS, COLORS, PADDINGS } from "../../constants";
+import { RightArrowSvg, SubExamSvg } from "../../assets";
 
 const CompletedExamItem = (props) => {
   return (
     <View>
       <TouchableOpacity onPress={() => props.onItemClick(props.item.item)}>
         <View style={styles.completedCard}>
-          <Image source={IMGS.exam_complete} />
+          <SubExamSvg />
           <View style={{ flex: 0.4 }}>
             <Text color={COLORS.black} style={{ fontWeight: "bold" }}>
               {props.item.item.exam_name}
@@ -39,7 +40,7 @@ const CompletedExamItem = (props) => {
                   : "FAIL"}
               </Text>
             </View>
-            <Image source={IMGS.arrowBlue} style={{ marginLeft: MARGINS.m6 }} />
+            <RightArrowSvg/>
           </View>
         </View>
       </TouchableOpacity>

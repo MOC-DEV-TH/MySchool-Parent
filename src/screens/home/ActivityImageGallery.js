@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Modal,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS, MARGINS, PADDINGS } from "../../constants";
@@ -77,6 +78,7 @@ const ActivityImageGallery = ({ route }) => {
         visible={viewerVisible}
         transparent={true}
         onRequestClose={handleCloseViewer}
+        animationType="slide"
       >
         <ImageViewer
           imageUrls={filteredArray}
@@ -85,6 +87,7 @@ const ActivityImageGallery = ({ route }) => {
           enableSwipeDown={true}
           enablePreload={true}
           renderHeader={renderHeader}
+          style={styles.modalContent}
         />
       </Modal>
     </View>
@@ -138,5 +141,13 @@ const styles = StyleSheet.create({
     height: 100, // Set a fixed height for each item
     backgroundColor: "#f0f0f0", // Set your desired background color
     borderRadius: 8, // Add borderRadius for a nice look
+  },
+  modalContent: {
+    backgroundColor: "white",
+    ...Platform.select({
+      ios: {
+        marginTop: Dimensions.get("window").height * 0.05,
+      },
+    }),
   },
 });

@@ -1,14 +1,8 @@
-import {
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Text from "@kaloraat/react-native-text";
 import { IMGS, COLORS, MARGINS } from "../../constants";
-import SvgUri from "react-native-svg-uri";
+import { ActivitySvg } from "../../assets";
 
 const ActivityImageItem = (props) => {
   return (
@@ -25,8 +19,13 @@ const ActivityImageItem = (props) => {
         <View
           style={{ flex: 0.4, justifyContent: "center", alignItems: "center" }}
         >
-          {/* <SvgUri width="50" height="50" source={IMGS.activity_svg} /> */}
-          <Image source={IMGS.activity} resizeMode='contain' style={{height:50,width:50}}/>
+          <ActivitySvg width={50} height={50} />
+          
+          {/* <Image
+            source={IMGS.activity}
+            resizeMode="contain"
+            style={{ height: 50, width: 50 }}
+          /> */}
         </View>
         <View style={{ flex: 0.4 }}>
           <Text

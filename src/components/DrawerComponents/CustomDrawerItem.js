@@ -6,7 +6,7 @@ import { COLORS, MARGINS } from "../../constants";
 const CustomDrawerItem = ({ iconName, label, onPressItem }) => {
   return (
     <DrawerItem
-      icon={() => <Image source={iconName} style={{width:25,height:25}} />}
+      icon={() => iconName}
       labelStyle={{ marginLeft: -20, color: COLORS.white, fontWeight: "bold" }}
       style={{
         backgroundColor: COLORS.bgColor,
