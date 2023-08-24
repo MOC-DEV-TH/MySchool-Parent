@@ -3,7 +3,7 @@ import Constants from "expo-constants";
 import { RestClientApi } from "../network/RestApiClient";
 
 export const checkForUpdates = async () => {
-  const version = Constants.manifest.version;
+  const version = Constants.expoConfig.version;
   console.log("Current app version:", version);
 
   RestClientApi.checkRequireUpdate().then((res) => {
