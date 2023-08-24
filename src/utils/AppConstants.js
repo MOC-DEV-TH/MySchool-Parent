@@ -37,7 +37,7 @@ export default {
   KEY_BASE_URL: "key_base_url",
   KEY_USER_DATA: "key_user_data",
   KEY_NOTIFICATION_COUNT: "key_notification_count",
-  LAST_NOTI_COUNT: "Last noti count",
+  LAST_NOTI_COUNT: "Last_noti_count",
 };
 
 export const AUTHENTICATE = "AUTHENTICATE";
