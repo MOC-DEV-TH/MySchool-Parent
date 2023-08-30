@@ -198,7 +198,7 @@ const CustomDrawer = (props) => {
         </View>
       </DrawerContentScrollView>
       <View style={styles.footerView}>
-        <Text small>App Version 1.0.1</Text>
+        <Text small>App Version 1.0.2</Text>
       </View>
     </View>
   );

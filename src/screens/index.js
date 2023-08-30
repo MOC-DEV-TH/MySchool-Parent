@@ -23,3 +23,4 @@ export { default as SendMessage } from "./home/SendMessage";
 export { default as SendMessageHistory } from "./home/SendMessageHistory";
 export { default as Activity } from "./home/Activity";
 export { default as ActivityImageGallery } from "./home/ActivityImageGallery";
+export { default as HomeworkDetail } from "./home/HomeWorkDetail";

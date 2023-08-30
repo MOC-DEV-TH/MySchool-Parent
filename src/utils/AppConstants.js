@@ -31,7 +31,6 @@ export default {
   GET_MESSAGE_LIST: "/api/user/messages?",
   GET_ACTIVITIES: "/api/activities",
 
-
   KEY_EXPO_TOKEN: "key_expo_token",
   KEY_AUTH_TOKEN: "key_auth_token",
   KEY_BASE_URL: "key_base_url",

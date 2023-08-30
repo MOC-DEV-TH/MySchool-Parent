@@ -24,6 +24,7 @@ import {
   SendMessageHistory,
   Activity,
   ActivityImageGallery,
+  HomeworkDetail,
 } from "../screens";
 import { ROUTES, COLORS } from "../constants";
 import { StyleSheet } from "react-native";
@@ -192,6 +193,12 @@ function HomeNavigator() {
       <Stack.Screen
         name={ROUTES.ACTIVITY_GALLERY}
         component={ActivityImageGallery}
+        options={defaultNavOptions}
+      />
+
+      <Stack.Screen
+        name={ROUTES.HOMEWORK_DETAIL}
+        component={HomeworkDetail}
         options={defaultNavOptions}
       />
     </Stack.Navigator>

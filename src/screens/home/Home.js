@@ -32,6 +32,7 @@ const Home = ({ navigation }) => {
   const dispatch = useDispatch();
   const scrollX = useRef(new Animated.Value(0)).current;
   let [notiCount, setNotiCount] = useState("0");
+  const userName = useSelector((state) => state.auth.name);
 
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
@@ -199,7 +200,7 @@ const Home = ({ navigation }) => {
               <Text medium style={styles.welcomeText}>
                 Welcome
                 <Text medium style={styles.welcomeText}>
-                  (Name)
+                  ({userName})
                 </Text>
               </Text>
             </View>

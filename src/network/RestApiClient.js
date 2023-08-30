@@ -329,10 +329,10 @@ export const RestClientApi = {
     return await response.json();
   },
 
-  getTeacherDDLList: async function (token, classId, sectionId, baseUrl) {
-    console.log("DDLRequest", classId, sectionId);
+  getTeacherDDLList: async function (token, classId, baseUrl) {
+    console.log("DDLRequest", classId);
     const response = await fetch(
-      baseUrl + AppConstants.GET_TEACHER_DDL_LIST + classId + "/" + sectionId,
+      baseUrl + AppConstants.GET_TEACHER_DDL_LIST + classId ,
       {
         method: "GET",
         headers: {
@@ -344,7 +344,7 @@ export const RestClientApi = {
     return response.json();
   },
 
-  postMessage: async function (id, text, token, baseUrl,expoToken) {
+  postMessage: async function (id, text, token, baseUrl, expoToken) {
     console.log("Post message to server", expoToken);
     const response = await fetch(baseUrl + AppConstants.POST_MESSAGE, {
       method: "POST",
@@ -355,7 +355,7 @@ export const RestClientApi = {
       body: JSON.stringify({
         to_id: id,
         text: text,
-        token:expoToken
+        token: expoToken,
       }),
     });
     return response.json();

@@ -45,7 +45,6 @@ const SendMessage = ({ navigation, route }) => {
       await dispatch(
         sendMessageActions.getTeacherDDLList(
           studentData.classId,
-          studentData.sectionId
         )
       );
     } catch (error) {}

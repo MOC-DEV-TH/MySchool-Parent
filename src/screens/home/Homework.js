@@ -1,13 +1,13 @@
 import { StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
-import { COLORS, PADDINGS, MARGINS } from "../../constants";
+import { COLORS, PADDINGS, MARGINS, ROUTES } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import HomeWorkItem from "../../components/ItemComponents/HomeWorkItem";
 import { useSelector, useDispatch } from "react-redux";
 import * as homeworkAction from "../../store/actions/homework";
 
-const Homework = ({ route }) => {
+const Homework = ({ route, navigation }) => {
   const { studentData } = route.params;
   const dispatch = useDispatch();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -36,6 +36,12 @@ const Homework = ({ route }) => {
 
   console.log("HomeWorkDataLength", homeworkData.length);
 
+  //handle press item
+  const handleOnPressHomeWorkItem = (item) => {
+    console.log(item);
+    navigation.navigate(ROUTES.HOMEWORK_DETAIL, { homeWorkData: item });
+  };
+
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -57,7 +63,12 @@ const Homework = ({ route }) => {
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             inverted={true}
-            renderItem={(itemData) => <HomeWorkItem item={itemData} />}
+            renderItem={(itemData) => (
+              <HomeWorkItem
+                item={itemData}
+                onItemClick={handleOnPressHomeWorkItem}
+              />
+            )}
             keyExtractor={(item, index) => index.toString()}
           />
         )}

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import { useSelector } from "react-redux";
-import { MARGINS } from "../../constants";
+import { COLORS, MARGINS } from "../../constants";
 
-const DropdownData = ({ onItemClick,isToAdmin }) => {
+const DropdownData = ({ onItemClick, isToAdmin }) => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
   const teacherDDLList = useSelector(
@@ -13,8 +13,8 @@ const DropdownData = ({ onItemClick,isToAdmin }) => {
   console.log("DDLList", teacherDDLList);
 
   const onChangeItem = (item) => {
-    setValue(item.id);
-    onItemClick(item.id);
+    setValue(item.teacher_id);
+    onItemClick(item.teacher_id);
     setIsFocus(false);
   };
 
@@ -25,11 +25,13 @@ const DropdownData = ({ onItemClick,isToAdmin }) => {
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={styles.inputSearchStyle}
+        showsVerticalScrollIndicator={true}
+        containerStyle={{ borderColor: COLORS.black, borderRadius: 12 }}
         iconStyle={styles.iconStyle}
         data={isToAdmin ? [] : teacherDDLList}
         maxHeight={300}
         labelField="name"
-        valueField="id"
+        valueField="teacher_id"
         placeholder={!isFocus ? "" : "..."}
         value={value}
         onFocus={() => setIsFocus(true)}

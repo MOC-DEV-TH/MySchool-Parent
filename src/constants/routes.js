@@ -41,4 +41,5 @@ export default {
   START_UP: "Start Up",
   ACTIVITY: "Activity",
   ACTIVITY_GALLERY: "Activity Gallery",
+  HOMEWORK_DETAIL: "HomeWork Detail",
 };
