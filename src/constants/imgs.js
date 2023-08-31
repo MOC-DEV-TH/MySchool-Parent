@@ -5,4 +5,5 @@ export default {
   mobile_banking: require("../assets/pngs/mobile_banking.png"),
   mobile_wallet: require("../assets/pngs/mobile_wallet.png"),
   card_payment: require("../assets/pngs/card_payment.png"),
+  empty_thumbnail: require("../assets/pngs/empty_thumbnail.jpeg"),
 };

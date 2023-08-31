@@ -39,8 +39,9 @@
       "googleServicesFile": "./google-services.json",
       "versionCode": 1,
       "adaptiveIcon": {
+        "foregroundImage": "./src/assets/pngs/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      },
+    },
       "permissions": [
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION",

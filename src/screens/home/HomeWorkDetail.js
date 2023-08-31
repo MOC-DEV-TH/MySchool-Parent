@@ -1,15 +1,47 @@
-import { StyleSheet, View, Image } from "react-native";
-import React from "react";
-import { COLORS, PADDINGS, MARGINS } from "../../constants";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Modal,
+  Platform,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState } from "react";
+import { COLORS, PADDINGS, MARGINS, IMGS } from "../../constants";
 import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSelector } from "react-redux";
+import ImageViewer from "react-native-image-zoom-viewer";
 
 const HomeworkDetail = ({ route }) => {
   const { homeWorkData } = route.params;
   //get base url
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
 
+  const [viewerVisible, setViewerVisible] = useState(false);
+  const image = {
+    url: baseUrl + "/" + homeWorkData.homework_img,
+  };
+
+  console.log(homeWorkData.homework_img);
+
+  const handleImagePress = () => {
+    setViewerVisible(true);
+  };
+
+  const handleCloseViewer = () => {
+    setViewerVisible(false);
+  };
+
+  //render image view header
+  const renderHeader = () => {
+    return (
+      <TouchableOpacity style={styles.closeButton} onPress={handleCloseViewer}>
+        <Text style={styles.closeButtonText}>Close</Text>
+      </TouchableOpacity>
+    );
+  };
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -50,21 +82,43 @@ const HomeworkDetail = ({ route }) => {
           >
             {homeWorkData.title}
           </Text>
-          {/* <Text style={{ marginBottom: MARGINS.m10 }}>
-            {homeWorkData.title}
-          </Text> */}
 
           <View style={styles.horizontalDivider} />
-
-          <Image
-            style={styles.image}
-            source={{
-              uri: baseUrl + "/" + homeWorkData.homework_img,
-            }}
-          />
+          {homeWorkData.homework_img === null ? (
+            <Image
+              resizeMode="cover"
+              style={{ height: 250, width: "100%" }}
+              source={IMGS.empty_thumbnail}
+            />
+          ) : (
+            <TouchableOpacity onPress={handleImagePress}>
+              <Image
+                resizeMode="cover"
+                style={{ height: 250 }}
+                source={{
+                  uri: baseUrl + "/" + homeWorkData.homework_img,
+                }}
+              />
+            </TouchableOpacity>
+          )}
 
           <Text style={styles.text}>{homeWorkData.description}</Text>
         </View>
+        <Modal
+          visible={viewerVisible}
+          transparent={true}
+          onRequestClose={handleCloseViewer}
+          animationType="slide"
+        >
+          <ImageViewer
+            imageUrls={[image]}
+            onSwipeDown={handleCloseViewer}
+            enableSwipeDown={true}
+            enablePreload={true}
+            renderHeader={renderHeader}
+            style={styles.modalContent}
+          />
+        </Modal>
       </KeyboardAwareScrollView>
     </View>
   );
@@ -94,6 +148,16 @@ const styles = StyleSheet.create({
     marginTop: MARGINS.m18,
     marginBottom: MARGINS.m4,
   },
+  closeButton: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    zIndex: 1,
+  },
+  closeButtonText: {
+    color: "white",
+    fontSize: 16,
+  },
   name: {
     fontWeight: "bold",
     alignItems: "flex-start",
@@ -112,10 +176,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.black,
     marginBottom: MARGINS.m10,
   },
-  image: {
-    height: 200,
-  },
   text: {
     marginTop: MARGINS.m10,
+  },
+  modalContent: {
+    backgroundColor: "white",
+    ...Platform.select({
+      ios: {
+        marginTop: Dimensions.get("window").height * 0.05,
+      },
+    }),
   },
 });
