@@ -18,11 +18,17 @@
       }
     },
     "production": {
-      "node": "16.1.0",
+      "node": "16.14.0",
       "channel": "production"
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "cutie.theingi2011@gmail.com",
+        "ascAppId": "6448501458",
+        "appleTeamId": "DZ9VJ2V5MG"
+      }
+    }
   }
 }
