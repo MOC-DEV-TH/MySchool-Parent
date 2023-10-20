@@ -2,7 +2,7 @@
   "expo": {
     "name": "MySchool International",
     "slug": "MySchoolParent",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./src/assets/pngs/logo.png",
     "userInterfaceStyle": "automatic",
@@ -14,13 +14,14 @@
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/3c5b0113-0632-44e7-aa90-959be73c85f8"
-    },
+   },
+    
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": false,
-      "buildNumber": "3",
+      "buildNumber": "4",
       "bundleIdentifier": "com.moc.myschoolParentIos",
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {
@@ -37,7 +38,7 @@
     "android": {
       "package": "com.moc.myschoolParent",
       "googleServicesFile": "./google-services.json",
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/pngs/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

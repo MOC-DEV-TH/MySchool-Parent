@@ -16,10 +16,12 @@ const PaymentHistory = ({ route, navigation }) => {
   useEffect(() => {
     loadPaymentHistoryData();
   }, []);
-
+  console.log("StudentId",studentData.id)
   //get payment history  data
   const paidData = useSelector((state) => state.paymentHistory.paid);
   const unpaidData = useSelector((state) => state.paymentHistory.unpaid);
+
+  console.log("PaidData",paidData)
 
   //load payment history  data
   const loadPaymentHistoryData = useCallback(async () => {

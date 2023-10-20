@@ -14,6 +14,9 @@ const ExamCompletedResultDetail = ({ navigation, route }) => {
   const examResultHeader = ["Grade", "Min Mark", "Max Mark"];
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  console.log("StudentID",student.id)
+    console.log("ExamId",completedData.exam_id)
+
   //get all completed detail data
   const completedExamDetailData = useSelector(
     (state) => state.completedExamDetail.completedExamDetailData

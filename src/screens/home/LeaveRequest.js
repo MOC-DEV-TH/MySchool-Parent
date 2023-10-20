@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import React, { useState } from "react";
 import { COLORS, PADDINGS, MARGINS } from "../../constants";
@@ -28,27 +29,6 @@ const LeaveRequest = ({ route, navigation }) => {
   const token = useSelector((state) => state.auth.token);
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
-
-  //Custom Input
-  const UserInput = ({
-    value,
-    setValue,
-    placeHolder,
-    inputStyle,
-    editable = true,
-  }) => {
-    return (
-      <TextInput
-        style={inputStyle}
-        onChangeText={(text) => setValue(text)}
-        value={value}
-        placeholder={placeHolder}
-        placeholderTextColor={COLORS.black}
-        multiline={placeHolder == "Description" ? true : false}
-        editable={editable}
-      />
-    );
-  };
 
   const showToDatePicker = () => {
     setToDatePickerVisibility(true);
@@ -120,7 +100,7 @@ const LeaveRequest = ({ route, navigation }) => {
           }}
           value={title}
           onChangeText={(text) => setTitle(text)}
-          placeholder={"Title"}
+          placeholder={"Enter Title"}
           placeholderTextColor={COLORS.black}
         />
         <TextInput
@@ -134,49 +114,37 @@ const LeaveRequest = ({ route, navigation }) => {
             textAlignVertical: "top",
             paddingTop: PADDINGS.p10,
           }}
+          multiline={true}
           value={description}
           onChangeText={(text) => setDescription(text)}
-          placeholder={"Description"}
+          placeholder={"Enter Description"}
           placeholderTextColor={COLORS.black}
         />
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "row", marginTop: 20 }}>
           <TouchableOpacity onPress={showFromDatePicker} style={{ flex: 1 }}>
-            <UserInput
-              inputStyle={{
-                height: 46,
-                borderWidth: 1,
-                backgroundColor: COLORS.white,
-                paddingLeft: PADDINGS.p10,
-                borderRadius: 12,
-                marginBottom: MARGINS.m18,
-                marginTop: MARGINS.m20,
-                color: COLORS.black,
-                marginRight: MARGINS.m4,
-              }}
-              placeHolder={"From Date"}
-              editable={false}
-              value={fromDate}
-            />
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder={"From Date"}
+                editable={false}
+                value={fromDate}
+                placeholderTextColor={COLORS.black}
+                onTouchStart={Platform.OS === "ios" ? showFromDatePicker : null}
+              />
+            </View>
           </TouchableOpacity>
-
+          <View style={{ width: 20 }} />
           <TouchableOpacity onPress={showToDatePicker} style={{ flex: 1 }}>
-            <UserInput
-              inputStyle={{
-                height: 46,
-                borderWidth: 1,
-                backgroundColor: COLORS.white,
-                paddingLeft: PADDINGS.p10,
-                borderRadius: 12,
-                marginBottom: MARGINS.m18,
-                marginTop: MARGINS.m20,
-                flex: 1,
-                color: COLORS.black,
-                marginLeft: MARGINS.m4,
-              }}
-              placeHolder={"To Date"}
-              editable={false}
-              value={toDate}
-            />
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder={"To Date"}
+                placeholderTextColor={COLORS.black}
+                editable={false}
+                value={toDate}
+                onTouchStart={Platform.OS === "ios" ? showToDatePicker : null}
+              />
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -255,5 +223,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#F5FCFF88",
+  },
+  input: {
+    width: "100%",
+    flex: 1,
+    color: COLORS.black,
+  },
+  inputContainer: {
+    width: "100%",
+    height: 46,
+    paddingLeft: 10,
+    justifyContent: "center",
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
   },
 });
