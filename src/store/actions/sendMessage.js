@@ -31,7 +31,7 @@ export const postMessageToServer = (id, text, expoPushToken, navigation) => {
       baseUrl,
       expoPushToken
     ).then((response) => {
-      console.log("PostMessage", response);
+      //console.log("PostMessage", response);
       if (response.status == 200) {
         alert(response.message);
         //navigation.navigate(ROUTES.MESSAGE_HISTORY);

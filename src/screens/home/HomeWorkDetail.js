@@ -13,18 +13,24 @@ import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSelector } from "react-redux";
 import ImageViewer from "react-native-image-zoom-viewer";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
+import * as IntentLauncher from "expo-intent-launcher";
+import LoadingDialog from "../../components/UI/LoadingDialog";
 
 const HomeworkDetail = ({ route }) => {
   const { homeWorkData } = route.params;
+  let [showLoadingDialog, setShowLoadingDialog] = useState(false);
   //get base url
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
-
   const [viewerVisible, setViewerVisible] = useState(false);
   const image = {
     url: baseUrl + "/" + homeWorkData.homework_img,
   };
+  const pdfFile = homeWorkData.homework_pdf;
+  const pdfFileName = homeWorkData.homework_pdf_name;
 
-  console.log(homeWorkData.homework_img);
+  console.log("Pdf file" + homeWorkData.homework_pdf);
 
   const handleImagePress = () => {
     setViewerVisible(true);
@@ -32,6 +38,35 @@ const HomeworkDetail = ({ route }) => {
 
   const handleCloseViewer = () => {
     setViewerVisible(false);
+  };
+
+  const openFile = async () => {
+    setShowLoadingDialog(true);
+    let remoteUrl = baseUrl + "/" + pdfFile;
+
+    let localPath = `${FileSystem.documentDirectory}/${pdfFileName}`;
+
+    FileSystem.downloadAsync(remoteUrl, localPath).then(async ({ uri }) => {
+      const contentURL = await FileSystem.getContentUriAsync(uri);
+      try {
+        if (Platform.OS == "android") {
+          await IntentLauncher.startActivityAsync(
+            "android.intent.action.VIEW",
+            {
+              data: contentURL,
+              flags: 1,
+              type: "application/pdf",
+            }
+          );
+        } else if (Platform.OS == "ios") {
+          await Sharing.shareAsync(localPath);
+        }
+      } catch (error) {
+        Alert.alert("INFO", JSON.stringify(error));
+      } finally {
+        setShowLoadingDialog(false);
+      }
+    });
   };
 
   //render image view header
@@ -45,6 +80,10 @@ const HomeworkDetail = ({ route }) => {
   return (
     <View style={styles.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+        <LoadingDialog
+          showAlert={showLoadingDialog}
+          setShowAlert={setShowLoadingDialog}
+        />
         <Text medium color={COLORS.white} style={styles.title}>
           Homework
         </Text>
@@ -103,6 +142,12 @@ const HomeworkDetail = ({ route }) => {
           )}
 
           <Text style={styles.text}>{homeWorkData.description}</Text>
+
+          {pdfFile === null ? undefined : (
+            <TouchableOpacity style={styles.button} onPress={openFile}>
+              <Text style={styles.button_text}>Download PDF</Text>
+            </TouchableOpacity>
+          )}
         </View>
         <Modal
           visible={viewerVisible}
@@ -176,8 +221,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.black,
     marginBottom: MARGINS.m10,
   },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: COLORS.primary,
+    marginVertical: MARGINS.m22,
+  },
   text: {
     marginTop: MARGINS.m10,
+  },
+  button_text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
   },
   modalContent: {
     backgroundColor: "white",

@@ -1,11 +1,5 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { ROUTES, COLORS, IMGS } from "../constants";
-import {
-  TermsAndConditions,
-  AboutMySchool,
-  PrivacyPolicy,
-  Profile,
-} from "../screens";
+import { ROUTES, COLORS } from "../constants";
 import HomeNavigator from "./HomeNavigator";
 import CustomDrawer from "../components/DrawerComponents/CustomDrawer";
 import AuthNavigator from "./AuthNavigator";
@@ -22,6 +16,7 @@ function DrawerNavigator() {
         drawerActiveTintColor: COLORS.bgColor,
         drawerInactiveTintColor: COLORS.bgColor,
         drawerInactiveBackgroundColor: COLORS.bgColor,
+        //swipeEnabled: false,
         drawerLabelStyle: {
           color: COLORS.white,
           marginLeft: -20,
@@ -40,6 +35,7 @@ function DrawerNavigator() {
       <Drawer.Screen
         name={ROUTES.LOGIN_NAVIGATOR}
         options={{
+          swipeEnabled: false,
           title: "",
           drawerItemStyle: { height: 0 },
         }}

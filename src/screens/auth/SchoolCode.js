@@ -77,6 +77,7 @@ const SchoolCode = (props) => {
 
   return (
     <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="handled"
       contentContainerStyle={{
         flex: 1,
         justifyContent: "center",

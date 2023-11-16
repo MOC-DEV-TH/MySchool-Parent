@@ -19,8 +19,8 @@ export const getClassRoutine = (sessionId, classId, sectionId, dayIndex) => {
       token,
       baseUrl
     ).then((response) => {
-      console.log("Token", token);
-      console.log("Response", response.details.Monday);
+      // console.log("Token", token);
+      // console.log("Response", response.details.Monday);
 
       if (dayIndex === 0) {
         for (const item of response.details.Monday) {

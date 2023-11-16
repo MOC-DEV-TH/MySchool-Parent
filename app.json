@@ -2,7 +2,7 @@
   "expo": {
     "name": "MySchool International",
     "slug": "MySchoolParent",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./src/assets/pngs/logo.png",
     "userInterfaceStyle": "automatic",
@@ -21,7 +21,7 @@
     ],
     "ios": {
       "supportsTablet": false,
-      "buildNumber": "4",
+      "buildNumber": "2",
       "bundleIdentifier": "com.moc.myschoolParentIos",
       "googleServicesFile": "./GoogleService-Info.plist",
       "infoPlist": {

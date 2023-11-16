@@ -13,7 +13,7 @@ import * as paymentDetailAction from "../../store/actions/paymentDetail";
 
 const InvoiceDetail = ({ route }) => {
   const { transactionId } = route.params;
-  console.log("TransactionNo", transactionId);
+  //console.log("TransactionNo", transactionId);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   StyleSheet,
-  Image,
   View,
   TextInput,
   BackHandler,
@@ -10,10 +9,10 @@ import {
 import UserInput from "../../components/UI/UserInput";
 import CustomButton from "../../components/UI/CustomButton";
 import { useNavigation } from "@react-navigation/native";
-import { COLORS, PADDINGS, IMGS, MARGINS, ROUTES } from "../../constants";
+import { COLORS, PADDINGS, MARGINS, ROUTES } from "../../constants";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Icon, Pressable } from "native-base";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import * as authActions from "../../store/actions/auth";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { StatusBar } from "expo-status-bar";
@@ -70,19 +69,20 @@ const Login = (props) => {
 
   return (
     <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="handled"
       contentContainerStyle={{
         flex: 1,
         justifyContent: "center",
         backgroundColor: COLORS.bgColor,
       }}
     >
-      <LoadingDialog
-        showAlert={showLoadingDialog}
-        setShowAlert={setShowLoadingDialog}
-      />
-      <View {...panResponder.panHandlers} style={styles.container}>
+      <View style={styles.container}>
+        <LoadingDialog
+          showAlert={showLoadingDialog}
+          setShowAlert={setShowLoadingDialog}
+        />
         <StatusBar style="light" />
-        <LogoWhiteBigSvg style={styles.logo}/>
+        <LogoWhiteBigSvg style={styles.logo} />
         <UserInput
           name={"Login"}
           value={email}

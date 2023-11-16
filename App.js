@@ -47,7 +47,7 @@ export default function App() {
 
     responseListener.current =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+        //console.log(response);
         setNotification(notification);
       });
 
@@ -123,7 +123,7 @@ async function registerForPushNotificationsAsync() {
     let finalStatus = existingStatus;
     if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
-      console.log("finalStatus", status);
+      //console.log("finalStatus", status);
       finalStatus = status;
     }
 
@@ -136,7 +136,7 @@ async function registerForPushNotificationsAsync() {
       projectId: Constants.expoConfig.extra.eas.projectId,
     });
     setData(AppConstants.KEY_EXPO_TOKEN, token.data);
-    console.log(token);
+    //console.log(token);
   } else {
     alert("Must use physical device for Push Notifications");
   }

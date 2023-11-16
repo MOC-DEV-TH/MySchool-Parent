@@ -7,7 +7,7 @@ export const login = (email, password, navigation) => {
   return async (dispatch, getState) => {
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.login(email, password, baseUrl).then((response) => {
-      console.log(response);
+      //console.log(response);
       if (response.status == AppConstants.LOGIN_STATUS_CODE) {
         dispatch({
           type: AUTHENTICATE,
@@ -26,14 +26,14 @@ export const login = (email, password, navigation) => {
           })
         );
         getData(AppConstants.KEY_EXPO_TOKEN).then((expoToken) => {
-          console.log("Post Expo Token", response.token);
+          //console.log("Post Expo Token", response.token);
           RestClientApi.postExpoToken(
             response.id,
             expoToken,
             response.token,
             baseUrl
           ).then(() => {
-            console.log("Success Post Token");
+            //console.log("Success Post Token");
           });
         });
         navigation.replace(ROUTES.HOME);

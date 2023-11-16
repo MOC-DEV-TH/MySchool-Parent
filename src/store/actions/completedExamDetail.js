@@ -11,7 +11,7 @@ export const getCompletedExamDetail = (studentId, examId) => {
       examId,
       baseUrl
     ).then((response) => {
-      console.log("Completed Exam detail", response);
+      //console.log("Completed Exam detail", response);
       dispatch({
         type: LOAD_COMPLETED_EXAM_DETAIL,
         completedExamDetailData: response.details,
@@ -28,7 +28,7 @@ export const getExamResultRules = () => {
       token,
       baseUrl
     ).then((response) => {
-      console.log("Exam Result rules", response);
+      //console.log("Exam Result rules", response);
       dispatch({
         type: LOAD_EXAM_RESULT_DATA,
         examResultResponse: response.data,

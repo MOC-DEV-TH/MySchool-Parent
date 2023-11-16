@@ -5,7 +5,7 @@ import { COLORS } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 
 const NotificationComponent = (props) => {
-  console.log("NotificationCount", props.notificationCount);
+  //console.log("NotificationCount", props.notificationCount);
 
   return (
     <View>

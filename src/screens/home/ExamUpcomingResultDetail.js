@@ -14,8 +14,8 @@ import { SubExamDetailSvg } from "../../assets";
 
 const ExamUpcomingResultDetail = ({ route, navigation }) => {
   const { upComingExam, student } = route.params;
-  console.log(upComingExam);
-  console.log("StudentData", student);
+  // console.log(upComingExam);
+  // console.log("StudentData", student);
 
   const dispatch = useDispatch();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -46,7 +46,7 @@ const ExamUpcomingResultDetail = ({ route, navigation }) => {
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
-  console.log("DetailData", upComingExamDetailData.length);
+  //console.log("DetailData", upComingExamDetailData.length);
 
   //render item
   const renderUpcomingItem = ({ item }) => {

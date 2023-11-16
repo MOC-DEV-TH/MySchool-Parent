@@ -28,7 +28,7 @@ const Notification = (props) => {
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
-  console.log("NotificationLength", notificationData.length);
+  //console.log("NotificationLength", notificationData.length);
 
   const renderNotificationItems = ({ item }) => {
     return (

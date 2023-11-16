@@ -17,7 +17,7 @@ export const getAllCompletedExam = (studentId, sectionId, classId) => {
       classId,
       baseUrl
     ).then((response) => {
-      console.log("CompletedExam", response);
+      //console.log("CompletedExam", response);
       dispatch({
         type: LOAD_COMPLETED_EXAM,
         completedExamData: response.detail,
@@ -31,7 +31,7 @@ export const getAllUpcomingExam = () => {
     const token = getState().auth.token;
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getUpComingExam(token, baseUrl).then((response) => {
-      console.log("UpcomingExam", response);
+      //console.log("UpcomingExam", response);
       const upComingExam = [];
       for (const item of response) {
         upComingExam.push(

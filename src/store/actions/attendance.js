@@ -6,12 +6,12 @@ import {
 } from "../../utils/AppConstants";
 
 export const getStudentAttendance = (studentId) => {
-  console.log("StudentID", studentId);
+  //console.log("StudentID", studentId);
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const baseUrl = getState().baseURL.baseUrl;
     dispatch({ type: LOAD_ATTENDANCE_LOADING });
-    console.log("Token",baseUrl);
+    //console.log("Token",baseUrl);
     await RestClientApi.getAttendanceStudent(token, studentId, baseUrl).then(
       (response) => {
         //console.log("Attendance Response",response)

@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Image,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, FlatList, TouchableOpacity } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import Text from "@kaloraat/react-native-text";
-import { COLORS, IMGS, MARGINS, PADDINGS, ROUTES } from "../../constants";
+import { COLORS, MARGINS, PADDINGS, ROUTES } from "../../constants";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useNavigation, CommonActions } from "@react-navigation/native";
 import CustomDrawerItem from "../DrawerComponents/CustomDrawerItem";
 import { useSelector } from "react-redux";
 import { useDrawerStatus } from "@react-navigation/drawer";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Login } from "../../screens";
 import AppConstants from "../../utils/AppConstants";
+import Constants from "expo-constants";
 import {
   AboutSvg,
   BillingSvg,
@@ -35,7 +29,7 @@ const CustomDrawer = (props) => {
   const [expanded, setExpanded] = useState(false);
   const isDrawerOpen = useDrawerStatus() === "open";
 
-  console.log("UserName", userName);
+  //console.log("UserName", userName);
 
   useEffect(() => {
     !isDrawerOpen ? setExpanded(false) : undefined;
@@ -198,7 +192,7 @@ const CustomDrawer = (props) => {
         </View>
       </DrawerContentScrollView>
       <View style={styles.footerView}>
-        <Text small>App Version 1.0.2</Text>
+        <Text small>App Version {Constants.expoConfig.version.toString()}</Text>
       </View>
     </View>
   );

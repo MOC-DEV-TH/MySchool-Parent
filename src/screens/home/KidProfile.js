@@ -6,19 +6,28 @@ import Text from "@kaloraat/react-native-text";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as attendanceAction from "../../store/actions/attendance";
 import { useDispatch, useSelector } from "react-redux";
-import { AttendanceSvg, ExamSvg, HomeworkSvg, MessageSvg, PaymentHistorySvg, TimeTableSvg } from "../../assets";
+import { DrawerActions } from "@react-navigation/native";
+import {
+  AttendanceSvg,
+  ExamSvg,
+  HomeworkSvg,
+  MessageSvg,
+  PaymentHistorySvg,
+  TimeTableSvg,
+} from "../../assets";
 
 const KidProfile = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const { studentData } = route.params;
-  console.log(studentData.name);
-  console.log(studentData.id);
+  // console.log(studentData.name);
+  // console.log(studentData.id);
 
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
-  console.log("BaseUrl", baseUrl);
+  //console.log("BaseUrl", baseUrl);
   useEffect(() => {
     loadAttendanceData();
+    navigation.dispatch(DrawerActions.closeDrawer());
   }, []);
 
   const loadAttendanceData = useCallback(async () => {

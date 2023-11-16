@@ -7,7 +7,7 @@ export const getAllHomeWork = (classId, sectionId) => {
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getHomework(token, classId, sectionId, baseUrl).then(
       (response) => {
-        console.log("HomeworkResponse", response);
+        //console.log("HomeworkResponse", response);
         dispatch({
           type: LOAD_HOMEWORK_DATA,
           homeworkResponse: response.details,

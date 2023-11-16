@@ -30,17 +30,17 @@ const Profile = () => {
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
-  console.log("ProfileDetail", profileDetailData);
+  //console.log("ProfileDetail", profileDetailData);
 
   const handleOnPressResidentialAddress = () => {
-    console.log("OnPress Address");
+    //console.log("OnPress Address");
   };
   const handleOnPressPhone = (phoneNO) => {
-    console.log(phoneNO);
+    //console.log(phoneNO);
     Linking.openURL("tel:" + phoneNO);
   };
   const handleOnPressEmail = (email) => {
-    console.log(email);
+    //console.log(email);
     Linking.openURL("mailto:" + email);
   };
 

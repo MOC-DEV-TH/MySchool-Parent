@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
 
   //get auth token
   const baseUrl = useSelector((state) => state.baseURL.baseUrl);
-  console.log("BaseUrl", baseUrl);
+  //console.log("BaseUrl", baseUrl);
 
   //check force update app version
   useEffect(() => {
@@ -55,28 +55,28 @@ const Home = ({ navigation }) => {
 
   const getNotificationCount = useCallback(async () => {
     getData(AppConstants.KEY_NOTIFICATION_COUNT).then((notificationValue) => {
-      console.log("New Notification Length", notificationValue);
+      //console.log("New Notification Length", notificationValue);
       getData(AppConstants.LAST_NOTI_COUNT).then((lastNotificationValue) => {
         if (lastNotificationValue != null) {
-          console.log("Last Notification Length", lastNotificationValue);
+          //console.log("Last Notification Length", lastNotificationValue);
           if (parseInt(notificationValue) >= parseInt(lastNotificationValue)) {
             setNotiCount(
               parseInt(notificationValue) - parseInt(lastNotificationValue)
             );
             setData(
-              AppConstants.KEY_NOTIFICATION_COUNT.KEY_NOTIFICATION_COUNT,
+              AppConstants.KEY_NOTIFICATION_COUNT,
               (
                 parseInt(notificationValue) - parseInt(lastNotificationValue)
               ).toString()
             );
-            console.log(
-              "Notification Length",
-              (
-                parseInt(notificationValue) - parseInt(lastNotificationValue)
-              ).toString()
-            );
+            // console.log(
+            //   "Notification Length",
+            //   (
+            //     parseInt(notificationValue) - parseInt(lastNotificationValue)
+            //   ).toString()
+            // );
           } else {
-            console.log("Default Notification Length", notificationValue);
+            //console.log("Default Notification Length", notificationValue);
             setNotiCount(notificationValue);
             setData(
               AppConstants.KEY_NOTIFICATION_COUNT,
@@ -84,7 +84,7 @@ const Home = ({ navigation }) => {
             );
           }
         } else {
-          console.log("New Notification Length", notificationValue);
+          //console.log("New Notification Length", notificationValue);
           setNotiCount(notificationValue);
         }
       });
@@ -98,12 +98,12 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     if (notificationCount == 0) {
       getNotificationCount();
-      console.log("Notification Count", notificationCount);
+      //console.log("Notification Count", notificationCount);
     } else if (notificationCount == null) {
       setNotiCount(0);
       setData(AppConstants.KEY_NOTIFICATION_COUNT, "0");
     } else {
-      console.log("Dispatch Notification Count", notificationCount);
+      //console.log("Dispatch Notification Count", notificationCount);
       setNotiCount(notificationCount);
       setData(AppConstants.KEY_NOTIFICATION_COUNT, notificationCount);
     }
@@ -126,7 +126,7 @@ const Home = ({ navigation }) => {
         if (value != null) {
           const transformedData = JSON.parse(value);
           const { token, userId, name } = transformedData;
-          console.log("AuthToken", token);
+          //console.log("AuthToken", token);
           dispatch(authActions.setAuthToken(token, name, userId));
           dispatch(homeActions.getAllStudentData(token));
         }
@@ -138,7 +138,7 @@ const Home = ({ navigation }) => {
   //get expo token
   useEffect(() => {
     getData(AppConstants.KEY_EXPO_TOKEN).then((value) => {
-      console.log("Expo Push Token", value);
+      //console.log("Expo Push Token", value);
     });
   });
 
@@ -180,7 +180,7 @@ const Home = ({ navigation }) => {
           <Ionicons name="menu" size={20} color={COLORS.white} />
         </TouchableOpacity>
         {/* <Image source={IMGS.logoWhiteSmall} style={styles.appIcon} /> */}
-        <LogoWhiteSvg/>
+        <LogoWhiteSvg />
         <NotificationComponent
           onPress={handleOnPressNotification}
           notificationCount={notiCount}

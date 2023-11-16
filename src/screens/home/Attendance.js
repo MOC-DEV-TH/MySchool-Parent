@@ -32,7 +32,7 @@ const Attendance = ({ route }) => {
     (state) => state.attendance.attendanceData
   );
 
-  console.log("MonthCountObj", monthCountObj);
+  //console.log("MonthCountObj", monthCountObj);
 
   //focus screen handler
   useEffect(() => {
@@ -47,7 +47,7 @@ const Attendance = ({ route }) => {
   const loadAttendanceData = useCallback(async () => {
     try {
       await dispatch(attendanceAction.getStudentAttendance(studentData.id));
-      console.log("LeaveCountObject", monthDataObj);
+      //console.log("LeaveCountObject", monthDataObj);
     } catch (error) {}
   }, [dispatch]);
 
@@ -78,8 +78,8 @@ const Attendance = ({ route }) => {
     };
   });
 
-  console.log("MonthCountLength", Object.keys(monthCountObj).length);
-  console.log("AttendanceData", attendanceData);
+  // console.log("MonthCountLength", Object.keys(monthCountObj).length);
+  // console.log("AttendanceData", attendanceData);
 
   const FooterContainer = ({ style, label, count }) => {
     return (

@@ -7,7 +7,7 @@ export const getCalendarEvent = () => {
     const baseUrl = getState().baseURL.baseUrl;
 
     await RestClientApi.getCalendarEvent(token, baseUrl).then((response) => {
-      console.log("CalendarEvent", response);
+      //console.log("CalendarEvent", response);
       const dateArray = [];
       for (const data of response) {
         const diffTime = Math.abs(
@@ -30,7 +30,7 @@ export const getCalendarEvent = () => {
         }
       }
 
-      console.log("DATEHERE", dateArray);
+      //console.log("DATEHERE", dateArray);
 
       dispatch({
         type: LOAD_UPCOMING_EVENT_CALENDAR,

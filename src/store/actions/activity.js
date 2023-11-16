@@ -6,7 +6,7 @@ export const getAllActivities = () => {
     const token = getState().auth.token;
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getActivities(token, baseUrl).then((response) => {
-      console.log("ActivityResponse", response);
+      //console.log("ActivityResponse", response);
       dispatch({
         type: SET_ACTIVITY_DATA,
         activityResponse: response,

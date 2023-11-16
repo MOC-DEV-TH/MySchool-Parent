@@ -17,12 +17,12 @@ function AuthNavigator() {
       <Stack.Screen
         name={ROUTES.LOGIN}
         component={Login}
-        options={{ headerShown: false }}
+        options={{ headerShown: false,swipeEnabled: false }}
       />
       <Stack.Screen
         name={ROUTES.HOME}
         component={DrawerNavigator}
-        options={{ headerShown: false }}
+        options={{ headerShown: false,swipeEnabled: false }}
       />
       <Stack.Screen
         name={ROUTES.START_UP}
@@ -32,7 +32,7 @@ function AuthNavigator() {
       <Stack.Screen
         name={ROUTES.SCHOOL_CODE}
         component={SchoolCode}
-        options={{ headerShown: false }}
+        options={{ headerShown: false,swipeEnabled: false }}
       />
     </Stack.Navigator>
   );

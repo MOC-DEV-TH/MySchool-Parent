@@ -6,7 +6,7 @@ import { setData } from "../../utils/SessionManager";
 export const getSchoolCodeUrl = (schoolCode, navigation) => {
   return async (dispatch, getState) => {
     await RestClientApi.getSchoolCode(schoolCode).then((response) => {
-      console.log("SchoolCodeResponse", response);
+      //console.log("SchoolCodeResponse", response);
       if (response.status == "000") {
         dispatch({
           type: SET_BASE_URL,

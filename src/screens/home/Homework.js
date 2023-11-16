@@ -34,11 +34,11 @@ const Homework = ({ route, navigation }) => {
     setIsRefreshing(false);
   }, [dispatch, setIsRefreshing]);
 
-  console.log("HomeWorkDataLength", homeworkData.length);
+  //console.log("HomeWorkDataLength", homeworkData.length);
 
   //handle press item
   const handleOnPressHomeWorkItem = (item) => {
-    console.log(item);
+    //console.log(item);
     navigation.navigate(ROUTES.HOMEWORK_DETAIL, { homeWorkData: item });
   };
 

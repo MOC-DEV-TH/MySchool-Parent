@@ -19,7 +19,7 @@ export const getAllNotification = () => {
     const token = getState().auth.token;
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getAllNotification(token, baseUrl).then((response) => {
-      console.log("NotificationResponse", response);
+      //console.log("NotificationResponse", response);
       setData(AppConstants.LAST_NOTI_COUNT, response.length.toString());
       dispatch({
         type: LOAD_NOTIFICATION_DATA,

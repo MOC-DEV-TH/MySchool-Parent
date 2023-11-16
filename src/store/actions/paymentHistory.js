@@ -8,7 +8,7 @@ export const getAllPaymentHistory = (studentId) => {
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getPaymentHistory(token, studentId, baseUrl).then(
       (response) => {
-        console.log("PaymentHistoryResponse", response);
+        //console.log("PaymentHistoryResponse", response);
         dispatch({
           type: LOAD_PAYMENT_HISTORY_DATA,
           paidPaymentHistory: response.details.paid,

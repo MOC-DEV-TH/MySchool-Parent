@@ -11,7 +11,7 @@ import * as examActions from "../../store/actions/exam";
 
 const Exam = ({ navigation, route }) => {
   const { studentData } = route.params;
-  console.log(studentData);
+  //console.log(studentData);
   const dispatch = useDispatch();
   const [itemState, setItemState] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -52,7 +52,7 @@ const Exam = ({ navigation, route }) => {
 
   //press group button
   const onPressButton = (item) => {
-    console.log(item);
+    //console.log(item);
     if (item === 0) {
       loadUpcomingExam();
     } else if (item === 1) {
@@ -63,14 +63,14 @@ const Exam = ({ navigation, route }) => {
 
   //handle events
   const handleOnPressUpComingExam = (item) => {
-    console.log(item);
+    //console.log(item);
     navigation.navigate(ROUTES.EXAM_UPCOMING_RESULT_DETAIL, {
       upComingExam: item,
       student: studentData,
     });
   };
   const handleOnPressUpCompletedExam = (data) => {
-    console.log("Click");
+    //console.log("Click");
     navigation.navigate(ROUTES.EXAM_COMPLETED_RESULT_DETAIL, {
       student: studentData,
       completedData: data,

@@ -19,7 +19,7 @@ export const getUpcomingExamDetail = (
       token,
       baseUrl
     ).then((response) => {
-      console.log("Upcoming Exam detail", response);
+      //console.log("Upcoming Exam detail", response);
       const upComingExamDetail = [];
       for (const item of response.details) {
         upComingExamDetail.push(

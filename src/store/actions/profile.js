@@ -8,7 +8,7 @@ export const getProfileDetail = () => {
     const baseUrl = getState().baseURL.baseUrl;
     await RestClientApi.getProfileDetail(token, userID, baseUrl).then(
       (response) => {
-        console.log("Profile detail", response.guardian.address);
+        //console.log("Profile detail", response.guardian.address);
         dispatch({
           type: LOAD_PROFILE_DETAIL_DATA,
           profileDetail: response,

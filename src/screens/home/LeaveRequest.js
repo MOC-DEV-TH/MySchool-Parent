@@ -56,7 +56,7 @@ const LeaveRequest = ({ route, navigation }) => {
   };
 
   const handleOnPressSubmit = () => {
-    console.log(title, description, fromDate, toDate);
+    //console.log(title, description, fromDate, toDate);
     setIsLoading(true);
     RestClientApi.postLeaveRequest(
       studentData.id.toString(),
