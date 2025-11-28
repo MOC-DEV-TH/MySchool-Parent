@@ -18,8 +18,14 @@
       }
     },
     "production": {
-      "node": "16.14.0",
-      "channel": "production"
+      "node": "18.18.0",
+      "channel": "production",
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "simulator": false
+      }
     }
   },
   "submit": {

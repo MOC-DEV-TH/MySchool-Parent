@@ -48,3 +48,12 @@ Thumbs.db
 # ───────── Local env files ─────────
 .env*.local
 .env
+
+# ───────── For generate apk or aab file android─────────
+# Production AAB for Play Store
+npx eas build --platform android --profile production
+# Internal APK for testers
+npx eas build --platform android --profile preview
+# Dev client build
+npx eas build --platform android --profile development
+
